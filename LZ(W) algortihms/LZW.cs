@@ -29,12 +29,17 @@ namespace LZ_W__algortihms
             return false;
         }
 
-        protected override Dictionary<string, string> nextStep()
+        protected override List<StepInfo> nextStep()
         {
             throw new System.NotImplementedException();
         }
 
         protected override void resetAndPrepare()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void visualization(string input, List<StepInfo> stepInfos)
         {
             throw new System.NotImplementedException();
         }

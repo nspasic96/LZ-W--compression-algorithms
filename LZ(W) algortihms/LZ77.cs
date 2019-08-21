@@ -10,6 +10,7 @@ namespace LZ_W__algortihms
         private int currPossition;
         private int totalLen;
         private int windowSize;
+        private int prevPosition;
     
         public LZ77()
         {
@@ -32,6 +33,11 @@ namespace LZ_W__algortihms
         }
         protected override List<StepInfo> nextStep()
         {
+            List<StepInfo> infos = new List<StepInfo>();
+            prevPosition = currPossition;
+            
+            StepInfo s = new StepInfo(0, 0, prevPosition, true, "<0," + (input[currPossition] ? 1 : 0).ToString() + ">");
+            infos.Add(s);
             if(currPossition == 0)
             {
                 output.Append("<0," + (input[0] ? 1 : 0).ToString() + ">");
@@ -49,11 +55,18 @@ namespace LZ_W__algortihms
                     {
                         len++;
                     }
-                    if(len > longest)
+
+                    bool newLongest = false;
+
+                    if (len > longest)
                     {
                         longest = len;
                         back = currPossition - start;
+                        newLongest = true;
                     }
+
+                    StepInfo s1 = new StepInfo(back, len, prevPosition, newLongest, "<1," + back + "," + len + ">");
+                    infos.Add(s1);
                 }
                 if(back != -1)
                 {
@@ -66,7 +79,7 @@ namespace LZ_W__algortihms
                 }
 
             }
-            return null;
+            return infos;
         }
 
         protected override void resetAndPrepare()
@@ -81,6 +94,12 @@ namespace LZ_W__algortihms
                 }
             }
             output = new StringBuilder();
+        }
+
+        protected override void visualization(string input, List<StepInfo> stepInfos)
+        {
+            Form2 f2 = new Form2(input, prevPosition, windowSize, stepInfos);
+            f2.ShowDialog();
         }
     }
 }

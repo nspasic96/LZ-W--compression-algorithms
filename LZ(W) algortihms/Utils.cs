@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LZ_W__algortihms
 {
-    class Utils
+    public class Utils
     {
         public static readonly int rowsInTLP = 5;
         public static readonly int columnsInTLP = 2;
@@ -52,23 +52,26 @@ namespace LZ_W__algortihms
 
         public struct StepInfo
         {
-            int from;
-            int to;
-            int[] mask;
-            char color;
-            public int From { get => from; set => from = value; }
-            public int To { get => to; set => to = value; }
-            public int[] Mask { get => mask; set => mask = value; }
-            public char Color { get => color; set => color = value; }
+            int posBack;
+            int matchLen;
+            int startPos;
+            bool newBest;
+            string output;
 
-            public StepInfo(int from, int to, int[] mask, char color)
+            public StepInfo(int posBack, int matchLen, int startPos, bool newBest = false, string output = null)
             {
-                this.from = from;
-                this.to = to;
-                this.mask = mask;
-                this.color = color;
+                this.posBack = posBack;
+                this.matchLen = matchLen;
+                this.startPos = startPos;
+                this.newBest = newBest;
+                this.output = output;
             }
 
+            public int PosBack { get => posBack; set => posBack = value; }
+            public int MatchLen { get => matchLen; set => matchLen = value; }
+            public bool NewBest { get => newBest; set => newBest = value; }
+            public string Output { get => output; set => output = value; }
+            public int StartPos { get => startPos; set => startPos = value; }
         }
 
     }

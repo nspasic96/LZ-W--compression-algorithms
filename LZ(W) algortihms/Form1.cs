@@ -34,9 +34,20 @@ namespace LZ_W__algortihms
 
             addAlgorithms();
 
+            ComboBox visualizeMenu = new ComboBox();
+            visualizeMenu.DropDownStyle = ComboBoxStyle.DropDownList;
+            string[] options = {"Yes", "No"};
+
+            foreach (var o in options)
+            {
+                visualizeMenu.Items.Add(o);
+            }
+
             tlpParams.Controls.Clear();
             tlpParams.Controls.Add(algorithmsList, 0, 0);
+            tlpParams.Controls.Add(visualizeMenu, 1, 0);
             algCB = algorithmsList;
+            visualizeCB = visualizeMenu;
             this.algCB.SelectedIndexChanged += new System.EventHandler(this.AlgCB_Change);
 
             initializeParamsTlp();          
@@ -91,7 +102,8 @@ namespace LZ_W__algortihms
         private void StartButton_Click(object sender, EventArgs e)
         {
             tlpStats.Controls.Clear();
-            this.textOutput.Text = currentAlgorithm.convert(this.textInput.Text);
+            bool doVisualize = this.visualizeCB.Text == "Yes";
+            currentAlgorithm.convert(this.textInput.Text, this.textOutput, doVisualize);
             int i = 0;
             foreach (var par in currentAlgorithm.Statistics)
             {
@@ -116,6 +128,7 @@ namespace LZ_W__algortihms
 
             tlpParams.Controls.Clear();
             tlpParams.Controls.Add(algCB, 0, 0);
+            tlpParams.Controls.Add(visualizeCB, 1, 0);
 
             int i= 1;
             foreach(var par in currentAlgorithm.Parameters)

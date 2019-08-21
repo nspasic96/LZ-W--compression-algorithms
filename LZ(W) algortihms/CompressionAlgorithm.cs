@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static LZ_W__algortihms.Utils;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace LZ_W__algortihms
 {
@@ -20,6 +22,8 @@ namespace LZ_W__algortihms
         protected abstract List<StepInfo> nextStep();
         protected abstract bool hasNextStep();
         protected abstract void resetAndPrepare();
+
+        protected abstract void visualization(string input, List<StepInfo> stepInfos);
         protected virtual void processStepResults(List<StepInfo> stepInfos, bool[] input) {}
         protected CompressionAlgorithm()
         {
@@ -27,26 +31,28 @@ namespace LZ_W__algortihms
             statistics.Add(new AlgorithmStatistic("Time elapsed", "300s"));
         }
 
-        public string convert(string input)
+        public void convert(string input, TextBox result, bool visualize)
         {
             bool[] inp = convertToBits(input);
             this.input = inp;
             resetAndPrepare();
             while (hasNextStep())
             {
-                var stepResults = nextStep();//ovde meriti vreme za svaki korak
+                List<StepInfo> stepResults = nextStep();//ovde meriti vreme za svaki korak
+
+                if (visualize)
+                {
+                    visualization(input, stepResults);
+
+                    result.Text = this.output.ToString();
+                    result.Refresh();
+                }
+
                 processStepResults(stepResults, this.input);
             }
 
-            /*
-            StringBuilder output = new StringBuilder();
-            
-            foreach(var a in parameters)
-            {
-                output.Append(a.ParamName + " => " + a.CurrValue + ";  ");
-            }
-            */
-            return this.output.ToString();
+            result.Text = this.output.ToString();
+            result.Refresh();
         }
 
         public void updateParameter(int i, string text)

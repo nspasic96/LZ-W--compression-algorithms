@@ -160,6 +160,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textOutput;
         private System.Windows.Forms.ComboBox algCB;
+        private System.Windows.Forms.ComboBox visualizeCB;
         private System.Windows.Forms.Button startButton;
     }
 }
