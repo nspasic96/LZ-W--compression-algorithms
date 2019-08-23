@@ -36,49 +36,65 @@ namespace LZ_W__algortihms
             List<StepInfo> infos = new List<StepInfo>();
             prevPosition = currPossition;
             
-            StepInfo s = new StepInfo(0, 0, prevPosition, true, "<0," + (input[currPossition] ? 1 : 0).ToString() + ">");
+
+            //default match - only one character
+            string defaultStepMessage = currPossition == 0 ? "First character never matches because window does not exist." : "Default 'match' is of length 0 meaning that new character is encountered"; 
+            StepInfo s = new StepInfo(Math.Min(currPossition, windowSize), 0, currPossition, defaultStepMessage, true, "<0," + (input[currPossition] ? 1 : 0).ToString() + ">");
             infos.Add(s);
-            if(currPossition == 0)
+            
+            int longest = 0;
+            int back = -1;
+            int backLongest = -1;
+
+            for (int start=Math.Max(0,currPossition-windowSize); start<currPossition ; start++)
             {
-                output.Append("<0," + (input[0] ? 1 : 0).ToString() + ">");
-                currPossition++;
+                int len = 0;
+                while(currPossition + len < totalLen && input[start+len] == input[currPossition + len])
+                {
+                    len++;
+                }
+
+                bool newLongest = false;
+
+                back = currPossition - start;
+                if (len > longest)
+                {
+                    longest = len;
+                    newLongest = true;
+                    backLongest = back;
+                }
+
+                //if it is new best, output is set to correct value, otherwise it wont be used...
+                string stepMessage;
+                if(len > 0)
+                {
+                    if (newLongest)
+                    {
+                        stepMessage = "New longest match found starting {0} positions back from current poisition ({1})";
+                        stepMessage = string.Format(stepMessage, back, currPossition);
+                    } else
+                    {
+                        stepMessage = "New match found starting {0} positions back from current poisition ({1}) but the longer(or same length) match already exists";
+                        stepMessage = string.Format(stepMessage, back, currPossition);
+                    }
+                }
+                else
+                {
+                    stepMessage = "No match found";
+                }
+                StepInfo s1 = new StepInfo(back, len, currPossition, stepMessage, newLongest, "<1," + back + "," + len + ">");
+                infos.Add(s1);
+            }
+            if(longest > 0)
+            {
+                output.Append("<1," + backLongest + "," + longest + ">");
+                currPossition += longest;
+
             } else
             {
-
-                int longest = 0;
-                int back = -1;
-
-                for (int start=Math.Max(0,currPossition-windowSize); start<currPossition ; start++)
-                {
-                    int len = 0;
-                    while(currPossition + len < totalLen && input[start+len] == input[currPossition + len])
-                    {
-                        len++;
-                    }
-
-                    bool newLongest = false;
-
-                    if (len > longest)
-                    {
-                        longest = len;
-                        back = currPossition - start;
-                        newLongest = true;
-                    }
-
-                    StepInfo s1 = new StepInfo(back, len, prevPosition, newLongest, "<1," + back + "," + len + ">");
-                    infos.Add(s1);
-                }
-                if(back != -1)
-                {
-                    output.Append("<1," + back + "," + longest + ">");
-                    currPossition += longest;
-
-                } else
-                {
-                    output.Append("<0," + (input[currPossition++] ? 1 : 0).ToString() + ">");
-                }
-
+                output.Append("<0," + (input[currPossition++] ? 1 : 0).ToString() + ">");
             }
+             
             return infos;
         }
 

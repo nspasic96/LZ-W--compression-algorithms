@@ -45,6 +45,8 @@ namespace LZ_W__algortihms
             this.NextButton = new System.Windows.Forms.Button();
             this.CurrentOutputLabel = new System.Windows.Forms.Label();
             this.LongestMatchLabel = new System.Windows.Forms.Label();
+            this.MessageLabel = new System.Windows.Forms.Label();
+            this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // WindowLabel
@@ -70,69 +72,69 @@ namespace LZ_W__algortihms
             this.CurrentMatchFirstLabel.AutoSize = true;
             this.CurrentMatchFirstLabel.Location = new System.Drawing.Point(68, 118);
             this.CurrentMatchFirstLabel.Name = "CurrentMatchFirstLabel";
-            this.CurrentMatchFirstLabel.Size = new System.Drawing.Size(82, 13);
+            this.CurrentMatchFirstLabel.Size = new System.Drawing.Size(124, 13);
             this.CurrentMatchFirstLabel.TabIndex = 2;
-            this.CurrentMatchFirstLabel.Text = "Current match 1";
+            this.CurrentMatchFirstLabel.Text = "Match starting in window";
             // 
             // CurrentMatchSecondLabel
             // 
             this.CurrentMatchSecondLabel.AutoSize = true;
             this.CurrentMatchSecondLabel.Location = new System.Drawing.Point(68, 147);
             this.CurrentMatchSecondLabel.Name = "CurrentMatchSecondLabel";
-            this.CurrentMatchSecondLabel.Size = new System.Drawing.Size(82, 13);
+            this.CurrentMatchSecondLabel.Size = new System.Drawing.Size(105, 13);
             this.CurrentMatchSecondLabel.TabIndex = 3;
-            this.CurrentMatchSecondLabel.Text = "Current match 2";
+            this.CurrentMatchSecondLabel.Text = "Match starting in rest";
             // 
             // RestTextBox
             // 
             this.RestTextBox.Location = new System.Drawing.Point(324, 56);
             this.RestTextBox.Name = "RestTextBox";
+            this.RestTextBox.ReadOnly = true;
             this.RestTextBox.Size = new System.Drawing.Size(342, 21);
             this.RestTextBox.TabIndex = 4;
-            this.RestTextBox.ReadOnly = true;
             this.RestTextBox.Text = "";
             // 
             // WindowTextBox
             // 
             this.WindowTextBox.Location = new System.Drawing.Point(324, 84);
             this.WindowTextBox.Name = "WindowTextBox";
+            this.WindowTextBox.ReadOnly = true;
             this.WindowTextBox.Size = new System.Drawing.Size(342, 23);
             this.WindowTextBox.TabIndex = 5;
-            this.WindowTextBox.ReadOnly = true;
             this.WindowTextBox.Text = "";
             // 
             // CurrentMatchFirstTextBox
             // 
             this.CurrentMatchFirstTextBox.Location = new System.Drawing.Point(324, 118);
             this.CurrentMatchFirstTextBox.Name = "CurrentMatchFirstTextBox";
+            this.CurrentMatchFirstTextBox.ReadOnly = true;
             this.CurrentMatchFirstTextBox.Size = new System.Drawing.Size(342, 23);
             this.CurrentMatchFirstTextBox.TabIndex = 6;
-            this.CurrentMatchFirstTextBox.ReadOnly = true;
             this.CurrentMatchFirstTextBox.Text = "";
             // 
             // CurrentMatchSecondTextBox
             // 
             this.CurrentMatchSecondTextBox.Location = new System.Drawing.Point(324, 147);
             this.CurrentMatchSecondTextBox.Name = "CurrentMatchSecondTextBox";
+            this.CurrentMatchSecondTextBox.ReadOnly = true;
             this.CurrentMatchSecondTextBox.Size = new System.Drawing.Size(342, 22);
             this.CurrentMatchSecondTextBox.TabIndex = 7;
-            this.CurrentMatchSecondTextBox.ReadOnly = true;
             this.CurrentMatchSecondTextBox.Text = "";
             // 
             // CurrentOutputTextBox
             // 
             this.CurrentOutputTextBox.Location = new System.Drawing.Point(370, 215);
             this.CurrentOutputTextBox.Name = "CurrentOutputTextBox";
-            this.CurrentOutputTextBox.Size = new System.Drawing.Size(100, 20);
             this.CurrentOutputTextBox.ReadOnly = true;
+            this.CurrentOutputTextBox.Size = new System.Drawing.Size(100, 20);
             this.CurrentOutputTextBox.TabIndex = 8;
             // 
             // LongestMatchTextBox
             // 
             this.LongestMatchTextBox.Location = new System.Drawing.Point(370, 253);
             this.LongestMatchTextBox.Name = "LongestMatchTextBox";
-            this.LongestMatchTextBox.Size = new System.Drawing.Size(100, 20);
             this.LongestMatchTextBox.ReadOnly = true;
+            this.LongestMatchTextBox.Size = new System.Drawing.Size(100, 20);
             this.LongestMatchTextBox.TabIndex = 9;
             // 
             // NextButton
@@ -163,11 +165,30 @@ namespace LZ_W__algortihms
             this.LongestMatchLabel.TabIndex = 12;
             this.LongestMatchLabel.Text = "Longest match";
             // 
+            // MessageLabel
+            // 
+            this.MessageLabel.AutoSize = true;
+            this.MessageLabel.Location = new System.Drawing.Point(68, 175);
+            this.MessageLabel.Name = "MessageLabel";
+            this.MessageLabel.Size = new System.Drawing.Size(50, 13);
+            this.MessageLabel.TabIndex = 13;
+            this.MessageLabel.Text = "Message";
+            // 
+            // MessageTextBox
+            // 
+            this.MessageTextBox.Location = new System.Drawing.Point(150, 175);
+            this.MessageTextBox.Name = "MessageTextBox";
+            this.MessageTextBox.ReadOnly = true;
+            this.MessageTextBox.Size = new System.Drawing.Size(638, 20);
+            this.MessageTextBox.TabIndex = 14;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MessageTextBox);
+            this.Controls.Add(this.MessageLabel);
             this.Controls.Add(this.LongestMatchLabel);
             this.Controls.Add(this.CurrentOutputLabel);
             this.Controls.Add(this.NextButton);
@@ -209,5 +230,7 @@ namespace LZ_W__algortihms
         private int windowSize;
         private int currIdx;
         private List<StepInfo> infos;
+        private System.Windows.Forms.Label MessageLabel;
+        private System.Windows.Forms.TextBox MessageTextBox;
     }
 }

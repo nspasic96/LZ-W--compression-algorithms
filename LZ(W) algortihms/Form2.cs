@@ -28,7 +28,7 @@ namespace LZ_W__algortihms
             RestTextBox.SelectionColor = Color.Red;
 
             WindowTextBox.Text = input;
-            int start = Math.Max(position - windowSize - 1, 0);
+            int start = Math.Max(position - windowSize, 0);
             WindowTextBox.SelectionStart = start;
             WindowTextBox.SelectionLength = start >= windowSize ? windowSize : position; 
             WindowTextBox.SelectionColor = Color.Red;
@@ -44,15 +44,32 @@ namespace LZ_W__algortihms
             } else
             {
                 StepInfo info = infos[currIdx];
+                
                 CurrentMatchFirstTextBox.Text = input;
                 CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
                 CurrentMatchFirstTextBox.SelectionLength = info.MatchLen;
                 CurrentMatchFirstTextBox.SelectionColor = Color.Red;
 
+                if(info.MatchLen == 0 && currIdx > 0)
+                {
+                    CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
+                    CurrentMatchFirstTextBox.SelectionLength = 1;
+                    CurrentMatchFirstTextBox.SelectionColor = Color.Blue;
+                }
+
                 CurrentMatchSecondTextBox.Text = input;
                 CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
                 CurrentMatchSecondTextBox.SelectionLength = info.MatchLen;
                 CurrentMatchSecondTextBox.SelectionColor = Color.Red;
+
+                MessageTextBox.Text = info.StepMessage;
+
+                if (info.MatchLen == 0 && currIdx > 0)
+                {
+                    CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
+                    CurrentMatchSecondTextBox.SelectionLength = 1;
+                    CurrentMatchSecondTextBox.SelectionColor = Color.Blue;
+                }
 
                 if (info.NewBest)
                 {
@@ -60,6 +77,7 @@ namespace LZ_W__algortihms
                     LongestMatchTextBox.Text = info.MatchLen.ToString();
                 }
             }
+
 
 
         }

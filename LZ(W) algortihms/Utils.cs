@@ -52,26 +52,34 @@ namespace LZ_W__algortihms
 
         public struct StepInfo
         {
-            int posBack;
-            int matchLen;
-            int startPos;
-            bool newBest;
-            string output;
+            //common
+            private string stepMessage; //description of the step
+            private string output; //if it is new best, the match encoding in output
 
-            public StepInfo(int posBack, int matchLen, int startPos, bool newBest = false, string output = null)
+            //for LZ77
+            private int posBack; //number of positions to move left with respect to start posisition to reach match start in window
+            private int matchLen; //length of the match
+            private int startPos; //start position of match in rest
+            private bool newBest; //is it new best result
+
+            //for LZ78
+
+            public StepInfo(int posBack, int matchLen, int startPos, string stepMessage, bool newBest, string output)
             {
                 this.posBack = posBack;
                 this.matchLen = matchLen;
                 this.startPos = startPos;
                 this.newBest = newBest;
                 this.output = output;
+                this.stepMessage = stepMessage;
             }
 
-            public int PosBack { get => posBack; set => posBack = value; }
-            public int MatchLen { get => matchLen; set => matchLen = value; }
-            public bool NewBest { get => newBest; set => newBest = value; }
-            public string Output { get => output; set => output = value; }
-            public int StartPos { get => startPos; set => startPos = value; }
+            public int PosBack { get => posBack; }
+            public int MatchLen { get => matchLen; }
+            public bool NewBest { get => newBest; }
+            public string Output { get => output;}
+            public int StartPos { get => startPos; }
+            public string StepMessage { get => stepMessage; }
         }
 
     }
