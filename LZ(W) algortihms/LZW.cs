@@ -23,23 +23,18 @@ namespace LZ_W__algortihms
 
             this.statistics.Add(new AlgorithmStatistic("LZW statistics param", "value of param"));
         }
-        
-        protected override bool hasNextStep()
-        {
-            return false;
-        }
 
         protected override List<StepInfo> nextStep()
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void resetAndPrepare()
+        protected override void prepare()
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void visualization(string input, List<StepInfo> stepInfos)
+        protected override void visualization(List<StepInfo> stepInfos)
         {
             throw new System.NotImplementedException();
         }

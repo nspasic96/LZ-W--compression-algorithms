@@ -14,17 +14,22 @@ namespace LZ_W__algortihms
         protected List<AlgorithmStatistic> statistics;
         protected List<AlgorithmParameter> parameters;
         protected bool[] input;
+        protected string rawInput;
         protected StringBuilder output;
+        protected int currPossition;
+        protected int totalLen;
 
         public List<AlgorithmStatistic> Statistics { get => statistics; }
         public List<AlgorithmParameter> Parameters { get => parameters; }
 
         protected abstract List<StepInfo> nextStep();
-        protected abstract bool hasNextStep();
-        protected abstract void resetAndPrepare();
+        protected abstract void prepare();
 
-        protected abstract void visualization(string input, List<StepInfo> stepInfos);
+        protected abstract void visualization(List<StepInfo> stepInfos);
         protected virtual void processStepResults(List<StepInfo> stepInfos, bool[] input) {}
+        protected bool hasNextStep() {
+            return currPossition < totalLen;
+        }
         protected CompressionAlgorithm()
         {
             statistics = new List<AlgorithmStatistic>();
@@ -33,16 +38,20 @@ namespace LZ_W__algortihms
 
         public void convert(string input, TextBox result, bool visualize)
         {
+            this.rawInput = input;
             bool[] inp = convertToBits(input);
             this.input = inp;
-            resetAndPrepare();
+            currPossition = 0;
+            totalLen = input.Length;
+            output = new StringBuilder();
+            prepare();
             while (hasNextStep())
             {
                 List<StepInfo> stepResults = nextStep();//ovde meriti vreme za svaki korak
 
                 if (visualize)
                 {
-                    visualization(input, stepResults);
+                    visualization(stepResults);
 
                     result.Text = this.output.ToString();
                     result.Refresh();

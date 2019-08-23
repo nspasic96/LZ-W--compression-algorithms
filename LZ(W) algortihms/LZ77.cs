@@ -7,8 +7,6 @@ namespace LZ_W__algortihms
 {
     class LZ77 : CompressionAlgorithm
     {
-        private int currPossition;
-        private int totalLen;
         private int windowSize;
         private int prevPosition;
     
@@ -22,15 +20,6 @@ namespace LZ_W__algortihms
             this.statistics.Add(new AlgorithmStatistic("LZ77 statistics param", "value of param"));
         }
 
-        protected override bool hasNextStep()
-        {
-            return currPossition < totalLen;
-        }
-
-        protected override void processStepResults(List<StepInfo> stepInfos, bool[] input)
-        {
-
-        }
         protected override List<StepInfo> nextStep()
         {
             List<StepInfo> infos = new List<StepInfo>();
@@ -98,10 +87,8 @@ namespace LZ_W__algortihms
             return infos;
         }
 
-        protected override void resetAndPrepare()
+        protected override void prepare()
         {
-            currPossition = 0;
-            totalLen = input.Length;
             foreach(var p in parameters)
             {
                 if(p.ParamName == "Window size")
@@ -109,12 +96,11 @@ namespace LZ_W__algortihms
                     windowSize = Int32.Parse(p.CurrValue);
                 }
             }
-            output = new StringBuilder();
         }
 
-        protected override void visualization(string input, List<StepInfo> stepInfos)
+        protected override void visualization(List<StepInfo> stepInfos)
         {
-            Form2 f2 = new Form2(input, prevPosition, windowSize, stepInfos);
+            Form2 f2 = new Form2(rawInput, prevPosition, windowSize, stepInfos);
             f2.ShowDialog();
         }
     }

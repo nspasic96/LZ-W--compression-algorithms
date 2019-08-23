@@ -10,9 +10,10 @@ namespace LZ_W__algortihms
     {
         public static readonly int rowsInTLP = 5;
         public static readonly int columnsInTLP = 2;
+        public static readonly int rowsUpAndDownInLZ78Table = 5;
 
         public enum AlgorithmName { LZ77, LZ78, LZW }
-        public enum ParameterType { Text, List}
+        public enum ParameterType { Text, List }
         public struct AlgorithmParameter
         {
             string paramName;
@@ -50,28 +51,63 @@ namespace LZ_W__algortihms
             public string StatisticValue { get => statisticValue; set => statisticValue = value; }
         }
 
+        public struct LZ78Entry
+        {
+            private string word; //word that is added to dictionary
+            private string output; //output of the step
+            private int step; //step number
+            private int pos; //start position of the substring matched
+
+            public LZ78Entry(string word, string output, int step, int pos)
+            {
+                this.word = word;
+                this.output = output;
+                this.step = step;
+                this.pos = pos;
+            }
+
+            public string Word { get => word; set => word = value; }
+            public string Output { get => output; set => output = value; }
+            public int Step { get => step; set => step = value; }
+            public int Pos { get => pos; set => pos = value; }
+        }
+
         public struct StepInfo
         {
             //common
             private string stepMessage; //description of the step
             private string output; //if it is new best, the match encoding in output
+            private int startPos; //start position of match in rest
+            private int matchLen; //length of the match
 
             //for LZ77
             private int posBack; //number of positions to move left with respect to start posisition to reach match start in window
-            private int matchLen; //length of the match
-            private int startPos; //start position of match in rest
             private bool newBest; //is it new best result
 
             //for LZ78
+            private int longestPrefixIdx;
 
             public StepInfo(int posBack, int matchLen, int startPos, string stepMessage, bool newBest, string output)
             {
+                this.longestPrefixIdx = -1;
+
                 this.posBack = posBack;
                 this.matchLen = matchLen;
                 this.startPos = startPos;
                 this.newBest = newBest;
                 this.output = output;
                 this.stepMessage = stepMessage;
+            }
+            public StepInfo(int longestPrefixIdx, int matchLen, int startPos, string stepMessage, string output)
+            {
+                this.posBack = -1;
+                this.newBest = false;
+
+                this.matchLen = matchLen;
+                this.startPos = startPos;
+                this.output = output;
+                this.stepMessage = stepMessage;
+                this.longestPrefixIdx = longestPrefixIdx;
             }
 
             public int PosBack { get => posBack; }
@@ -80,6 +116,7 @@ namespace LZ_W__algortihms
             public string Output { get => output;}
             public int StartPos { get => startPos; }
             public string StepMessage { get => stepMessage; }
+            public int LongestPrefixIdx { get => longestPrefixIdx; }
         }
 
     }
