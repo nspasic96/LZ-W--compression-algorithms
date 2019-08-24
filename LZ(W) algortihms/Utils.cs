@@ -85,11 +85,13 @@ namespace LZ_W__algortihms
             private bool newBest; //is it new best result
 
             //for LZ78
-            private int longestPrefixIdx;
+            private int prefixIdx;
+            private bool doAdd;
 
             public StepInfo(int posBack, int matchLen, int startPos, string stepMessage, bool newBest, string output)
             {
-                this.longestPrefixIdx = -1;
+                this.prefixIdx = -1;
+                this.doAdd = false;
 
                 this.posBack = posBack;
                 this.matchLen = matchLen;
@@ -98,16 +100,17 @@ namespace LZ_W__algortihms
                 this.output = output;
                 this.stepMessage = stepMessage;
             }
-            public StepInfo(int longestPrefixIdx, int matchLen, int startPos, string stepMessage, string output)
+            public StepInfo(int prefixIdx, int matchLen, int startPos, string stepMessage, string output, bool doAdd)
             {
                 this.posBack = -1;
                 this.newBest = false;
 
                 this.matchLen = matchLen;
+                this.doAdd = doAdd;
                 this.startPos = startPos;
                 this.output = output;
                 this.stepMessage = stepMessage;
-                this.longestPrefixIdx = longestPrefixIdx;
+                this.prefixIdx = prefixIdx;
             }
 
             public int PosBack { get => posBack; }
@@ -116,7 +119,8 @@ namespace LZ_W__algortihms
             public string Output { get => output;}
             public int StartPos { get => startPos; }
             public string StepMessage { get => stepMessage; }
-            public int LongestPrefixIdx { get => longestPrefixIdx; }
+            public int PrefixIdx { get => prefixIdx; }
+            public bool DoAdd { get => doAdd; }
         }
 
     }
