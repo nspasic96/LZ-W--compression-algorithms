@@ -3,7 +3,7 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    partial class Form3
+    partial class Form4
     {
         /// <summary>
         /// Required designer variable.
@@ -31,85 +31,85 @@ namespace LZ_W__algortihms
         /// </summary>
         private void InitializeComponent()
         {
-            this.InputTextBox = new System.Windows.Forms.RichTextBox();
             this.InputTextBoxLabel = new System.Windows.Forms.Label();
+            this.InputTextBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.MessageLabel = new System.Windows.Forms.Label();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.NextButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // InputTextBox
-            // 
-            this.InputTextBox.Enabled = false;
-            this.InputTextBox.Location = new System.Drawing.Point(309, 25);
-            this.InputTextBox.Name = "InputTextBox";
-            this.InputTextBox.Size = new System.Drawing.Size(292, 23);
-            this.InputTextBox.TabIndex = 0;
-            this.InputTextBox.Text = "";
-            // 
             // InputTextBoxLabel
             // 
             this.InputTextBoxLabel.AutoSize = true;
-            this.InputTextBoxLabel.Location = new System.Drawing.Point(100, 25);
+            this.InputTextBoxLabel.Location = new System.Drawing.Point(90, 44);
             this.InputTextBoxLabel.Name = "InputTextBoxLabel";
             this.InputTextBoxLabel.Size = new System.Drawing.Size(51, 13);
-            this.InputTextBoxLabel.TabIndex = 1;
+            this.InputTextBoxLabel.TabIndex = 2;
             this.InputTextBoxLabel.Text = "Input text";
+            // 
+            // InputTextBox
+            // 
+            this.InputTextBox.Enabled = false;
+            this.InputTextBox.Location = new System.Drawing.Point(238, 44);
+            this.InputTextBox.Name = "InputTextBox";
+            this.InputTextBox.Size = new System.Drawing.Size(292, 23);
+            this.InputTextBox.TabIndex = 3;
+            this.InputTextBox.Text = "";
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 94);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(68, 73);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(913, 446);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabIndex = 4;
             // 
             // MessageLabel
             // 
             this.MessageLabel.AutoSize = true;
-            this.MessageLabel.Location = new System.Drawing.Point(23, 556);
+            this.MessageLabel.Location = new System.Drawing.Point(102, 542);
             this.MessageLabel.Name = "MessageLabel";
             this.MessageLabel.Size = new System.Drawing.Size(50, 13);
-            this.MessageLabel.TabIndex = 3;
+            this.MessageLabel.TabIndex = 5;
             this.MessageLabel.Text = "Message";
             // 
             // MessageTextBox
             // 
             this.MessageTextBox.Enabled = false;
-            this.MessageTextBox.Location = new System.Drawing.Point(126, 556);
+            this.MessageTextBox.Location = new System.Drawing.Point(196, 535);
             this.MessageTextBox.Name = "MessageTextBox";
             this.MessageTextBox.Size = new System.Drawing.Size(575, 20);
-            this.MessageTextBox.TabIndex = 4;
+            this.MessageTextBox.TabIndex = 6;
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(744, 553);
+            this.NextButton.Location = new System.Drawing.Point(861, 532);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(75, 23);
-            this.NextButton.TabIndex = 5;
+            this.NextButton.TabIndex = 7;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Click += new System.EventHandler(this.Next_Click);
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
-            // Form3
+            // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 586);
+            this.ClientSize = new System.Drawing.Size(1038, 584);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.MessageLabel);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.InputTextBoxLabel);
             this.Controls.Add(this.InputTextBox);
-            this.Name = "Form3";
-            this.Text = "Form3";
+            this.Controls.Add(this.InputTextBoxLabel);
+            this.Name = "Form4";
+            this.Text = "Form4";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,15 +117,14 @@ namespace LZ_W__algortihms
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox InputTextBox;
         private System.Windows.Forms.Label InputTextBoxLabel;
+        private System.Windows.Forms.RichTextBox InputTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label MessageLabel;
         private System.Windows.Forms.TextBox MessageTextBox;
         private System.Windows.Forms.Button NextButton;
         private List<StepInfo> infos;
-        private LZ78Entry newOne;
-        private int cnt;
+        private LZWEntry newOne;
         private int currIdx;
     }
 }

@@ -71,6 +71,29 @@ namespace LZ_W__algortihms
             public int Step { get => step; set => step = value; }
             public int Pos { get => pos; set => pos = value; }
         }
+        public struct LZWEntry
+        {
+            private int dictIdx; //dictionary entry number
+            private string current; //longest match
+            private string next; //next character
+            private string output; //output of the step
+            private string addToDict; //dictionary new entry
+
+            public LZWEntry(int dictIdx, string current, string next, string output, string addToDict)
+            {
+                this.dictIdx = dictIdx;
+                this.current = current;
+                this.next = next;
+                this.output = output;
+                this.addToDict = addToDict;
+            }
+
+            public int DictIdx { get => dictIdx; }
+            public string Current { get => current; }
+            public string Next { get => next; }
+            public string Output { get => output; }
+            public string AddToDict { get => addToDict; }
+        }
 
         public struct StepInfo
         {

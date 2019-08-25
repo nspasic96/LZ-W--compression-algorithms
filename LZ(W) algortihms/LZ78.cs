@@ -42,8 +42,8 @@ namespace LZ_W__algortihms
             bool entryAdded = false;
             foreach(var entry in entries)
             {
-                int match = rawInput.IndexOf(entry.Word, currPossition, Math.Min(entry.Word.Length, totalLen-currPossition));
-                if(match != -1)
+                int match = rawInput.IndexOf(entry.Word, currPossition);
+                if(match == currPossition)
                 {
                     step = entries.Count + 1;
                     pos = currPossition;
