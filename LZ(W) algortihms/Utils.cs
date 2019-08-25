@@ -135,6 +135,18 @@ namespace LZ_W__algortihms
                 this.stepMessage = stepMessage;
                 this.prefixIdx = prefixIdx;
             }
+            public StepInfo(int prefixIdx, int matchLen, int startPos, string stepMessage, bool doAdd)
+            {
+                this.posBack = -1;
+                this.newBest = false;
+                this.output = "";
+
+                this.matchLen = matchLen;
+                this.startPos = startPos;
+                this.stepMessage = stepMessage;
+                this.prefixIdx = prefixIdx;
+                this.doAdd = doAdd;
+            }
 
             public int PosBack { get => posBack; }
             public int MatchLen { get => matchLen; }

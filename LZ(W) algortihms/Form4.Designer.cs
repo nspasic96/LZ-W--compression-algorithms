@@ -126,5 +126,6 @@ namespace LZ_W__algortihms
         private List<StepInfo> infos;
         private LZWEntry newOne;
         private int currIdx;
+        private int cnt;
     }
 }

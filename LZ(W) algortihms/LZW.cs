@@ -67,7 +67,9 @@ namespace LZ_W__algortihms
             string current = "";
             string next = "";
             string o = "";
+            string stepMessage = "";
             int move = 0;
+            bool doAdd = false;
 
             foreach (var entry in entries)
             {
@@ -81,25 +83,42 @@ namespace LZ_W__algortihms
                     {
                         next = rawInput.Substring(currPossition + entry.AddToDict.Length, 1);
                         entries.Reverse();
+                        stepMessage = "Match found at index " + entry.DictIdx;
                         if (handleNewEntry(current, next, o, current + next))
                         {
+                            stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so it will be restarted after this step.";
                             output.Append(o + " | ");
                         } else
                         {
+                            if(maxValue == entries.Count)
+                            {
+                                stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so no further words will be added.";
+                            }
+                            else
+                            {
+                                doAdd = true;
+                            }
                             output.Append(o + " ");
                         }
                     } else
                     {
                         output.Append(o);
                     }
+                    StepInfo si = new StepInfo(entry.DictIdx, entry.AddToDict.Length, currPossition, stepMessage, doAdd);
+                    stepInfos.Add(si);
 
                     break;
+                } else
+                {
+                    stepMessage = "No match found";
+                    StepInfo si1 = new StepInfo(entry.DictIdx, 0, currPossition, stepMessage, entries.Count < maxValue);
+                    stepInfos.Add(si1);
                 }
             }
-            
+
             currPossition += move;
 
-            return null;
+            return stepInfos;
         }
 
         private string toBinaryString(int dictIdx)
@@ -152,7 +171,8 @@ namespace LZ_W__algortihms
 
         protected override void visualization(List<StepInfo> stepInfos)
         {
-            throw new System.NotImplementedException();
+            Form4 f4 = new Form4(rawInput, prevEntries, entries[entries.Count - 1], stepInfos);
+            f4.ShowDialog();
         }
     }
 }

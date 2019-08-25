@@ -102,7 +102,7 @@ namespace LZ_W__algortihms
                     l14.Text = newOne.Word;
                     l14.BackColor = Color.Red;
 
-                    tableLayoutPanel1.Controls.Add(l11, 0, cnt+1);
+                    tableLayoutPanel1.Controls.Add(l11, 0, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l12, 1, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l13, 2, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);

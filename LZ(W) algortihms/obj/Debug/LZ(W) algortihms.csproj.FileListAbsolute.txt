@@ -10,3 +10,4 @@ C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms.exe
 C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms.pdb
 C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.Form2.resources
 C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.Form3.resources
+C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.Form4.resources
