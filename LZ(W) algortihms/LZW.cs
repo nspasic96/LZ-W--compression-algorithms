@@ -96,12 +96,14 @@ namespace LZ_W__algortihms
                             }
                             else
                             {
+                                stepMessage = "Match found at index " + entry.DictIdx + ". Adding matched word (" + entry.AddToDict + ") extended with next charachter (" + next + ")";
                                 doAdd = true;
                             }
                             output.Append(o + " ");
                         }
                     } else
                     {
+                        stepMessage = "Match found at index " + entry.DictIdx + ". Whole string is now matched.";
                         output.Append(o);
                     }
                     StepInfo si = new StepInfo(entry.DictIdx, entry.AddToDict.Length, currPossition, stepMessage, doAdd);

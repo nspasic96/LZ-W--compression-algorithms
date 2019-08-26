@@ -113,6 +113,11 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l15, 4, cnt + 1);
                 }
+                else
+                {
+                    this.Close();
+                    return;
+                }
             }
             else if (infos.Count == currIdx - 1)
             {
@@ -132,7 +137,8 @@ namespace LZ_W__algortihms
                 {
                     if (si.PrefixIdx != -1)
                     {
-                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx+1).BackColor = Color.Yellow;
+                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Color.Yellow;
+                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Color.Red;
                     }
                     InputTextBox.Text = InputTextBox.Text;
                     InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
