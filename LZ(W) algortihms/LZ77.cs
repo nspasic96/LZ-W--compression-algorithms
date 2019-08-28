@@ -21,29 +21,32 @@ namespace LZ_W__algortihms
         protected override List<StepInfo> nextStep()
         {
             List<StepInfo> infos = new List<StepInfo>();
-            prevPosition = currPossition;
-            
+
+            //store position before step to show it in visualization
+            prevPosition = currPosition;            
 
             //default match - only one character
-            string defaultStepMessage = currPossition == 0 ? "First character never matches because window does not exist." : "Default 'match' is of length 0 meaning that new character is encountered"; 
-            StepInfo s = new StepInfo(Math.Min(currPossition, windowSize), 0, currPossition, defaultStepMessage, true, "<0," + (input[currPossition] ? 1 : 0).ToString() + ">");
+            string defaultStepMessage = currPosition == 0 ? "First character never matches because window does not exist." : "Default 'match' is of length 0 meaning that new character is encountered"; 
+            StepInfo s = new StepInfo(Math.Min(currPosition, windowSize), 0, currPosition, defaultStepMessage, true, "<0," + (input[currPosition] ? 1 : 0).ToString() + ">");
             infos.Add(s);
             
             int longest = 0;
-            int back = -1;
             int backLongest = -1;
 
-            for (int start=Math.Max(0,currPossition-windowSize); start<currPossition ; start++)
+            //try every index in window as start index for longest matching
+            for (int start=Math.Max(0,currPosition-windowSize); start<currPosition ; start++)
             {
                 int len = 0;
-                while(currPossition + len < totalLen && input[start+len] == input[currPossition + len])
+                while(currPosition + len < totalLen && input[start+len] == input[currPosition + len])
                 {
                     len++;
                 }
 
                 bool newLongest = false;
 
-                back = currPossition - start;
+                int back = currPosition - start;
+
+                //longer match detected
                 if (len > longest)
                 {
                     longest = len;
@@ -51,39 +54,46 @@ namespace LZ_W__algortihms
                     backLongest = back;
                 }
 
-                //if it is new best, output is set to correct value, otherwise it wont be used...
                 string stepMessage;
+
+                //match detected
                 if(len > 0)
                 {
                     if (newLongest)
                     {
                         stepMessage = "New longest match found starting {0} positions back from current poisition ({1})";
-                        stepMessage = string.Format(stepMessage, back, currPossition);
+                        stepMessage = string.Format(stepMessage, back, currPosition);
                     } else
                     {
                         stepMessage = "New match found starting {0} positions back from current poisition ({1}) but the longer(or same length) match already exists";
-                        stepMessage = string.Format(stepMessage, back, currPossition);
+                        stepMessage = string.Format(stepMessage, back, currPosition);
                     }
                 }
                 else
                 {
                     stepMessage = "No match found";
                 }
-                StepInfo s1 = new StepInfo(back, len, currPossition, stepMessage, newLongest, "<1," + back + "," + len + ">");
+                StepInfo s1 = new StepInfo(back, len, currPosition, stepMessage, newLongest, "<1," + back + "," + len + ">");
                 infos.Add(s1);
             }
+
+            //set output depending on whether any match was detected
             if(longest > 0)
             {
                 output.Append("<1," + backLongest + "," + longest + ">");
+
                 totalBitsSent += Math.Ceiling(Math.Log(backLongest, 2));
                 totalBitsSent += Math.Ceiling(Math.Log(longest, 2));
-                currPossition += longest;
+                currPosition += longest;
 
             } else
             {
-                output.Append("<0," + (input[currPossition++] ? 1 : 0).ToString() + ">");
+                output.Append("<0," + (input[currPosition++] ? 1 : 0).ToString() + ">");
+
                 totalBitsSent += 1;
             }
+
+            //this one is for first bit that tells us whether any match was found
             totalBitsSent += 1;
              
             return infos;

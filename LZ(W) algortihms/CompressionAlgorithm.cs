@@ -17,7 +17,7 @@ namespace LZ_W__algortihms
         protected bool[] input;
         protected string rawInput;
         protected StringBuilder output;
-        protected int currPossition;
+        protected int currPosition;
         protected int totalLen;
         protected double totalBitsSent;
 
@@ -25,45 +25,40 @@ namespace LZ_W__algortihms
         public List<AlgorithmParameter> Parameters { get => parameters; }
 
         protected abstract List<StepInfo> nextStep();
-        protected abstract void prepare();
-        
+        protected abstract void prepare();        
         protected abstract void visualization(List<StepInfo> stepInfos);
-        protected bool hasNextStep() {
-            return currPossition < totalLen;
-        }
-        protected CompressionAlgorithm()
-        {
-        }
-
+                
         public void convert(string input, TextBox result, bool visualize)
         {
+            //initialize buffers and auxilary variables
+            cleanAndPrepare(input);
 
-            this.rawInput = input;
-            bool[] inp = convertToBits(input);
-            this.input = inp;
-            currPossition = 0;
-            totalLen = input.Length;
-            output = new StringBuilder();
-            statistics = new List<AlgorithmStatistic>();
-            prepare();
             double totalTime = 0;
             Stopwatch sw = new Stopwatch();
+            
+            //main part of the conversion
             while (hasNextStep())
             {
+                //the step
                 sw.Start();
                 List<StepInfo> stepResults = nextStep();
                 sw.Stop();
+
+                //take stopwatch measurements and reset it
                 totalTime += sw.Elapsed.TotalSeconds;
                 sw.Reset();
+
                 if (visualize)
                 {
                     visualization(stepResults);
 
+                    //update output text box after every step
                     result.Text = this.output.ToString();
                     result.Refresh();
                 }
             }
 
+            //add statistics and print final output
             statistics.Add(new AlgorithmStatistic("Time elapsed(s)", (totalTime).ToString()));
             statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen).ToString()));
             result.Text = this.output.ToString();
@@ -86,6 +81,30 @@ namespace LZ_W__algortihms
                     parameters[i] = old;
                 }
             }
+        }
+        protected CompressionAlgorithm() { }
+        protected bool hasNextStep()
+        {
+            return currPosition < totalLen;
+        }
+
+        private void cleanAndPrepare(string input)
+        {
+            this.rawInput = input;
+            totalLen = input.Length;
+
+            //input must consist of 0s and 1s only
+            bool[] inp = convertToBits(input);
+            this.input = inp;
+
+            //position of the first character of the substring that hasn't been matched yet
+            currPosition = 0;
+
+            output = new StringBuilder();
+            statistics = new List<AlgorithmStatistic>();
+
+            //abstract function, every algorithm needs to set its own variables in this function
+            prepare();
         }
 
         private bool[] convertToBits(string input)

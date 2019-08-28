@@ -9,7 +9,6 @@ namespace LZ_W__algortihms
     {
 
         private List<LZ78Entry> entries;
-        private List<LZ78Entry> prevEntries;
         public LZ78()
         {
             var p = new List<AlgorithmParameter>();
@@ -24,11 +23,12 @@ namespace LZ_W__algortihms
 
         protected override List<StepInfo> nextStep()
         {
-            prevEntries = entries.ConvertAll(e => new LZ78Entry(e.Word, e.Output, e.Step, e.Pos));
-
             List<StepInfo> stepInfos = new List<StepInfo>();
+
+            //iterating in reverse order because that is the most efficient way
             entries.Reverse();
 
+            //auxiliary variables
             string newWord;
             int step;
             int pos;
@@ -39,17 +39,26 @@ namespace LZ_W__algortihms
             bool doAdd = true;
             LZ78Entry newEntry = new LZ78Entry();
             bool entryAdded = false;
+
             foreach(var entry in entries)
             {
-                int match = rawInput.IndexOf(entry.Word, currPossition);
-                if(match == currPossition)
+                //index of first occurance of entry.Word in rawInput after currPosition
+                int match = rawInput.IndexOf(entry.Word, currPosition);
+
+                //match will be equal to currPosition if and only if rest of the input starts with entry.Word 
+                if (match == currPosition)
                 {
+
                     step = entries.Count + 1;
-                    pos = currPossition;
+                    pos = currPosition;
+
+                    //because of the way that we add new words, if match was detected this is longest match
                     longPreIdx = entry.Step;
-                    if(currPossition + entry.Word.Length == totalLen)
+
+                    //if we reached the end of the string, no entry should be added to dictionary
+                    if (currPosition + entry.Word.Length == totalLen)
                     {
-                        newWord = rawInput.Substring(currPossition, entry.Word.Length);
+                        newWord = rawInput.Substring(currPosition, entry.Word.Length);
                         o = "(" + entry.Step + "," + "-) ";
                         matchLen = entry.Word.Length;
                         stepMessage = "Prefix found (entry at position {0}) and no entry will be added because whole string is processed.";
@@ -57,12 +66,14 @@ namespace LZ_W__algortihms
                         doAdd = false;
                     } else
                     {
+                        //this bit is last bit in o (the character we add in output that indicates next character after matched word)
                         totalBitsSent += 1;
-                        newWord = rawInput.Substring(currPossition, entry.Word.Length + 1);
-                        o = "(" + entry.Step + "," + rawInput.Substring(currPossition + entry.Word.Length, 1) + ") ";
+
+                        newWord = rawInput.Substring(currPosition, entry.Word.Length + 1);
+                        o = "(" + entry.Step + "," + rawInput.Substring(currPosition + entry.Word.Length, 1) + ") ";
                         matchLen = entry.Word.Length + 1;
                         stepMessage = "Prefix found (entry at position {0}) and new entry will be added (matched entry({1}) + last character after match({2}))";
-                        stepMessage = string.Format(stepMessage, entry.Step, rawInput.Substring(currPossition, entry.Word.Length), rawInput.Substring(currPossition + entry.Word.Length, 1 ));
+                        stepMessage = string.Format(stepMessage, entry.Step, rawInput.Substring(currPosition, entry.Word.Length), rawInput.Substring(currPosition + entry.Word.Length, 1 ));
                     }
 
                     output.Append(o);
@@ -70,47 +81,50 @@ namespace LZ_W__algortihms
 
                     entryAdded = true;
 
+                    //number of bits needed to represent index of matched word in binary
                     totalBitsSent += Math.Ceiling(Math.Log(entry.Step, 2));
                     break;
                 } else
                 {
                     stepMessage = "No match detected";
-                    StepInfo si1 = new StepInfo(entry.Step, 0, currPossition, stepMessage, o, false);
+                    StepInfo si1 = new StepInfo(entry.Step, 0, currPosition, stepMessage, o, false);
                     stepInfos.Add(si1);
                 }
             }
+
+            //reverse list back to the original before adding new entry
             entries.Reverse();
 
+            //if no match was found, add entry that matches just the current character
             if (!entryAdded)
             {
-                newWord = rawInput.Substring(currPossition, 1);
+                newWord = rawInput.Substring(currPosition, 1);
                 step = entries.Count + 1;
-                pos = currPossition;
-                o = "(0," + rawInput.Substring(currPossition, 1) + ") ";
+                pos = currPosition;
+                o = "(0," + rawInput.Substring(currPosition, 1) + ") ";
 
                 output.Append(o);
+
+                //sending just 2 bits (0 and current character)
                 totalBitsSent += 2;
 
                 newEntry = new LZ78Entry(newWord, o, step, pos);
-            }
 
-            if(longPreIdx == -1)
-            {
                 stepMessage = "Prefix not found, adding word of length 1 to the dictionary";
-            } 
-
-            StepInfo si = new StepInfo(longPreIdx, matchLen , currPossition, stepMessage, o, doAdd);
+            }
+            
+            StepInfo si = new StepInfo(longPreIdx, matchLen , currPosition, stepMessage, o, doAdd);
             stepInfos.Add(si);
 
             entries.Add(newEntry);
-            currPossition += newEntry.Word.Length;
+            currPosition += newEntry.Word.Length;
 
             return stepInfos;
         }
 
         protected override void visualization(List<StepInfo> stepInfos)
         {
-            Form3 f3 = new Form3(rawInput, prevEntries, entries[entries.Count - 1], stepInfos);
+            Form3 f3 = new Form3(rawInput, entries.GetRange(0, entries.Count -1), entries[entries.Count - 1], stepInfos);
             f3.ShowDialog();
         }
     }

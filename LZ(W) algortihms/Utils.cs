@@ -107,7 +107,7 @@ namespace LZ_W__algortihms
             private int posBack; //number of positions to move left with respect to start posisition to reach match start in window
             private bool newBest; //is it new best result
 
-            //for LZ78
+            //for LZ78 and LZW
             private int prefixIdx;
             private bool doAdd;
 

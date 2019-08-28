@@ -7,16 +7,16 @@ namespace LZ_W__algortihms
 {
     internal class LZW : CompressionAlgorithm
     {
+        private List<LZWEntry> entries;
+         
         private bool onFullDictReset;
         private int maxValue;
         private int totalBits;
-        private List<LZWEntry> entries;
-        private List<LZWEntry> prevEntries;
-
         private int totalCh;
 
         private LZWEntry zeroEntry;
         private LZWEntry oneEntry;
+
         public LZW()
         {
             var p = new List<AlgorithmParameter>();
@@ -38,35 +38,17 @@ namespace LZ_W__algortihms
 
         }
 
-        //returns true when dictionary was restarted
-        private bool handleNewEntry(string current, string next, string output, string addToDict)
-        {
-            if(maxValue > entries.Count)
-            {
-                LZWEntry newOne = new LZWEntry(entries.Count, current, next, output, addToDict);
-                entries.Add(newOne);
-                return false;
-            } else
-            {
-                if (onFullDictReset)
-                {
-                    entries = new List<LZWEntry>();
-                    entries.Add(zeroEntry);
-                    entries.Add(oneEntry);
-                    return true;
-                }
-                return false;
-            }
-        }
-
         protected override List<StepInfo> nextStep()
         {
+            //counter of the total number of characters in the output (with extended length)
             totalCh++;
-            prevEntries = entries.ConvertAll(e => new LZWEntry(e.DictIdx,e.Current,e.Next,e.Output,e.AddToDict));
-
+            
             List<StepInfo> stepInfos = new List<StepInfo>();
+
+            //iterating in reverse order because that is the most efficient way
             entries.Reverse();
 
+            //auxiliary variables
             string current = "";
             string next = "";
             string o = "";
@@ -76,24 +58,38 @@ namespace LZ_W__algortihms
 
             foreach (var entry in entries)
             {
-                int match = rawInput.IndexOf(entry.AddToDict, currPossition);
-                if (match == currPossition)
+                //index of first occurance of entry.AddToDict in rawInput after currPosition
+                int match = rawInput.IndexOf(entry.AddToDict, currPosition);
+
+                //match will be equal to currPosition if and only if rest of the input starts with entry.AddToDict 
+                if (match == currPosition)
                 {
                     current = entry.AddToDict;
                     o = toBinaryString(entry.DictIdx);
+
+                    //after this step currPosition will be incremented by move value
                     move = entry.AddToDict.Length;
-                    if (currPossition + entry.AddToDict.Length < totalLen)
+
+                    //if after match there are more characters, we handle new entry
+                    if (currPosition + entry.AddToDict.Length < totalLen)
                     {
-                        next = rawInput.Substring(currPossition + entry.AddToDict.Length, 1);
+                        next = rawInput.Substring(currPosition + entry.AddToDict.Length, 1);
+
+                        //reverse back so that added entry is at the correct posistion 
                         entries.Reverse();
+
+
                         stepMessage = "Match found at index " + entry.DictIdx;
+
+                        //if dictionary was full (and onFullDictReset is true) it will be restarted 'after' this step and '|' is added to output to denote it
                         if (handleNewEntry(current, next, o, current + next))
                         {
                             stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so it will be restarted after this step.";
                             output.Append(o + " | ");
                         } else
                         {
-                            if(maxValue == entries.Count)
+                            //if dictionary is full but onFullDictReset is false
+                            if (maxValue == entries.Count)
                             {
                                 stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so no further words will be added.";
                             }
@@ -106,25 +102,76 @@ namespace LZ_W__algortihms
                         }
                     } else
                     {
+                        entries.Reverse();
                         stepMessage = "Match found at index " + entry.DictIdx + ". Whole string is now matched.";
                         output.Append(o);
                     }
-                    StepInfo si = new StepInfo(entry.DictIdx, entry.AddToDict.Length, currPossition, stepMessage, doAdd);
+                    StepInfo si = new StepInfo(entry.DictIdx, entry.AddToDict.Length, currPosition, stepMessage, doAdd);
                     stepInfos.Add(si);
 
                     break;
                 } else
                 {
                     stepMessage = "No match found";
-                    StepInfo si1 = new StepInfo(entry.DictIdx, 0, currPossition, stepMessage, entries.Count < maxValue);
+                    StepInfo si1 = new StepInfo(entry.DictIdx, 0, currPosition, stepMessage, entries.Count < maxValue);
                     stepInfos.Add(si1);
                 }
             }
 
             totalBitsSent = totalCh * totalBits;
-            currPossition += move;
+            currPosition += move;
 
             return stepInfos;
+        }
+
+        protected override void prepare()
+        {
+            entries = new List<LZWEntry>();
+            entries.Add(zeroEntry);
+            entries.Add(oneEntry);
+            foreach (var p in parameters)
+            {
+                if (p.ParamName == "On full dictionary")
+                {
+                    onFullDictReset = (p.CurrValue == "Reset");
+                }
+                if (p.ParamName == "Number of redundant bits")
+                {
+                    totalBits = Int32.Parse(p.CurrValue) + 1 ;
+                    maxValue = 1 << totalBits; // 2 ^ (totalLen)
+                }
+            }
+            totalCh = 0;
+        }
+
+        protected override void visualization(List<StepInfo> stepInfos)
+        {
+            Form4 f4 = new Form4(rawInput, entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
+            f4.ShowDialog();
+        }
+
+        //returns true when dictionary was restarted
+        private bool handleNewEntry(string current, string next, string output, string addToDict)
+        {
+            //if there is free space in dictionary, just add new etnry
+            if (maxValue > entries.Count)
+            {
+                LZWEntry newOne = new LZWEntry(entries.Count, current, next, output, addToDict);
+                entries.Add(newOne);
+                return false;
+            }
+            else
+            {
+                //reset dictionary if onFullDictReset is set to true and add default entries
+                if (onFullDictReset)
+                {
+                    entries = new List<LZWEntry>();
+                    entries.Add(zeroEntry);
+                    entries.Add(oneEntry);
+                    return true;
+                }
+                return false;
+            }
         }
 
         private string toBinaryString(int dictIdx)
@@ -154,32 +201,6 @@ namespace LZ_W__algortihms
             binary.Reverse();
             
             return string.Join("", binary.ToArray());
-        }
-
-        protected override void prepare()
-        {
-            entries = new List<LZWEntry>();
-            entries.Add(zeroEntry);
-            entries.Add(oneEntry);
-            foreach (var p in parameters)
-            {
-                if (p.ParamName == "On full dictionary")
-                {
-                    onFullDictReset = (p.CurrValue == "Reset");
-                }
-                if (p.ParamName == "Number of redundant bits")
-                {
-                    totalBits = Int32.Parse(p.CurrValue) + 1 ;
-                    maxValue = 1 << totalBits; // 2 ^ (totalLen)
-                }
-            }
-            totalCh = 0;
-        }
-
-        protected override void visualization(List<StepInfo> stepInfos)
-        {
-            Form4 f4 = new Form4(rawInput, prevEntries, entries[entries.Count - 1], stepInfos);
-            f4.ShowDialog();
         }
     }
 }
