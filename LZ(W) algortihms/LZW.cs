@@ -13,6 +13,8 @@ namespace LZ_W__algortihms
         private List<LZWEntry> entries;
         private List<LZWEntry> prevEntries;
 
+        private int totalCh;
+
         private LZWEntry zeroEntry;
         private LZWEntry oneEntry;
         public LZW()
@@ -32,8 +34,8 @@ namespace LZ_W__algortihms
 
             zeroEntry = new LZWEntry(0, "", "", "", "0");
             oneEntry = new LZWEntry(1, "", "", "", "1");
+            totalCh = 0;
 
-            this.statistics.Add(new AlgorithmStatistic("LZW statistics param", "value of param"));
         }
 
         //returns true when dictionary was restarted
@@ -59,6 +61,7 @@ namespace LZ_W__algortihms
 
         protected override List<StepInfo> nextStep()
         {
+            totalCh++;
             prevEntries = entries.ConvertAll(e => new LZWEntry(e.DictIdx,e.Current,e.Next,e.Output,e.AddToDict));
 
             List<StepInfo> stepInfos = new List<StepInfo>();
@@ -118,6 +121,7 @@ namespace LZ_W__algortihms
                 }
             }
 
+            totalBitsSent = totalCh * totalBits;
             currPossition += move;
 
             return stepInfos;
@@ -169,6 +173,7 @@ namespace LZ_W__algortihms
                     maxValue = 1 << totalBits; // 2 ^ (totalLen)
                 }
             }
+            totalCh = 0;
         }
 
         protected override void visualization(List<StepInfo> stepInfos)

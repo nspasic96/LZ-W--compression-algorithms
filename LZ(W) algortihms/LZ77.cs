@@ -16,8 +16,6 @@ namespace LZ_W__algortihms
             AlgorithmParameter windowSize = new AlgorithmParameter("Window size", "3");
             p.Add(windowSize);
             this.parameters = p;
-
-            this.statistics.Add(new AlgorithmStatistic("LZ77 statistics param", "value of param"));
         }
 
         protected override List<StepInfo> nextStep()
@@ -77,12 +75,16 @@ namespace LZ_W__algortihms
             if(longest > 0)
             {
                 output.Append("<1," + backLongest + "," + longest + ">");
+                totalBitsSent += Math.Ceiling(Math.Log(backLongest, 2));
+                totalBitsSent += Math.Ceiling(Math.Log(longest, 2));
                 currPossition += longest;
 
             } else
             {
                 output.Append("<0," + (input[currPossition++] ? 1 : 0).ToString() + ">");
+                totalBitsSent += 1;
             }
+            totalBitsSent += 1;
              
             return infos;
         }
@@ -96,6 +98,7 @@ namespace LZ_W__algortihms
                     windowSize = Int32.Parse(p.CurrValue);
                 }
             }
+            totalBitsSent = 0;
         }
 
         protected override void visualization(List<StepInfo> stepInfos)

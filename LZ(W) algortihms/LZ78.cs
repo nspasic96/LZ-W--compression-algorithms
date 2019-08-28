@@ -15,11 +15,10 @@ namespace LZ_W__algortihms
             var p = new List<AlgorithmParameter>();
 
             this.parameters = p;
-
-            this.statistics.Add(new AlgorithmStatistic("LZ78 statistics param", "value of param"));
         }
         protected override void prepare()
         {
+            totalBitsSent = 0;
             entries = new List<LZ78Entry>();
         }
 
@@ -58,6 +57,7 @@ namespace LZ_W__algortihms
                         doAdd = false;
                     } else
                     {
+                        totalBitsSent += 1;
                         newWord = rawInput.Substring(currPossition, entry.Word.Length + 1);
                         o = "(" + entry.Step + "," + rawInput.Substring(currPossition + entry.Word.Length, 1) + ") ";
                         matchLen = entry.Word.Length + 1;
@@ -69,6 +69,8 @@ namespace LZ_W__algortihms
                     newEntry = new LZ78Entry(newWord, o, step, pos);
 
                     entryAdded = true;
+
+                    totalBitsSent += Math.Ceiling(Math.Log(entry.Step, 2));
                     break;
                 } else
                 {
@@ -87,6 +89,7 @@ namespace LZ_W__algortihms
                 o = "(0," + rawInput.Substring(currPossition, 1) + ") ";
 
                 output.Append(o);
+                totalBitsSent += 2;
 
                 newEntry = new LZ78Entry(newWord, o, step, pos);
             }

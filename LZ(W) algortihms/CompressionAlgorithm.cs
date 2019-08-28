@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using static LZ_W__algortihms.Utils;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace LZ_W__algortihms
 {
@@ -18,37 +19,42 @@ namespace LZ_W__algortihms
         protected StringBuilder output;
         protected int currPossition;
         protected int totalLen;
+        protected double totalBitsSent;
 
         public List<AlgorithmStatistic> Statistics { get => statistics; }
         public List<AlgorithmParameter> Parameters { get => parameters; }
 
         protected abstract List<StepInfo> nextStep();
         protected abstract void prepare();
-
+        
         protected abstract void visualization(List<StepInfo> stepInfos);
-        protected virtual void processStepResults(List<StepInfo> stepInfos, bool[] input) {}
         protected bool hasNextStep() {
             return currPossition < totalLen;
         }
         protected CompressionAlgorithm()
         {
-            statistics = new List<AlgorithmStatistic>();
-            statistics.Add(new AlgorithmStatistic("Time elapsed", "300s"));
         }
 
         public void convert(string input, TextBox result, bool visualize)
         {
+
             this.rawInput = input;
             bool[] inp = convertToBits(input);
             this.input = inp;
             currPossition = 0;
             totalLen = input.Length;
             output = new StringBuilder();
+            statistics = new List<AlgorithmStatistic>();
             prepare();
+            double totalTime = 0;
+            Stopwatch sw = new Stopwatch();
             while (hasNextStep())
             {
-                List<StepInfo> stepResults = nextStep();//ovde meriti vreme za svaki korak
-
+                sw.Start();
+                List<StepInfo> stepResults = nextStep();
+                sw.Stop();
+                totalTime += sw.Elapsed.TotalSeconds;
+                sw.Reset();
                 if (visualize)
                 {
                     visualization(stepResults);
@@ -56,10 +62,10 @@ namespace LZ_W__algortihms
                     result.Text = this.output.ToString();
                     result.Refresh();
                 }
-
-                processStepResults(stepResults, this.input);
             }
 
+            statistics.Add(new AlgorithmStatistic("Time elapsed(s)", (totalTime).ToString()));
+            statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen).ToString()));
             result.Text = this.output.ToString();
             result.Refresh();
         }
