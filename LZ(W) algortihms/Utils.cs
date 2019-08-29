@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LZ_W__algortihms
 {
@@ -12,6 +14,31 @@ namespace LZ_W__algortihms
         public static readonly int columnsInTLP = 2;
         public static readonly int rowsUpAndDownInLZ78Table = 5;
 
+        public static Color c1 = Color.Red;
+        public static Color c2 = Color.Yellow;
+        public static Color c3 = Color.Blue;
+
+        public static void splitTlp(TableLayoutPanel tlp, int n, int m)
+        {
+            tlp.Controls.Clear();
+
+            tlp.ColumnCount = m;
+            tlp.RowCount = n;
+
+            tlp.ColumnStyles.Clear();
+            tlp.RowStyles.Clear();
+
+            for (int i = 0; i < m; i++)
+            {
+                tlp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100 / m));
+            }
+
+            for (int j = 0; j < n; j++)
+            {
+                tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
+
+            }
+        }
         public enum AlgorithmName { LZ77, LZ78, LZW }
         public enum ParameterType { Text, List }
         public struct AlgorithmParameter

@@ -45,7 +45,7 @@ namespace LZ_W__algortihms
                 sw.Stop();
 
                 //take stopwatch measurements and reset it
-                totalTime += sw.Elapsed.TotalSeconds;
+                totalTime += sw.Elapsed.TotalMilliseconds;
                 sw.Reset();
 
                 if (visualize)
@@ -59,7 +59,7 @@ namespace LZ_W__algortihms
             }
 
             //add statistics and print final output
-            statistics.Add(new AlgorithmStatistic("Time elapsed(s)", (totalTime).ToString()));
+            statistics.Add(new AlgorithmStatistic("Time elapsed(ms)", (totalTime).ToString()));
             statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen).ToString()));
             result.Text = this.output.ToString();
             result.Refresh();

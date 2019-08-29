@@ -20,8 +20,8 @@ namespace LZ_W__algortihms
         {
             InitializeComponent();
 
-            splitTlp(tlpParams, Utils.rowsInTLP, Utils.columnsInTLP);
-            splitTlp(tlpStats, Utils.rowsInTLP, Utils.columnsInTLP);
+            Utils.splitTlp(tlpParams, Utils.rowsInTLP, Utils.columnsInTLP);
+            Utils.splitTlp(tlpStats, Utils.rowsInTLP, Utils.columnsInTLP);
 
             ComboBox algorithmsList = new ComboBox();
             algorithmsList.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -49,16 +49,7 @@ namespace LZ_W__algortihms
             algCB = algorithmsList;
             visualizeCB = visualizeMenu;
             this.algCB.SelectedIndexChanged += new System.EventHandler(this.AlgCB_Change);
-
-            initializeParamsTlp();          
-
-
-
-        }
-
-        private void initializeParamsTlp()
-        {
-
+                       
         }
 
         private void addAlgorithms()
@@ -67,36 +58,6 @@ namespace LZ_W__algortihms
             availableAlgorithms.Add("LZ77", new LZ77());
             availableAlgorithms.Add("LZ78", new LZ78());
             availableAlgorithms.Add("LZW", new LZW());
-
-
-        }
-
-        private void splitTlp(TableLayoutPanel tlp, int n, int m)
-        {
-
-            tlp.Controls.Clear();
-
-
-            tlp.ColumnCount = m;
-            tlp.RowCount = n;
-
-
-            tlp.ColumnStyles.Clear();
-            tlp.RowStyles.Clear();
-
-
-
-            for (int i = 0; i < m; i++)
-            {
-                tlp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100/m));
-            }
-
-
-            for (int j = 0; j < n; j++)
-            {
-                tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100/n));
-
-            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -146,7 +107,6 @@ namespace LZ_W__algortihms
                     tlpParams.Controls.Add(tb, 1, i);
                 } else if(par.PT == ParameterType.List)
                 {
-
                     int j = i - 1;
                     ComboBox paramValsList = new ComboBox();
                     paramValsList.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -159,16 +119,12 @@ namespace LZ_W__algortihms
 
                     paramValsList.SelectedIndex = 0;
                     paramValsList.SelectedIndexChanged += new System.EventHandler((sender2, e2) => { paramValChanged(sender2, e2, j, ParameterType.List); });
-
                     
                     tlpParams.Controls.Add(l, 0, i);
                     tlpParams.Controls.Add(paramValsList, 1, i);
-
                 }
                 i++;
             }
-
-
         }
 
         private void paramValChanged(object sender, EventArgs e, int i, ParameterType pt)
@@ -181,7 +137,6 @@ namespace LZ_W__algortihms
             {
                 var cb = sender as ComboBox;
                 currentAlgorithm.updateParameter(i, cb.Text);
-
             }
         }
     }

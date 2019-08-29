@@ -20,24 +20,8 @@ namespace LZ_W__algortihms
             int m = 4;
             int n = Math.Max(entries.Count + 2, 20);
 
-            tableLayoutPanel1.Controls.Clear();
-
-            tableLayoutPanel1.ColumnCount = m;
-            tableLayoutPanel1.RowCount = n;
-
-            tableLayoutPanel1.ColumnStyles.Clear();
-            tableLayoutPanel1.RowStyles.Clear();
-
-            for (int i = 0; i < m; i++)
-            {
-                tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100 / m));
-            }
-
-            for (int j = 0; j < n; j++)
-            {
-                tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
-            }
-
+            Utils.splitTlp(tableLayoutPanel1, n, m);
+            
             Label l1 = new Label();
             l1.Text = "Step";
             Label l2 = new Label();
@@ -75,7 +59,7 @@ namespace LZ_W__algortihms
             InputTextBox.Text = input;
             InputTextBox.SelectionStart = stepInfos[0].StartPos;
             InputTextBox.SelectionLength = 100;
-            InputTextBox.SelectionColor = Color.Red;
+            InputTextBox.SelectionColor = Utils.c1;
 
             this.infos = stepInfos;
             this.newOne = newOne;
@@ -95,12 +79,12 @@ namespace LZ_W__algortihms
                     l11.Text = newOne.Step.ToString();
                     Label l12 = new Label();
                     l12.Text = newOne.Output;
-                    l12.BackColor = Color.Yellow;
+                    l12.BackColor = Utils.c2;
                     Label l13 = new Label();
                     l13.Text = newOne.Pos.ToString();
                     Label l14 = new Label();
                     l14.Text = newOne.Word;
-                    l14.BackColor = Color.Red;
+                    l14.BackColor = Utils.c1;
 
                     tableLayoutPanel1.Controls.Add(l11, 0, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l12, 1, cnt + 1);
@@ -113,23 +97,22 @@ namespace LZ_W__algortihms
                 return;
             } else
             {
-
                 StepInfo si = infos[currIdx];
                 if(currIdx < infos.Count - 1)
                 {
                     Label l = tableLayoutPanel1.GetControlFromPosition(3, si.PrefixIdx) as Label;
-                    l.BackColor = Color.Blue;
+                    l.BackColor = Utils.c3;
                 } else
                 {
                     if(si.PrefixIdx != -1)
                     {
-                        tableLayoutPanel1.GetControlFromPosition(3, si.PrefixIdx).BackColor = Color.Yellow;
-                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx).BackColor = Color.Yellow;
+                        tableLayoutPanel1.GetControlFromPosition(3, si.PrefixIdx).BackColor = Utils.c2;
+                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx).BackColor = Utils.c2;
                     }
                     InputTextBox.Text = InputTextBox.Text;
                     InputTextBox.SelectionStart = infos[infos.Count-1].StartPos;
                     InputTextBox.SelectionLength = infos[infos.Count - 1].MatchLen;
-                    InputTextBox.SelectionColor = Color.Red;
+                    InputTextBox.SelectionColor = Utils.c1;
                     this.Refresh();
                 }
                 MessageTextBox.Text = si.StepMessage;

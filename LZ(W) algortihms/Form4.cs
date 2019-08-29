@@ -79,7 +79,7 @@ namespace LZ_W__algortihms
             InputTextBox.Text = input;
             InputTextBox.SelectionStart = stepInfos[0].StartPos;
             InputTextBox.SelectionLength = input.Length;
-            InputTextBox.SelectionColor = Color.Red;
+            InputTextBox.SelectionColor = Utils.c1;
 
             this.infos = stepInfos;
             this.newOne = newOne;
@@ -102,10 +102,10 @@ namespace LZ_W__algortihms
                     l13.Text = newOne.Next;
                     Label l14 = new Label();
                     l14.Text = newOne.Output;
-                    l12.BackColor = Color.Yellow;
+                    l12.BackColor = Utils.c2;
                     Label l15 = new Label();
                     l15.Text = newOne.AddToDict;
-                    l14.BackColor = Color.Red;
+                    l14.BackColor = Utils.c1;
                     
                     tableLayoutPanel1.Controls.Add(l11, 0, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l12, 1, cnt + 1);
@@ -131,14 +131,14 @@ namespace LZ_W__algortihms
                 if (currIdx < infos.Count - 1)
                 {
                     Label l = tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx+1) as Label;
-                    l.BackColor = Color.Blue;
+                    l.BackColor = Utils.c3;
                 }
                 else
                 {
                     if (si.PrefixIdx != -1)
                     {
-                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Color.Yellow;
-                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Color.Red;
+                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Utils.c2;
+                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Utils.c1;
                     }
                     InputTextBox.Text = InputTextBox.Text;
                     InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
