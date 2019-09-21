@@ -51,7 +51,6 @@ namespace LZ_W__algortihms
                     position = positionsStack[currStep-1];
 
                     unsetPrevStep();
-                    this.CurrentOutputTextBox.Text = "Step number " + currStep;
 
                     RestTextBox.SelectionStart = position;
                     RestTextBox.SelectionLength = 1000;

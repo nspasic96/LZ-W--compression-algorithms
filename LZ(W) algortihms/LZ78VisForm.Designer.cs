@@ -37,6 +37,8 @@ namespace LZ_W__algortihms
             this.MessageLabel = new System.Windows.Forms.Label();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.NextButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.StepNumberTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // InputTextBox
@@ -97,11 +99,30 @@ namespace LZ_W__algortihms
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.Next_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(100, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Step number";
+            // 
+            // StepNumberTextBox
+            // 
+            this.StepNumberTextBox.Location = new System.Drawing.Point(309, 54);
+            this.StepNumberTextBox.Name = "StepNumberTextBox";
+            this.StepNumberTextBox.ReadOnly = true;
+            this.StepNumberTextBox.Size = new System.Drawing.Size(100, 20);
+            this.StepNumberTextBox.TabIndex = 7;
+            // 
             // LZ78VisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(937, 586);
+            this.Controls.Add(this.StepNumberTextBox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.MessageLabel);
@@ -127,5 +148,7 @@ namespace LZ_W__algortihms
         private LZ78Entry newOne;
         private int cnt;
         private int currIdx;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox StepNumberTextBox;
     }
 }

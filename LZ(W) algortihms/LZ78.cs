@@ -124,8 +124,13 @@ namespace LZ_W__algortihms
 
         protected override void visualization(List<StepInfo> stepInfos, int stepNum)
         {
-            LZ78VisForm f3 = new LZ78VisForm(rawInput, entries.GetRange(0, entries.Count -1), entries[entries.Count - 1], stepInfos);
-            f3.ShowDialog();
+            if (visForm == null)
+            {
+                visForm = new LZ78VisForm(rawInput);
+            }
+
+            (visForm as LZ78VisForm).addStep(entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
+            //LZ77VisForm f2 = new LZ77VisForm(rawInput, prevPosition, windowSize, stepInfos);
         }
     }
 }

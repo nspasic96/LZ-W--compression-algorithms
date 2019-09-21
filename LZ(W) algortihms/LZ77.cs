@@ -123,8 +123,6 @@ namespace LZ_W__algortihms
             }
 
             (visForm as LZ77VisForm).addStep(prevPosition, stepInfos, stepNum);
-            //LZ77VisForm f2 = new LZ77VisForm(rawInput, prevPosition, windowSize, stepInfos);
-            visForm.Show();
         }
     }
 }
