@@ -11,9 +11,9 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    public partial class Form4 : Form
+    public partial class LZWVisForm : Form
     {
-        public Form4(string input, List<LZWEntry> entries, LZWEntry newOne, List<StepInfo> stepInfos)
+        public LZWVisForm(string input, List<LZWEntry> entries, LZWEntry newOne, List<StepInfo> stepInfos)
         {
             InitializeComponent(); int m = 5;
             int n = Math.Max(entries.Count + 2, 20);

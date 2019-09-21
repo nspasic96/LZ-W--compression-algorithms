@@ -1,6 +1,6 @@
 ﻿namespace LZ_W__algortihms
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -143,7 +143,7 @@
             this.Controls.Add(this.tlpParams);
             this.Controls.Add(this.textInput);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "LZ(W) algorithms";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -3,7 +3,7 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    partial class Form3
+    partial class LZ78VisForm
     {
         /// <summary>
         /// Required designer variable.
@@ -97,7 +97,7 @@ namespace LZ_W__algortihms
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.Next_Click);
             // 
-            // Form3
+            // LZ78VisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,8 +108,8 @@ namespace LZ_W__algortihms
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.InputTextBoxLabel);
             this.Controls.Add(this.InputTextBox);
-            this.Name = "Form3";
-            this.Text = "Form3";
+            this.Name = "LZ78VisForm";
+            this.Text = "LZ78 Algorithm Visualization";
             this.ResumeLayout(false);
             this.PerformLayout();
 

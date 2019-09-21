@@ -122,9 +122,9 @@ namespace LZ_W__algortihms
             return stepInfos;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos)
+        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
         {
-            Form3 f3 = new Form3(rawInput, entries.GetRange(0, entries.Count -1), entries[entries.Count - 1], stepInfos);
+            LZ78VisForm f3 = new LZ78VisForm(rawInput, entries.GetRange(0, entries.Count -1), entries[entries.Count - 1], stepInfos);
             f3.ShowDialog();
         }
     }

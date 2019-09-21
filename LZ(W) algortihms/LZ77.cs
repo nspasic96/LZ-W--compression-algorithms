@@ -101,20 +101,30 @@ namespace LZ_W__algortihms
 
         protected override void prepare()
         {
-            foreach(var p in parameters)
+            foreach (var p in parameters)
             {
-                if(p.ParamName == "Window size")
+                if (p.ParamName == "Window size")
                 {
-                    windowSize = Int32.Parse(p.CurrValue);
+                    bool succ = Int32.TryParse(p.CurrValue, out windowSize);
+                    if (!succ || windowSize <= 0)
+                    {
+                        throw new FormatException("Window size must be positive intger.");
+                    }
                 }
             }
             totalBitsSent = 0;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos)
+        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
         {
-            Form2 f2 = new Form2(rawInput, prevPosition, windowSize, stepInfos);
-            f2.ShowDialog();
+            if(visForm == null)
+            {
+                visForm = new LZ77VisForm(rawInput, windowSize);
+            }
+
+            (visForm as LZ77VisForm).addStep(prevPosition, stepInfos, stepNum);
+            //LZ77VisForm f2 = new LZ77VisForm(rawInput, prevPosition, windowSize, stepInfos);
+            visForm.Show();
         }
     }
 }

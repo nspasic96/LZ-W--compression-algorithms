@@ -11,9 +11,9 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    public partial class Form3 : Form
+    public partial class LZ78VisForm : Form
     {
-        public Form3(string input, List<LZ78Entry> entries, LZ78Entry newOne, List<StepInfo> stepInfos)
+        public LZ78VisForm(string input, List<LZ78Entry> entries, LZ78Entry newOne, List<StepInfo> stepInfos)
         {
             InitializeComponent();
                        

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LZ_W__algortihms
 {
-    partial class Form2
+    partial class LZ77VisForm
     {
         /// <summary>
         /// Required designer variable.
@@ -47,6 +47,8 @@ namespace LZ_W__algortihms
             this.LongestMatchLabel = new System.Windows.Forms.Label();
             this.MessageLabel = new System.Windows.Forms.Label();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
+            this.StepNumberLabel = new System.Windows.Forms.Label();
+            this.StepNumberTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // WindowLabel
@@ -143,7 +145,7 @@ namespace LZ_W__algortihms
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(75, 23);
             this.NextButton.TabIndex = 10;
-            this.NextButton.Text = "Next";
+            this.NextButton.Text = "Next step";
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
@@ -182,11 +184,30 @@ namespace LZ_W__algortihms
             this.MessageTextBox.Size = new System.Drawing.Size(638, 20);
             this.MessageTextBox.TabIndex = 14;
             // 
-            // Form2
+            // StepNumberLabel
+            // 
+            this.StepNumberLabel.AutoSize = true;
+            this.StepNumberLabel.Location = new System.Drawing.Point(68, 27);
+            this.StepNumberLabel.Name = "StepNumberLabel";
+            this.StepNumberLabel.Size = new System.Drawing.Size(67, 13);
+            this.StepNumberLabel.TabIndex = 15;
+            this.StepNumberLabel.Text = "Step number";
+            // 
+            // StepNumberTextBox
+            // 
+            this.StepNumberTextBox.Location = new System.Drawing.Point(324, 27);
+            this.StepNumberTextBox.Name = "StepNumberTextBox";
+            this.StepNumberTextBox.ReadOnly = true;
+            this.StepNumberTextBox.Size = new System.Drawing.Size(88, 20);
+            this.StepNumberTextBox.TabIndex = 16;
+            // 
+            // LZ77VisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.StepNumberTextBox);
+            this.Controls.Add(this.StepNumberLabel);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.MessageLabel);
             this.Controls.Add(this.LongestMatchLabel);
@@ -202,8 +223,8 @@ namespace LZ_W__algortihms
             this.Controls.Add(this.CurrentMatchFirstLabel);
             this.Controls.Add(this.RestLabel);
             this.Controls.Add(this.WindowLabel);
-            this.Name = "Form2";
-            this.Text = "Form2";
+            this.Name = "LZ77VisForm";
+            this.Text = "LZ77 Algorithm Visualization";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,5 +253,7 @@ namespace LZ_W__algortihms
         private List<StepInfo> infos;
         private System.Windows.Forms.Label MessageLabel;
         private System.Windows.Forms.TextBox MessageTextBox;
+        private System.Windows.Forms.Label StepNumberLabel;
+        private System.Windows.Forms.TextBox StepNumberTextBox;
     }
 }

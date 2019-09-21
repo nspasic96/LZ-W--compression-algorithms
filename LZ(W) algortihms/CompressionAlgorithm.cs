@@ -20,25 +20,40 @@ namespace LZ_W__algortihms
         protected int currPosition;
         protected int totalLen;
         protected double totalBitsSent;
+        protected Form visForm;
 
         public List<AlgorithmStatistic> Statistics { get => statistics; }
         public List<AlgorithmParameter> Parameters { get => parameters; }
 
         protected abstract List<StepInfo> nextStep();
         protected abstract void prepare();        
-        protected abstract void visualization(List<StepInfo> stepInfos);
+        protected abstract void visualization(List<StepInfo> stepInfos, int stepNum);
                 
         public void convert(string input, TextBox result, bool visualize)
         {
             //initialize buffers and auxilary variables
-            cleanAndPrepare(input);
+            try
+            {
+                cleanAndPrepare(input);
+            } catch(FormatException fe)
+            {
+                MessageBox.Show(fe.Message);
+                return;
+
+            } catch(NotSupportedException nse)
+            {
+                MessageBox.Show(nse.Message);
+                return;
+            }
 
             double totalTime = 0;
             Stopwatch sw = new Stopwatch();
-            
+
+            int stepNum = 0;
             //main part of the conversion
             while (hasNextStep())
             {
+                stepNum++;
                 //the step
                 sw.Start();
                 List<StepInfo> stepResults = nextStep();
@@ -50,13 +65,14 @@ namespace LZ_W__algortihms
 
                 if (visualize)
                 {
-                    visualization(stepResults);
+                    visualization(stepResults, stepNum);
 
                     //update output text box after every step
                     result.Text = this.output.ToString();
                     result.Refresh();
                 }
             }
+            visForm = null;
 
             //add statistics and print final output
             statistics.Add(new AlgorithmStatistic("Time elapsed(ms)", (totalTime).ToString()));

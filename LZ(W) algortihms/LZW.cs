@@ -137,16 +137,21 @@ namespace LZ_W__algortihms
                 }
                 if (p.ParamName == "Number of redundant bits")
                 {
-                    totalBits = Int32.Parse(p.CurrValue) + 1 ;
+                    bool succ = Int32.TryParse(p.CurrValue, out totalBits);
+                    if(!succ || totalBits < 0)
+                    {
+                        throw new FormatException("Number of redundant bits must be non negative integer.");
+                    }
+                    totalBits++;
                     maxValue = 1 << totalBits; // 2 ^ (totalLen)
                 }
             }
             totalCh = 0;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos)
+        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
         {
-            Form4 f4 = new Form4(rawInput, entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
+            LZWVisForm f4 = new LZWVisForm(rawInput, entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
             f4.ShowDialog();
         }
 

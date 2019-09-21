@@ -11,12 +11,12 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
 
         private CompressionAlgorithm currentAlgorithm;
         private Dictionary<string, CompressionAlgorithm> availableAlgorithms;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -49,7 +49,11 @@ namespace LZ_W__algortihms
             algCB = algorithmsList;
             visualizeCB = visualizeMenu;
             this.algCB.SelectedIndexChanged += new System.EventHandler(this.AlgCB_Change);
-                       
+
+            //defualt values in combo boxes
+            algorithmsList.SelectedIndex = 0;
+            visualizeMenu.SelectedIndex = 1;
+
         }
 
         private void addAlgorithms()

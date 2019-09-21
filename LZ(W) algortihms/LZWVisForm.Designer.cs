@@ -3,7 +3,7 @@ using static LZ_W__algortihms.Utils;
 
 namespace LZ_W__algortihms
 {
-    partial class Form4
+    partial class LZWVisForm
     {
         /// <summary>
         /// Required designer variable.
@@ -97,7 +97,7 @@ namespace LZ_W__algortihms
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
-            // Form4
+            // LZWVisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,8 +108,8 @@ namespace LZ_W__algortihms
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.InputTextBox);
             this.Controls.Add(this.InputTextBoxLabel);
-            this.Name = "Form4";
-            this.Text = "Form4";
+            this.Name = "LZWVisForm";
+            this.Text = "LZW Algorithm Visualization";
             this.ResumeLayout(false);
             this.PerformLayout();
 
