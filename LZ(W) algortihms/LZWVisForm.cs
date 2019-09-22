@@ -33,26 +33,14 @@ namespace LZ_W__algortihms
             currStepCompleted = true;
         }
 
-        private void makeLayout(int n=22, int m= 5)
-        { 
+        private void populateTableLayoutPanel(int n)
+        {
             tableLayoutPanel1.Controls.Clear();
 
-            tableLayoutPanel1.ColumnCount = m;
-            tableLayoutPanel1.RowCount = n;
+            int m = 5;
 
-            tableLayoutPanel1.ColumnStyles.Clear();
-            tableLayoutPanel1.RowStyles.Clear();
-
-            for (int i = 0; i < m; i++)
-            {
-                tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100 / m));
-            }
-
-            for (int j = 0; j < n; j++)
-            {
-                tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
-            }
-
+            Utils.splitTlp(this.tableLayoutPanel1, n, m);
+            
             Label l1 = new Label();
             l1.Text = "Index";
             Label l2 = new Label();
@@ -71,7 +59,7 @@ namespace LZ_W__algortihms
             tableLayoutPanel1.Controls.Add(l5, 4, 0);
 
             int k = 1;
-            foreach (var entry in entriesStack[currStep-1])
+            foreach (var entry in entriesStack[currStep - 1])
             {
                 Label l11 = new Label();
                 l11.Text = entry.DictIdx.ToString();
@@ -92,6 +80,11 @@ namespace LZ_W__algortihms
 
                 k++;
             }
+        }
+
+        private void makeLayout(int n)
+        {
+            populateTableLayoutPanel(n);
             InputTextBox.SelectionStart = stepInfosStack[currStep-1][0].StartPos;
             InputTextBox.SelectionLength = 100;
             InputTextBox.SelectionColor = Utils.c1;
@@ -106,7 +99,7 @@ namespace LZ_W__algortihms
                 if (currStep <= stepInfosStack.Count)
                 {
                     unsetPrevStep();
-                    makeLayout();
+                    makeLayout(Math.Max(entriesStack[currStep-1].Count+3, 20));
                     this.StepNumberTextBox.Text = this.currStep.ToString();
                     this.StepNumberTextBox.Refresh();
 
@@ -126,12 +119,11 @@ namespace LZ_W__algortihms
             {
                 update();
             }
-
         }
 
         private void unsetPrevStep()
         {
-            InputTextBox.SelectionColor = Color.Black;
+            InputTextBox.SelectionColor = Color.Gray;
             MessageTextBox.Text = "";
         }
 
@@ -141,6 +133,13 @@ namespace LZ_W__algortihms
             buttonText = "Next";
             if (infos.Count == currIdx)
             {
+                currStepCompleted = true;
+                buttonText = "Next step";
+                if (currStep == stepInfosStack.Count)
+                {
+                    buttonText = "Close form";
+                }
+
                 if (infos[infos.Count - 1].DoAdd)
                 {
                     Label l11 = new Label();
@@ -162,21 +161,18 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l15, 4, cnt + 1);
                 }
-                else
+            }
+            else if (currIdx<infos.Count)
+            {
+                if(infos.Count == currIdx + 1 && !infos[infos.Count - 1].DoAdd)
                 {
                     currStepCompleted = true;
-                    NextButton_Click(this, null);
-                    return;
+                    buttonText = "Next step";
+                    if (currStep == stepInfosStack.Count)
+                    {
+                        buttonText = "Close form";
+                    }
                 }
-            }
-            else if (infos.Count == currIdx - 1)
-            {
-                currStepCompleted = true;
-                NextButton_Click(this, null);
-                return;
-            }
-            else
-            {
 
                 StepInfo si = infos[currIdx];
                 if (currIdx < infos.Count - 1)
@@ -195,15 +191,13 @@ namespace LZ_W__algortihms
                     InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
                     InputTextBox.SelectionLength = infos[infos.Count - 1].MatchLen;
                     InputTextBox.SelectionColor = Color.Red;
-                    this.Refresh();
                 }
                 MessageTextBox.Text = si.StepMessage;
 
-                this.Refresh();
             }
 
             this.NextButton.Text = buttonText;
-            this.NextButton.Refresh();
+            this.Refresh();
 
         }
 

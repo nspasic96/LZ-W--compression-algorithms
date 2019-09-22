@@ -122,7 +122,7 @@ namespace LZ_W__algortihms
             return stepInfos;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
+        protected override void visualization(List<StepInfo> stepInfos)
         {
             if (visForm == null)
             {

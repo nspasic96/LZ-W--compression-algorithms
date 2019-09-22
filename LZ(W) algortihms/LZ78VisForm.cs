@@ -31,11 +31,9 @@ namespace LZ_W__algortihms
             InputTextBox.Text = input;
             currStepCompleted = true;
         }
-        
-        private void makeLayout(int n=22, int m=4)
+
+        private void populateTableLayoutPanel(int n)
         {
-            Utils.splitTlp(tableLayoutPanel1, n, m);
-            
             Label l1 = new Label();
             l1.Text = "Step";
             Label l2 = new Label();
@@ -51,7 +49,7 @@ namespace LZ_W__algortihms
             tableLayoutPanel1.Controls.Add(l4, 3, 0);
 
             int k = 1;
-            foreach(var entry in entriesStack[currStep-1])
+            foreach (var entry in entriesStack[currStep - 1])
             {
                 Label l11 = new Label();
                 l11.Text = entry.Step.ToString();
@@ -69,10 +67,16 @@ namespace LZ_W__algortihms
 
                 k++;
             }
+        }
+        
+        private void makeLayout(int n)
+        {
+            int m = 4;
+            Utils.splitTlp(tableLayoutPanel1, n, m);            
+            
             InputTextBox.SelectionStart = stepInfosStack[currStep-1][0].StartPos;
             InputTextBox.SelectionLength = 100;
             InputTextBox.SelectionColor = Utils.c1;
-
         }
 
         private void Next_Click(object sender, EventArgs e)
@@ -84,7 +88,7 @@ namespace LZ_W__algortihms
                 if (currStep <= stepInfosStack.Count)
                 {
                     unsetPrevStep();
-                    makeLayout();
+                    makeLayout(Math.Max(entriesStack[currStep - 1].Count + 3, 20));
                     this.StepNumberTextBox.Text = this.currStep.ToString();
                     this.StepNumberTextBox.Refresh();
 
@@ -139,11 +143,7 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);
                 }
             }
-            else if (infos.Count == currIdx - 1)
-            {
-                return;
-            }
-            else
+            else if (currIdx < infos.Count)
             {                
                 StepInfo si = infos[currIdx];
                 if (currIdx < infos.Count - 1)
@@ -162,15 +162,12 @@ namespace LZ_W__algortihms
                     InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
                     InputTextBox.SelectionLength = infos[infos.Count - 1].MatchLen;
                     InputTextBox.SelectionColor = Utils.c1;
-                    this.Refresh();
                 }
                 MessageTextBox.Text = si.StepMessage;
-
-                this.Refresh();
             }
 
             this.NextButton.Text = buttonText;
-            this.NextButton.Refresh();
+            this.Refresh();
         }
 
         public void addStep(List<LZ78Entry> entries, LZ78Entry newOne, List<StepInfo> stepInfos)
@@ -182,7 +179,7 @@ namespace LZ_W__algortihms
 
         private void unsetPrevStep()
         {
-            InputTextBox.SelectionColor = Color.Black;
+            InputTextBox.SelectionColor = Color.Gray;
             MessageTextBox.Text = "";
         }
     }

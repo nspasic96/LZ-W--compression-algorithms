@@ -27,13 +27,17 @@ namespace LZ_W__algortihms
 
         protected abstract List<StepInfo> nextStep();
         protected abstract void prepare();        
-        protected abstract void visualization(List<StepInfo> stepInfos, int stepNum);
+        protected abstract void visualization(List<StepInfo> stepInfos);
                 
         public void convert(string input, TextBox result, bool visualize)
         {
             //initialize buffers and auxilary variables
             try
             {
+                if(input.Length == 0)
+                {
+                    throw new FormatException("Input string must not be empty.");
+                }
                 cleanAndPrepare(input);
             } catch(FormatException fe)
             {
@@ -65,7 +69,7 @@ namespace LZ_W__algortihms
 
                 if (visualize)
                 {
-                    visualization(stepResults, stepNum);
+                    visualization(stepResults);
 
                     //update output text box after every step
                     result.Text = this.output.ToString();

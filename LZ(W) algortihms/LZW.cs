@@ -153,7 +153,7 @@ namespace LZ_W__algortihms
             totalCh = 0;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
+        protected override void visualization(List<StepInfo> stepInfos)
         {
             if (visForm == null)
             {

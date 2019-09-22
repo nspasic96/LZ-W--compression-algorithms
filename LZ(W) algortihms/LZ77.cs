@@ -115,14 +115,14 @@ namespace LZ_W__algortihms
             totalBitsSent = 0;
         }
 
-        protected override void visualization(List<StepInfo> stepInfos, int stepNum)
+        protected override void visualization(List<StepInfo> stepInfos)
         {
             if(visForm == null)
             {
                 visForm = new LZ77VisForm(rawInput, windowSize);
             }
 
-            (visForm as LZ77VisForm).addStep(prevPosition, stepInfos, stepNum);
+            (visForm as LZ77VisForm).addStep(prevPosition, stepInfos);
         }
     }
 }

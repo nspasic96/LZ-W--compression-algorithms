@@ -137,7 +137,7 @@ namespace LZ_W__algortihms
             LongestMatchTextBox.Text = "";
         }
 
-        public void addStep(int position, List<StepInfo> stepInfos, int stepNum)
+        public void addStep(int position, List<StepInfo> stepInfos)
         {
             stepInfosStack.Add(stepInfos);
             positionsStack.Add(position);
