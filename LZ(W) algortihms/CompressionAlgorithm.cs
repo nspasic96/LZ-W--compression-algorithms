@@ -72,7 +72,8 @@ namespace LZ_W__algortihms
                     result.Refresh();
                 }
             }
-            visForm.Show();
+            if(visualize)
+                visForm.Show();
             visForm = null;
 
             //add statistics and print final output

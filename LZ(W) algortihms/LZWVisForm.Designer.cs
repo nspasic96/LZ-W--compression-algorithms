@@ -37,6 +37,8 @@ namespace LZ_W__algortihms
             this.MessageLabel = new System.Windows.Forms.Label();
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.NextButton = new System.Windows.Forms.Button();
+            this.StepNumberLabel = new System.Windows.Forms.Label();
+            this.StepNumberTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // InputTextBoxLabel
@@ -97,11 +99,30 @@ namespace LZ_W__algortihms
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
+            // StepNumberLabel
+            // 
+            this.StepNumberLabel.AutoSize = true;
+            this.StepNumberLabel.Location = new System.Drawing.Point(90, 18);
+            this.StepNumberLabel.Name = "StepNumberLabel";
+            this.StepNumberLabel.Size = new System.Drawing.Size(67, 13);
+            this.StepNumberLabel.TabIndex = 8;
+            this.StepNumberLabel.Text = "Step number";
+            // 
+            // StepNumberTextBox
+            // 
+            this.StepNumberTextBox.Location = new System.Drawing.Point(238, 18);
+            this.StepNumberTextBox.Name = "StepNumberTextBox";
+            this.StepNumberTextBox.ReadOnly = true;
+            this.StepNumberTextBox.Size = new System.Drawing.Size(100, 20);
+            this.StepNumberTextBox.TabIndex = 9;
+            // 
             // LZWVisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 584);
+            this.Controls.Add(this.StepNumberTextBox);
+            this.Controls.Add(this.StepNumberLabel);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.MessageLabel);
@@ -127,5 +148,7 @@ namespace LZ_W__algortihms
         private LZWEntry newOne;
         private int currIdx;
         private int cnt;
+        private System.Windows.Forms.Label StepNumberLabel;
+        private System.Windows.Forms.TextBox StepNumberTextBox;
     }
 }

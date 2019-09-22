@@ -13,6 +13,7 @@ namespace LZ_W__algortihms
         private int maxValue;
         private int totalBits;
         private int totalCh;
+        private bool newOneAdded;
 
         private LZWEntry zeroEntry;
         private LZWEntry oneEntry;
@@ -55,6 +56,7 @@ namespace LZ_W__algortihms
             string stepMessage = "";
             int move = 0;
             bool doAdd = false;
+            newOneAdded = false;
 
             foreach (var entry in entries)
             {
@@ -82,7 +84,7 @@ namespace LZ_W__algortihms
                         stepMessage = "Match found at index " + entry.DictIdx;
 
                         //if dictionary was full (and onFullDictReset is true) it will be restarted 'after' this step and '|' is added to output to denote it
-                        if (handleNewEntry(current, next, o, current + next))
+                        if (handleNewEntry(current, next, o, current + next, out newOneAdded))
                         {
                             stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so it will be restarted after this step.";
                             output.Append(o + " | ");
@@ -151,22 +153,31 @@ namespace LZ_W__algortihms
 
         protected override void visualization(List<StepInfo> stepInfos, int stepNum)
         {
-            LZWVisForm f4 = new LZWVisForm(rawInput, entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
-            f4.ShowDialog();
+            if (visForm == null)
+            {
+                visForm = new LZWVisForm(rawInput);
+            }
+            if(newOneAdded)
+                (visForm as LZWVisForm).addStep(entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
+            else
+                (visForm as LZWVisForm).addStep(entries, entries[entries.Count - 1], stepInfos);
+
         }
 
         //returns true when dictionary was restarted
-        private bool handleNewEntry(string current, string next, string output, string addToDict)
+        private bool handleNewEntry(string current, string next, string output, string addToDict, out bool newOneAdded)
         {
             //if there is free space in dictionary, just add new etnry
             if (maxValue > entries.Count)
             {
                 LZWEntry newOne = new LZWEntry(entries.Count, current, next, output, addToDict);
                 entries.Add(newOne);
+                newOneAdded = true;
                 return false;
             }
             else
             {
+                newOneAdded = false;
                 //reset dictionary if onFullDictReset is set to true and add default entries
                 if (onFullDictReset)
                 {
