@@ -17,6 +17,7 @@ namespace LZ_W__algortihms
 
         private LZWEntry zeroEntry;
         private LZWEntry oneEntry;
+        List<LZWEntry> prevEntries;
 
         public LZW()
         {
@@ -43,12 +44,14 @@ namespace LZ_W__algortihms
         {
             //counter of the total number of characters in the output (with extended length)
             totalCh++;
-            
-            List<StepInfo> stepInfos = new List<StepInfo>();
+
+            prevEntries = entries.ConvertAll(entry => new LZWEntry(entry.DictIdx, entry.Current, entry.Next, entry.Output, entry.AddToDict));
 
             //iterating in reverse order because that is the most efficient way
             entries.Reverse();
 
+            List<StepInfo> stepInfos = new List<StepInfo>();
+            
             //auxiliary variables
             string current = "";
             string next = "";
@@ -80,7 +83,6 @@ namespace LZ_W__algortihms
                         //reverse back so that added entry is at the correct posistion 
                         entries.Reverse();
 
-
                         stepMessage = "Match found at index " + entry.DictIdx;
 
                         //if dictionary was full (and onFullDictReset is true) it will be restarted 'after' this step and '|' is added to output to denote it
@@ -91,7 +93,7 @@ namespace LZ_W__algortihms
                         } else
                         {
                             //if dictionary is full but onFullDictReset is false
-                            if (maxValue == entries.Count)
+                            if (maxValue == entries.Count && !onFullDictReset)
                             {
                                 stepMessage = "Match found at index " + entry.DictIdx + ". Dictionary is full so no further words will be added.";
                             }
@@ -122,7 +124,7 @@ namespace LZ_W__algortihms
 
             totalBitsSent = totalCh * totalBits;
             currPosition += move;
-
+            
             return stepInfos;
         }
 
@@ -157,10 +159,11 @@ namespace LZ_W__algortihms
             {
                 visForm = new LZWVisForm(rawInput);
             }
-            if(newOneAdded)
+            
+            if (newOneAdded)
                 (visForm as LZWVisForm).addStep(entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
             else
-                (visForm as LZWVisForm).addStep(entries, entries[entries.Count - 1], stepInfos);
+                (visForm as LZWVisForm).addStep(prevEntries, prevEntries[prevEntries.Count - 1], stepInfos);
 
         }
 
