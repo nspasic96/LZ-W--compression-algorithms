@@ -37,92 +37,63 @@ namespace LZ_W__algortihms
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (currStepCompleted)
+            if (this.currStepCompleted)
             {
                 this.currIdx = -1;
-                currStep++;
-                if(currStep <= stepInfosStack.Count)
+                ++this.currStep;
+                if (this.currStep <= this.stepInfosStack.Count)
                 {
                     this.StepNumberTextBox.Text = this.currStep.ToString();
                     this.StepNumberTextBox.Refresh();
-
-                    currStepCompleted = false;
-                    infos = stepInfosStack[currStep-1];
-                    position = positionsStack[currStep-1];
-
-                    unsetPrevStep();
-
-                    RestTextBox.SelectionStart = position;
-                    RestTextBox.SelectionLength = 1000;
-                    RestTextBox.SelectionColor = Utils.c1;
-
-                    int start = Math.Max(position - windowSize, 0);
-                    WindowTextBox.SelectionStart = start;
-                    WindowTextBox.SelectionLength = start >= windowSize ? windowSize : position;
-                    WindowTextBox.SelectionColor = Utils.c1;
-
-                   update();
+                    this.currStepCompleted = false;
+                    this.infos = this.stepInfosStack[this.currStep - 1];
+                    this.position = this.positionsStack[this.currStep - 1];
+                    this.unsetPrevStep();
+                    this.prepareForCurrentStep();
+                    this.update();
                 }
                 else
-                {
                     this.Close();
-                }
             }
             else
-            {
-                update();                
-            }
+                this.update();
         }
 
         public void update()
         {
-            currIdx++;
-            buttonText = "Next";
-            if (currIdx == infos.Count-1)
+            ++this.currIdx;
+            this.populateWithCurrentStepInfo();
+            this.updateButtons();
+        }
+
+        private void populateWithCurrentStepInfo()
+        {
+            Utils.StepInfo info = this.infos[this.currIdx];
+            this.CurrentMatchFirstTextBox.Text = this.input;
+            this.CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
+            this.CurrentMatchFirstTextBox.SelectionLength = info.MatchLen;
+            this.CurrentMatchFirstTextBox.SelectionColor = Utils.c1;
+            if (info.MatchLen == 0 && this.currIdx > 0)
             {
-                currStepCompleted = true;
-                buttonText = "Next step";
-                if(currStep == stepInfosStack.Count)
-                {
-                    buttonText = "Close form";
-                }
+                this.CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
+                this.CurrentMatchFirstTextBox.SelectionLength = 1;
+                this.CurrentMatchFirstTextBox.SelectionColor = Utils.c3;
             }
-            this.NextButton.Text = buttonText;
-            this.NextButton.Refresh();
-
-            StepInfo info = infos[currIdx];
-
-            CurrentMatchFirstTextBox.Text = input;
-            CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
-            CurrentMatchFirstTextBox.SelectionLength = info.MatchLen;
-            CurrentMatchFirstTextBox.SelectionColor = Utils.c1;
-
-            if (info.MatchLen == 0 && currIdx > 0)
+            this.CurrentMatchSecondTextBox.Text = this.input;
+            this.CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
+            this.CurrentMatchSecondTextBox.SelectionLength = info.MatchLen;
+            this.CurrentMatchSecondTextBox.SelectionColor = Utils.c1;
+            this.MessageTextBox.Text = info.StepMessage;
+            if (info.MatchLen == 0 && this.currIdx > 0)
             {
-                CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
-                CurrentMatchFirstTextBox.SelectionLength = 1;
-                CurrentMatchFirstTextBox.SelectionColor = Utils.c3;
+                this.CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
+                this.CurrentMatchSecondTextBox.SelectionLength = 1;
+                this.CurrentMatchSecondTextBox.SelectionColor = Utils.c3;
             }
-
-            CurrentMatchSecondTextBox.Text = input;
-            CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
-            CurrentMatchSecondTextBox.SelectionLength = info.MatchLen;
-            CurrentMatchSecondTextBox.SelectionColor = Utils.c1;
-
-            MessageTextBox.Text = info.StepMessage;
-
-            if (info.MatchLen == 0 && currIdx > 0)
-            {
-                CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
-                CurrentMatchSecondTextBox.SelectionLength = 1;
-                CurrentMatchSecondTextBox.SelectionColor = Utils.c3;
-            }
-
-            if (info.NewBest)
-            {
-                CurrentOutputTextBox.Text = info.Output;
-                LongestMatchTextBox.Text = info.MatchLen.ToString();
-            }
+            if (!info.NewBest)
+                return;
+            this.CurrentOutputTextBox.Text = info.Output;
+            this.LongestMatchTextBox.Text = info.MatchLen.ToString();
         }
 
         private void unsetPrevStep()
@@ -141,6 +112,63 @@ namespace LZ_W__algortihms
         {
             stepInfosStack.Add(stepInfos);
             positionsStack.Add(position);
+        }
+
+        
+        private void prepareForCurrentStep()
+        {
+            this.RestTextBox.SelectionStart = this.position;
+            this.RestTextBox.SelectionLength = 1000;
+            this.RestTextBox.SelectionColor = Utils.c1;
+            int num = Math.Max(this.position - this.windowSize, 0);
+            this.WindowTextBox.SelectionStart = num;
+            this.WindowTextBox.SelectionLength = num >= this.windowSize ? this.windowSize : this.position;
+            this.WindowTextBox.SelectionColor = Utils.c1;
+        }
+
+
+        private void updateButtons()
+        {
+            string str1 = "Next";
+            if (this.currIdx == this.infos.Count - 1)
+            {
+                this.currStepCompleted = true;
+                str1 = "Next step";
+                if (this.currStep == this.stepInfosStack.Count)
+                    str1 = "Close form";
+            }
+            else
+                this.currStepCompleted = false;
+            string str2 = "Back";
+            if (this.currIdx == 0)
+                str2 = "Previous step";
+            if (this.currStep == 1 && this.currIdx == 0)
+            {
+                str2 = "Back";
+                this.BackButton.Enabled = false;
+            }
+            else
+                this.BackButton.Enabled = true;
+            this.BackButton.Text = str2;
+            this.NextButton.Text = str1;
+            this.Refresh();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            this.unsetPrevStep();
+            if (this.currIdx == 0)
+            {
+                --this.currStep;
+                this.StepNumberTextBox.Text = this.currStep.ToString();
+                this.infos = this.stepInfosStack[this.currStep - 1];
+                this.position = this.positionsStack[this.currStep - 1];
+                this.currIdx = this.infos.Count;
+            }
+            --this.currIdx;
+            this.prepareForCurrentStep();
+            this.populateWithCurrentStepInfo();
+            this.updateButtons();
         }
     }
 }

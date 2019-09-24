@@ -49,6 +49,7 @@ namespace LZ_W__algortihms
             this.MessageTextBox = new System.Windows.Forms.TextBox();
             this.StepNumberLabel = new System.Windows.Forms.Label();
             this.StepNumberTextBox = new System.Windows.Forms.TextBox();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WindowLabel
@@ -141,11 +142,11 @@ namespace LZ_W__algortihms
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(370, 305);
+            this.NextButton.Location = new System.Drawing.Point(503, 314);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(75, 23);
+            this.NextButton.Size = new System.Drawing.Size(145, 23);
             this.NextButton.TabIndex = 10;
-            this.NextButton.Text = "Next step";
+            this.NextButton.Text = "Start visualization";
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
@@ -201,11 +202,22 @@ namespace LZ_W__algortihms
             this.StepNumberTextBox.Size = new System.Drawing.Size(88, 20);
             this.StepNumberTextBox.TabIndex = 16;
             // 
+            // BackButton
+            // 
+            this.BackButton.Location = new System.Drawing.Point(188, 314);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(129, 23);
+            this.BackButton.TabIndex = 17;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // LZ77VisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.StepNumberTextBox);
             this.Controls.Add(this.StepNumberLabel);
             this.Controls.Add(this.MessageTextBox);
@@ -255,5 +267,6 @@ namespace LZ_W__algortihms
         private System.Windows.Forms.TextBox MessageTextBox;
         private System.Windows.Forms.Label StepNumberLabel;
         private System.Windows.Forms.TextBox StepNumberTextBox;
+        private System.Windows.Forms.Button BackButton;
     }
 }
