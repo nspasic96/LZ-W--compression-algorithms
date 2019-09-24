@@ -17,7 +17,7 @@ namespace LZ_W__algortihms
         private List<int> positionsStack;
         private int currStep;
         private bool currStepCompleted;
-        private string buttonText;
+        private string buttonText = "NANANANANANANA";
         public LZ77VisForm(string input, int windowSize)
         {
             InitializeComponent();
