@@ -39,6 +39,7 @@ namespace LZ_W__algortihms
             this.NextButton = new System.Windows.Forms.Button();
             this.StepNumberLabel = new System.Windows.Forms.Label();
             this.StepNumberTextBox = new System.Windows.Forms.TextBox();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // InputTextBoxLabel
@@ -86,16 +87,16 @@ namespace LZ_W__algortihms
             this.MessageTextBox.Enabled = false;
             this.MessageTextBox.Location = new System.Drawing.Point(196, 535);
             this.MessageTextBox.Name = "MessageTextBox";
-            this.MessageTextBox.Size = new System.Drawing.Size(575, 20);
+            this.MessageTextBox.Size = new System.Drawing.Size(542, 20);
             this.MessageTextBox.TabIndex = 6;
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(861, 532);
+            this.NextButton.Location = new System.Drawing.Point(875, 532);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(75, 23);
+            this.NextButton.Size = new System.Drawing.Size(106, 23);
             this.NextButton.TabIndex = 7;
-            this.NextButton.Text = "Next";
+            this.NextButton.Text = "Start visualization";
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
@@ -116,11 +117,23 @@ namespace LZ_W__algortihms
             this.StepNumberTextBox.Size = new System.Drawing.Size(100, 20);
             this.StepNumberTextBox.TabIndex = 9;
             // 
+            // BackButton
+            // 
+            this.BackButton.Enabled = false;
+            this.BackButton.Location = new System.Drawing.Point(762, 532);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(107, 23);
+            this.BackButton.TabIndex = 10;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // LZWVisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 584);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.StepNumberTextBox);
             this.Controls.Add(this.StepNumberLabel);
             this.Controls.Add(this.NextButton);
@@ -150,5 +163,6 @@ namespace LZ_W__algortihms
         private int cnt;
         private System.Windows.Forms.Label StepNumberLabel;
         private System.Windows.Forms.TextBox StepNumberTextBox;
+        private System.Windows.Forms.Button BackButton;
     }
 }

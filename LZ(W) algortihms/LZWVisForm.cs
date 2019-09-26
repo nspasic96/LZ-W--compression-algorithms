@@ -19,7 +19,7 @@ namespace LZ_W__algortihms
         private List<List<StepInfo>> stepInfosStack;
         private int currStep;
         private bool currStepCompleted;
-        private string buttonText;
+        private int lastColored;
 
         public LZWVisForm(string input)
         {
@@ -35,12 +35,7 @@ namespace LZ_W__algortihms
 
         private void populateTableLayoutPanel(int n)
         {
-            tableLayoutPanel1.Controls.Clear();
 
-            int m = 5;
-
-            Utils.splitTlp(this.tableLayoutPanel1, n, m);
-            
             Label l1 = new Label();
             l1.Text = "Index";
             Label l2 = new Label();
@@ -84,8 +79,12 @@ namespace LZ_W__algortihms
 
         private void makeLayout(int n)
         {
+            tableLayoutPanel1.Controls.Clear();
+            int m = 5;
+            Utils.splitTlp(this.tableLayoutPanel1, n, m);
+
             populateTableLayoutPanel(n);
-            InputTextBox.SelectionStart = stepInfosStack[currStep-1][0].StartPos;
+            InputTextBox.SelectionStart = stepInfosStack[currStep - 1][0].StartPos;
             InputTextBox.SelectionLength = 100;
             InputTextBox.SelectionColor = Utils.c1;
         }
@@ -99,7 +98,6 @@ namespace LZ_W__algortihms
                 if (currStep <= stepInfosStack.Count)
                 {
                     unsetPrevStep();
-                    makeLayout(Math.Max(entriesStack[currStep-1].Count+3, 20));
                     this.StepNumberTextBox.Text = this.currStep.ToString();
                     this.StepNumberTextBox.Refresh();
 
@@ -123,23 +121,37 @@ namespace LZ_W__algortihms
 
         private void unsetPrevStep()
         {
+            lastColored = -1;
             InputTextBox.SelectionColor = Color.Gray;
             MessageTextBox.Text = "";
+            makeLayout(Math.Max(entriesStack[currStep - 1].Count + 3, 20));
         }
 
         private void update()
         {
             currIdx++;
-            buttonText = "Next";
+            this.populateWithCurrentStepInfo();
+            this.updateButtons();
+        }
+
+        public void addStep(List<LZWEntry> entries, LZWEntry newOne, List<StepInfo> stepInfos)
+        {
+            entriesStack.Add(entries);
+            newOneStack.Add(newOne);
+            stepInfosStack.Add(stepInfos);
+        }
+        private void populateWithCurrentStepInfo()
+        {
+            if (lastColored != -1)
+            {
+                var a = tableLayoutPanel1.GetControlFromPosition(4, lastColored);
+                var b = tableLayoutPanel1.GetControlFromPosition(0, lastColored);
+
+                a.BackColor = this.BackColor;
+                b.BackColor = this.BackColor;
+            }
             if (infos.Count == currIdx)
             {
-                currStepCompleted = true;
-                buttonText = "Next step";
-                if (currStep == stepInfosStack.Count)
-                {
-                    buttonText = "Close form";
-                }
-
                 if (infos[infos.Count - 1].DoAdd)
                 {
                     Label l11 = new Label();
@@ -162,30 +174,27 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l15, 4, cnt + 1);
                 }
             }
-            else if (currIdx<infos.Count)
+            else if (currIdx < infos.Count)
             {
-                if(infos.Count == currIdx + 1 && !infos[infos.Count - 1].DoAdd)
+                if (infos.Count == currIdx + 1 && !infos[infos.Count - 1].DoAdd)
                 {
                     currStepCompleted = true;
-                    buttonText = "Next step";
-                    if (currStep == stepInfosStack.Count)
-                    {
-                        buttonText = "Close form";
-                    }
                 }
 
                 StepInfo si = infos[currIdx];
                 if (currIdx < infos.Count - 1)
                 {
-                    var x = tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1);
-                    x.BackColor = Utils.c3;
+                    Label l = tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1) as Label;
+                    l.BackColor = Utils.c3;
+                    lastColored = si.PrefixIdx + 1;
                 }
                 else
                 {
                     if (si.PrefixIdx != -1)
                     {
-                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx+1).BackColor = Utils.c2;
-                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx+1).BackColor = Utils.c1;
+                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Utils.c2;
+                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Utils.c1;
+                        lastColored = si.PrefixIdx + 1;
                     }
                     InputTextBox.Text = InputTextBox.Text;
                     InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
@@ -193,19 +202,71 @@ namespace LZ_W__algortihms
                     InputTextBox.SelectionColor = Color.Red;
                 }
                 MessageTextBox.Text = si.StepMessage;
-
             }
-
-            this.NextButton.Text = buttonText;
-            this.Refresh();
-
         }
 
-        public void addStep(List<LZWEntry> entries, LZWEntry newOne, List<StepInfo> stepInfos)
+        private void prepareForCurrentStep()
         {
-            entriesStack.Add(entries);
-            newOneStack.Add(newOne);
-            stepInfosStack.Add(stepInfos);
+            InputTextBox.SelectionStart = stepInfosStack[currStep - 1][0].StartPos;
+            InputTextBox.SelectionLength = 100;
+            InputTextBox.SelectionColor = Utils.c1;
+
+            for (int i = 0; i < tableLayoutPanel1.Controls.Count / 5; i++)
+            {
+                var a = tableLayoutPanel1.GetControlFromPosition(3, i);
+                var b = tableLayoutPanel1.GetControlFromPosition(0, i);
+                if (a != null)
+                {
+                    a.BackColor = this.BackColor;
+                    b.BackColor = this.BackColor;
+                }
+            }
+        }
+        private void updateButtons()
+        {
+            string str1 = "Next";
+            if (this.currIdx == this.infos.Count - 1)
+            {
+                this.currStepCompleted = true;
+                str1 = "Next step";
+                if (this.currStep == this.stepInfosStack.Count)
+                    str1 = "Close form";
+            }
+            else
+                this.currStepCompleted = false;
+            string str2 = "Back";
+            if (this.currIdx == 0)
+                str2 = "Previous step";
+            if (this.currStep == 1 && this.currIdx == 0)
+            {
+                str2 = "Back";
+                this.BackButton.Enabled = false;
+            }
+            else
+                this.BackButton.Enabled = true;
+            this.BackButton.Text = str2;
+            this.NextButton.Text = str1;
+            this.Refresh();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            if (this.currIdx == 0)
+            {
+                --this.currStep;
+                this.StepNumberTextBox.Text = this.currStep.ToString();
+                this.infos = this.stepInfosStack[this.currStep - 1];
+                this.newOne = newOneStack[this.currStep - 1];
+                this.cnt = this.entriesStack[currStep - 1].Count;
+                this.currIdx = this.infos.Count;
+            }
+
+            this.unsetPrevStep();
+            --this.currIdx;
+
+            this.prepareForCurrentStep();
+            this.populateWithCurrentStepInfo();
+            this.updateButtons();
         }
     }
 }
