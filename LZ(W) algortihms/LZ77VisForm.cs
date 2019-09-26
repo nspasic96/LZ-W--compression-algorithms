@@ -122,7 +122,7 @@ namespace LZ_W__algortihms
             this.RestTextBox.SelectionColor = Utils.c1;
             int num = Math.Max(this.position - this.windowSize, 0);
             this.WindowTextBox.SelectionStart = num;
-            this.WindowTextBox.SelectionLength = num >= this.windowSize ? this.windowSize : this.position;
+            this.WindowTextBox.SelectionLength = num >= this.windowSize ? this.windowSize : this.position - num;
             this.WindowTextBox.SelectionColor = Utils.c1;
         }
 

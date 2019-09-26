@@ -204,6 +204,7 @@ namespace LZ_W__algortihms
             // 
             // BackButton
             // 
+            this.BackButton.Enabled = false;
             this.BackButton.Location = new System.Drawing.Point(188, 314);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(129, 23);
