@@ -14,7 +14,6 @@ namespace LZ_W__algortihms
     {
         protected List<AlgorithmStatistic> statistics;
         protected List<AlgorithmParameter> parameters;
-        protected bool[] input;
         protected string rawInput;
         protected StringBuilder output;
         protected int currPosition;
@@ -28,6 +27,7 @@ namespace LZ_W__algortihms
         protected abstract List<StepInfo> nextStep();
         protected abstract void prepare();        
         protected abstract void visualization(List<StepInfo> stepInfos);
+        protected virtual void checkInput() {}
                 
         public void convert(string input, TextBox result, bool visualize)
         {
@@ -38,7 +38,9 @@ namespace LZ_W__algortihms
                 {
                     throw new FormatException("Input string must not be empty.");
                 }
+
                 cleanAndPrepare(input);
+                checkInput();
             } catch(FormatException fe)
             {
                 MessageBox.Show(fe.Message);
@@ -114,11 +116,7 @@ namespace LZ_W__algortihms
         {
             this.rawInput = input;
             totalLen = input.Length;
-
-            //input must consist of 0s and 1s only
-            bool[] inp = convertToBits(input);
-            this.input = inp;
-
+            
             //position of the first character of the substring that hasn't been matched yet
             currPosition = 0;
 
@@ -129,27 +127,5 @@ namespace LZ_W__algortihms
             prepare();
         }
 
-        private bool[] convertToBits(string input)
-        {
-            bool[] res = new bool[input.Length];
-
-            char[] chars = input.ToCharArray();
-            int i = 0;
-            foreach(var c in chars)
-            {
-                if(c == '1')
-                {
-                    res[i] = true;
-                } else if (c == '0')
-                {
-                    res[i] = false;
-                } else
-                {
-                    throw new NotSupportedException("Input must consist of zeros and ones");
-                }
-                i++;
-            }
-            return res;
-        }
     }
 }

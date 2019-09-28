@@ -14,9 +14,8 @@ namespace LZ_W__algortihms
         private int totalBits;
         private int totalCh;
         private bool newOneAdded;
+        private char[] inputAlphabet;
 
-        private LZWEntry zeroEntry;
-        private LZWEntry oneEntry;
         List<LZWEntry> prevEntries;
 
         public LZW()
@@ -30,12 +29,14 @@ namespace LZ_W__algortihms
             AlgorithmParameter onDictFull = new AlgorithmParameter("On full dictionary", onDictFullValues[0], ParameterType.List, onDictFullValues);
             p.Add(onDictFull);
 
+            AlgorithmParameter inputChars = new AlgorithmParameter("Input alphabet", "01");
+            p.Add(inputChars);
+
             AlgorithmParameter redundantBits = new AlgorithmParameter("Number of redundant bits", "3");
             p.Add(redundantBits);
+
             this.parameters = p;
 
-            zeroEntry = new LZWEntry(0, "", "", "", "0");
-            oneEntry = new LZWEntry(1, "", "", "", "1");
             totalCh = 0;
 
         }
@@ -130,14 +131,15 @@ namespace LZ_W__algortihms
 
         protected override void prepare()
         {
-            entries = new List<LZWEntry>();
-            entries.Add(zeroEntry);
-            entries.Add(oneEntry);
             foreach (var p in parameters)
             {
                 if (p.ParamName == "On full dictionary")
                 {
                     onFullDictReset = (p.CurrValue == "Reset");
+                }
+                if(p.ParamName == "Input alphabet")
+                {
+                    inputAlphabet = p.CurrValue.ToCharArray();
                 }
                 if (p.ParamName == "Number of redundant bits")
                 {
@@ -146,13 +148,50 @@ namespace LZ_W__algortihms
                     {
                         throw new FormatException("Number of redundant bits must be non negative integer.");
                     }
-                    totalBits++;
+
+                    int origMessageBits = howManyBits();
+
+                    totalBits += origMessageBits;
                     maxValue = 1 << totalBits; // 2 ^ (totalLen)
                 }
             }
+            entries = new List<LZWEntry>();
+            addDefaultEntries();
             totalCh = 0;
         }
 
+        private int howManyBits()
+        {
+            int res = 0, i=inputAlphabet.Length;
+            while(i != 0)
+            {
+                i /= 2;
+                res++;
+            }
+
+            return res;
+        }
+
+        private void addDefaultEntries()
+        {
+            for(int i=0; i< inputAlphabet.Length; i++)
+            {
+                entries.Add(new LZWEntry(i, "", "", "", inputAlphabet[i].ToString()));
+            }
+        }
+        protected override void checkInput()
+        {
+
+            foreach(char inp in rawInput.ToString())
+            {
+                bool found = false;
+                foreach (char l in inputAlphabet)
+                    if (l == inp)
+                        found = true;
+                if (!found)
+                    throw new FormatException("Input string contains character '" + inp + "' which is not in input alphabet.");
+            }
+        }
         protected override void visualization(List<StepInfo> stepInfos)
         {
             if (visForm == null)
@@ -185,8 +224,7 @@ namespace LZ_W__algortihms
                 if (onFullDictReset)
                 {
                     entries = new List<LZWEntry>();
-                    entries.Add(zeroEntry);
-                    entries.Add(oneEntry);
+                    addDefaultEntries();
                     return true;
                 }
                 return false;

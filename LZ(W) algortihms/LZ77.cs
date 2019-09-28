@@ -27,7 +27,7 @@ namespace LZ_W__algortihms
 
             //default match - only one character
             string defaultStepMessage = currPosition == 0 ? "First character never matches because window does not exist." : "Default 'match' is of length 0 meaning that new character is encountered"; 
-            StepInfo s = new StepInfo(Math.Min(currPosition, windowSize), 0, currPosition, defaultStepMessage, true, "<0," + (input[currPosition] ? 1 : 0).ToString() + ">");
+            StepInfo s = new StepInfo(Math.Min(currPosition, windowSize), 0, currPosition, defaultStepMessage, true, "<0," + rawInput[currPosition] + ">");
             infos.Add(s);
             
             int longest = 0;
@@ -37,7 +37,7 @@ namespace LZ_W__algortihms
             for (int start=Math.Max(0,currPosition-windowSize); start<currPosition ; start++)
             {
                 int len = 0;
-                while(currPosition + len < totalLen && input[start+len] == input[currPosition + len])
+                while(currPosition + len < totalLen && rawInput[start+len] == rawInput[currPosition + len])
                 {
                     len++;
                 }
@@ -88,7 +88,7 @@ namespace LZ_W__algortihms
 
             } else
             {
-                output.Append("<0," + (input[currPosition++] ? 1 : 0).ToString() + ">");
+                output.Append("<0," + rawInput[currPosition++].ToString() + ">");
 
                 totalBitsSent += 1;
             }

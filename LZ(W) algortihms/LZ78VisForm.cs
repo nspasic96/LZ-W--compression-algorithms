@@ -133,7 +133,7 @@ namespace LZ_W__algortihms
                 b.BackColor = this.BackColor;
             }
 
-            if (infos.Count == currIdx)
+            if (currIdx == infos.Count-1)
             {
                 if (infos[infos.Count - 1].DoAdd)
                 {
@@ -153,8 +153,9 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l13, 2, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);
                 }
+                MessageTextBox.Text = infos[infos.Count - 1].StepMessage;
             }
-            else if (currIdx < infos.Count)
+            else if (currIdx < infos.Count-1)
             {
                 StepInfo si = infos[currIdx];
                 if (currIdx < infos.Count - 1)

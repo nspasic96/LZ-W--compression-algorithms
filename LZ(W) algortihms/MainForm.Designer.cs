@@ -37,6 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textOutput = new System.Windows.Forms.TextBox();
             this.startButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textInput
@@ -57,7 +58,7 @@
             this.tlpParams.RowCount = 2;
             this.tlpParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpParams.Size = new System.Drawing.Size(348, 185);
+            this.tlpParams.Size = new System.Drawing.Size(546, 185);
             this.tlpParams.TabIndex = 2;
             // 
             // tlpStats
@@ -70,17 +71,17 @@
             this.tlpStats.RowCount = 2;
             this.tlpStats.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpStats.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpStats.Size = new System.Drawing.Size(348, 174);
+            this.tlpStats.Size = new System.Drawing.Size(546, 174);
             this.tlpStats.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(597, 9);
+            this.label1.Location = new System.Drawing.Point(472, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Parameters";
+            this.label1.Text = "Algorithm";
             // 
             // label2
             // 
@@ -128,11 +129,21 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // Form1
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(658, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Visualize";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(998, 515);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.textOutput);
             this.Controls.Add(this.label4);
@@ -142,7 +153,7 @@
             this.Controls.Add(this.tlpStats);
             this.Controls.Add(this.tlpParams);
             this.Controls.Add(this.textInput);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "LZ(W) algorithms";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -162,6 +173,7 @@
         private System.Windows.Forms.ComboBox algCB;
         private System.Windows.Forms.ComboBox visualizeCB;
         private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Label label5;
     }
 }
 
