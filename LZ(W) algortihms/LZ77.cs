@@ -9,12 +9,19 @@ namespace LZ_W__algortihms
     {
         private int windowSize;
         private int prevPosition;
+        private int logNumChars;
     
         public LZ77()
         {
             var p = new List<AlgorithmParameter>();
+            
             AlgorithmParameter windowSize = new AlgorithmParameter("Window size", "3");
             p.Add(windowSize);
+
+            AlgorithmParameter numChars = new AlgorithmParameter("Number of different characters", "2");
+            p.Add(numChars);
+
+
             this.parameters = p;
         }
 
@@ -90,7 +97,7 @@ namespace LZ_W__algortihms
             {
                 output.Append("<0," + rawInput[currPosition++].ToString() + ">");
 
-                totalBitsSent += 1;
+                totalBitsSent += logNumChars;
             }
 
             //this one is for first bit that tells us whether any match was found
@@ -110,6 +117,15 @@ namespace LZ_W__algortihms
                     {
                         throw new FormatException("Window size must be positive intger.");
                     }
+                }
+                if (p.ParamName == "Number of different characters")
+                {
+                    bool succ = Int32.TryParse(p.CurrValue, out logNumChars);
+                    if (!succ || logNumChars <= 0)
+                    {
+                        throw new FormatException("Number of different characters must be positive intger.");
+                    }
+                    logNumChars = Convert.ToInt32(Math.Ceiling(Math.Log(logNumChars, 2)));
                 }
             }
             totalBitsSent = 0;

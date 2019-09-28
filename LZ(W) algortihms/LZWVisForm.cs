@@ -150,7 +150,10 @@ namespace LZ_W__algortihms
                 a.BackColor = this.BackColor;
                 b.BackColor = this.BackColor;
             }
-            if (infos.Count == currIdx)
+
+            StepInfo si = infos[currIdx];
+
+            if (currIdx == infos.Count -1)
             {
                 if (infos[infos.Count - 1].DoAdd)
                 {
@@ -173,36 +176,26 @@ namespace LZ_W__algortihms
                     tableLayoutPanel1.Controls.Add(l14, 3, cnt + 1);
                     tableLayoutPanel1.Controls.Add(l15, 4, cnt + 1);
                 }
-            }
-            else if (currIdx < infos.Count)
-            {
-                if (infos.Count == currIdx + 1 && !infos[infos.Count - 1].DoAdd)
-                {
-                    currStepCompleted = true;
-                }
 
-                StepInfo si = infos[currIdx];
-                if (currIdx < infos.Count - 1)
+                if (si.PrefixIdx != -1)
                 {
-                    Label l = tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1) as Label;
-                    l.BackColor = Utils.c3;
+                    tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Utils.c2;
+                    tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Utils.c1;
                     lastColored = si.PrefixIdx + 1;
                 }
-                else
-                {
-                    if (si.PrefixIdx != -1)
-                    {
-                        tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1).BackColor = Utils.c2;
-                        tableLayoutPanel1.GetControlFromPosition(0, si.PrefixIdx + 1).BackColor = Utils.c1;
-                        lastColored = si.PrefixIdx + 1;
-                    }
-                    InputTextBox.Text = InputTextBox.Text;
-                    InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
-                    InputTextBox.SelectionLength = infos[infos.Count - 1].MatchLen;
-                    InputTextBox.SelectionColor = Color.Red;
-                }
+                InputTextBox.Text = InputTextBox.Text;
+                InputTextBox.SelectionStart = infos[infos.Count - 1].StartPos;
+                InputTextBox.SelectionLength = infos[infos.Count - 1].MatchLen;
+                InputTextBox.SelectionColor = Color.Red;
                 MessageTextBox.Text = si.StepMessage;
+
+            } else
+            {
+                Label l = tableLayoutPanel1.GetControlFromPosition(4, si.PrefixIdx + 1) as Label;
+                l.BackColor = Utils.c3;
+                lastColored = si.PrefixIdx + 1;
             }
+            MessageTextBox.Text = si.StepMessage;
         }
 
         private void prepareForCurrentStep()

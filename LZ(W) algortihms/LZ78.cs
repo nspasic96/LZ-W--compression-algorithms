@@ -9,14 +9,31 @@ namespace LZ_W__algortihms
     {
 
         private List<LZ78Entry> entries;
+        private int logNumChars;
         public LZ78()
         {
             var p = new List<AlgorithmParameter>();
+
+            AlgorithmParameter numChars = new AlgorithmParameter("Number of different characters", "2");
+            p.Add(numChars);
 
             this.parameters = p;
         }
         protected override void prepare()
         {
+            foreach (var p in parameters)
+            {
+                if (p.ParamName == "Number of different characters")
+                {
+                    bool succ = Int32.TryParse(p.CurrValue, out logNumChars);
+                    if (!succ || logNumChars <= 0)
+                    {
+                        throw new FormatException("Number of different characters must be positive intger.");
+                    }
+                    logNumChars = Convert.ToInt32(Math.Ceiling(Math.Log(logNumChars, 2)));
+                }
+            }
+
             totalBitsSent = 0;
             entries = new List<LZ78Entry>();
         }
@@ -67,7 +84,7 @@ namespace LZ_W__algortihms
                     } else
                     {
                         //this bit is last bit in o (the character we add in output that indicates next character after matched word)
-                        totalBitsSent += 1;
+                        totalBitsSent += logNumChars;
 
                         newWord = rawInput.Substring(currPosition, entry.Word.Length + 1);
                         o = "(" + entry.Step + "," + rawInput.Substring(currPosition + entry.Word.Length, 1) + ") ";
@@ -105,8 +122,8 @@ namespace LZ_W__algortihms
 
                 output.Append(o);
 
-                //sending just 2 bits (0 and current character)
-                totalBitsSent += 2;
+                //sending 1 + logNumChars bits (0 and current character)
+                totalBitsSent += 1 + logNumChars;
 
                 newEntry = new LZ78Entry(newWord, o, step, pos);
 
@@ -130,7 +147,6 @@ namespace LZ_W__algortihms
             }
 
             (visForm as LZ78VisForm).addStep(entries.GetRange(0, entries.Count - 1), entries[entries.Count - 1], stepInfos);
-            //LZ77VisForm f2 = new LZ77VisForm(rawInput, prevPosition, windowSize, stepInfos);
         }
     }
 }
