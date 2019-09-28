@@ -188,9 +188,8 @@ namespace LZ_W__algortihms
             this.CurrentOutputTextBox.Location = new System.Drawing.Point(170, 425);
             this.CurrentOutputTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CurrentOutputTextBox.Name = "CurrentOutputTextBox";
-            this.CurrentOutputTextBox.Size = new System.Drawing.Size(41, 13);
+            this.CurrentOutputTextBox.Size = new System.Drawing.Size(0, 13);
             this.CurrentOutputTextBox.TabIndex = 18;
-            this.CurrentOutputTextBox.Text = "label1";
             // 
             // LongestMatchTextBox
             // 
@@ -200,9 +199,8 @@ namespace LZ_W__algortihms
             this.LongestMatchTextBox.Location = new System.Drawing.Point(170, 393);
             this.LongestMatchTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LongestMatchTextBox.Name = "LongestMatchTextBox";
-            this.LongestMatchTextBox.Size = new System.Drawing.Size(48, 13);
+            this.LongestMatchTextBox.Size = new System.Drawing.Size(0, 13);
             this.LongestMatchTextBox.TabIndex = 19;
-            this.LongestMatchTextBox.Text = "label18";
             // 
             // MessageTextBox
             // 
@@ -212,7 +210,6 @@ namespace LZ_W__algortihms
             this.MessageTextBox.Name = "MessageTextBox";
             this.MessageTextBox.Size = new System.Drawing.Size(341, 86);
             this.MessageTextBox.TabIndex = 20;
-            this.MessageTextBox.Text = "label1";
             // 
             // StepNumberTextBox
             // 
@@ -221,9 +218,8 @@ namespace LZ_W__algortihms
             this.StepNumberTextBox.Location = new System.Drawing.Point(170, 360);
             this.StepNumberTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StepNumberTextBox.Name = "StepNumberTextBox";
-            this.StepNumberTextBox.Size = new System.Drawing.Size(41, 13);
+            this.StepNumberTextBox.Size = new System.Drawing.Size(0, 13);
             this.StepNumberTextBox.TabIndex = 21;
-            this.StepNumberTextBox.Text = "label1";
             // 
             // LZ77VisForm
             // 

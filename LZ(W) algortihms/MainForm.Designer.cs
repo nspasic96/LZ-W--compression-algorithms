@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textInput = new System.Windows.Forms.TextBox();
             this.tlpParams = new System.Windows.Forms.TableLayoutPanel();
             this.tlpStats = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,17 +35,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textOutput = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textOutput = new System.Windows.Forms.RichTextBox();
+            this.textInput = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // textInput
-            // 
-            this.textInput.Location = new System.Drawing.Point(15, 29);
-            this.textInput.Multiline = true;
-            this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(399, 206);
-            this.textInput.TabIndex = 0;
             // 
             // tlpParams
             // 
@@ -125,13 +117,6 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Visualize";
             // 
-            // textOutput
-            // 
-            this.textOutput.Location = new System.Drawing.Point(12, 294);
-            this.textOutput.Name = "textOutput";
-            this.textOutput.Size = new System.Drawing.Size(402, 167);
-            this.textOutput.TabIndex = 10;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -142,13 +127,31 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Output";
             // 
+            // textOutput
+            // 
+            this.textOutput.Location = new System.Drawing.Point(15, 294);
+            this.textOutput.Name = "textOutput";
+            this.textOutput.ReadOnly = true;
+            this.textOutput.Size = new System.Drawing.Size(399, 156);
+            this.textOutput.TabIndex = 12;
+            this.textOutput.Text = "";
+            // 
+            // textInput
+            // 
+            this.textInput.Location = new System.Drawing.Point(15, 29);
+            this.textInput.Name = "textInput";
+            this.textInput.Size = new System.Drawing.Size(399, 207);
+            this.textInput.TabIndex = 13;
+            this.textInput.Text = "";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 515);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textInput);
             this.Controls.Add(this.textOutput);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label3);
@@ -156,7 +159,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tlpStats);
             this.Controls.Add(this.tlpParams);
-            this.Controls.Add(this.textInput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "MainForm";
             this.Text = "LZ(W) algorithms";
@@ -166,8 +168,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textInput;
         private System.Windows.Forms.TableLayoutPanel tlpParams;
         private System.Windows.Forms.TableLayoutPanel tlpStats;
         private System.Windows.Forms.Label label1;
@@ -177,8 +177,9 @@
         private System.Windows.Forms.ComboBox visualizeCB;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label textOutput;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RichTextBox textOutput;
+        private System.Windows.Forms.RichTextBox textInput;
     }
 }
 

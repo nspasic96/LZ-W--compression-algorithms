@@ -9,7 +9,6 @@ namespace LZ_W__algortihms
     {
         private int windowSize;
         private int prevPosition;
-        private int logNumChars;
     
         public LZ77()
         {

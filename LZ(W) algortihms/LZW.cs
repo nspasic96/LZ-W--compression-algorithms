@@ -38,7 +38,6 @@ namespace LZ_W__algortihms
             this.parameters = p;
 
             totalCh = 0;
-
         }
 
         protected override List<StepInfo> nextStep()
@@ -149,9 +148,9 @@ namespace LZ_W__algortihms
                         throw new FormatException("Number of redundant bits must be non negative integer.");
                     }
 
-                    int origMessageBits = howManyBits();
+                    logNumChars = howManyBits();
 
-                    totalBits += origMessageBits;
+                    totalBits += logNumChars;
                     maxValue = 1 << totalBits; // 2 ^ (totalLen)
                 }
             }

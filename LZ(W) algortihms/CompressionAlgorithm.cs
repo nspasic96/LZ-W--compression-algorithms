@@ -20,6 +20,7 @@ namespace LZ_W__algortihms
         protected int totalLen;
         protected double totalBitsSent;
         protected Form visForm;
+        protected int logNumChars;
 
         public List<AlgorithmStatistic> Statistics { get => statistics; }
         public List<AlgorithmParameter> Parameters { get => parameters; }
@@ -29,7 +30,7 @@ namespace LZ_W__algortihms
         protected abstract void visualization(List<StepInfo> stepInfos);
         protected virtual void checkInput() {}
                 
-        public void convert(string input, Label result, bool visualize)
+        public void convert(string input, RichTextBox result, bool visualize)
         {
             //initialize buffers and auxilary variables
             try
@@ -84,7 +85,7 @@ namespace LZ_W__algortihms
 
             //add statistics and print final output
             statistics.Add(new AlgorithmStatistic("Time elapsed(ms)", (totalTime).ToString()));
-            statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen).ToString()));
+            statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen * logNumChars).ToString()));
             result.Text = this.output.ToString();
             result.Refresh();
         }

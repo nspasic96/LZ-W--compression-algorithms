@@ -9,7 +9,6 @@ namespace LZ_W__algortihms
     {
 
         private List<LZ78Entry> entries;
-        private int logNumChars;
         public LZ78()
         {
             var p = new List<AlgorithmParameter>();

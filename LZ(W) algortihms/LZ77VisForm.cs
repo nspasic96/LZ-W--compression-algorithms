@@ -142,7 +142,7 @@ namespace LZ_W__algortihms
         private void prepareForCurrentStep()
         {
             this.RestTextBox.SelectionStart = this.position;
-            this.RestTextBox.SelectionLength = 1000;
+            this.RestTextBox.SelectionLength = input.Length;
             this.RestTextBox.SelectionColor = Utils.c1;
             int num = Math.Max(this.position - this.windowSize, 0);
             this.WindowTextBox.SelectionStart = num;
