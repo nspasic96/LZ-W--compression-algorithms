@@ -29,7 +29,7 @@ namespace LZ_W__algortihms
         protected abstract void visualization(List<StepInfo> stepInfos);
         protected virtual void checkInput() {}
                 
-        public void convert(string input, TextBox result, bool visualize)
+        public void convert(string input, Label result, bool visualize)
         {
             //initialize buffers and auxilary variables
             try

@@ -99,6 +99,7 @@ namespace LZ_W__algortihms
             foreach(var par in currentAlgorithm.Parameters)
             {
                 Label l = new Label();
+                l.AutoSize = true;
                 l.Text = par.ParamName;
                 if (par.PT == ParameterType.Text)
                 {

@@ -17,7 +17,6 @@ namespace LZ_W__algortihms
         private List<int> positionsStack;
         private int currStep;
         private bool currStepCompleted;
-        private string buttonText = "NANANANANANANA";
         public LZ77VisForm(string input, int windowSize)
         {
             InitializeComponent();
@@ -69,31 +68,56 @@ namespace LZ_W__algortihms
         private void populateWithCurrentStepInfo()
         {
             Utils.StepInfo info = this.infos[this.currIdx];
+
             this.CurrentMatchFirstTextBox.Text = this.input;
-            this.CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
-            this.CurrentMatchFirstTextBox.SelectionLength = info.MatchLen;
-            this.CurrentMatchFirstTextBox.SelectionColor = Utils.c1;
+            this.CurrentMatchSecondTextBox.Text = this.input;
+
+            this.CurrentMatchFirstTextBox.SelectionStart = 0;
+            this.CurrentMatchFirstTextBox.SelectionLength = input.Length;
+            this.CurrentMatchFirstTextBox.SelectionColor = Color.Black;
+
+            this.CurrentMatchSecondTextBox.SelectionStart = 0;
+            this.CurrentMatchSecondTextBox.SelectionLength = input.Length;
+            this.CurrentMatchSecondTextBox.SelectionColor = Color.Black;
+
             if (info.MatchLen == 0 && this.currIdx > 0)
             {
                 this.CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
                 this.CurrentMatchFirstTextBox.SelectionLength = 1;
                 this.CurrentMatchFirstTextBox.SelectionColor = Utils.c3;
-            }
-            this.CurrentMatchSecondTextBox.Text = this.input;
-            this.CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
-            this.CurrentMatchSecondTextBox.SelectionLength = info.MatchLen;
-            this.CurrentMatchSecondTextBox.SelectionColor = Utils.c1;
-            this.MessageTextBox.Text = info.StepMessage;
-            if (info.MatchLen == 0 && this.currIdx > 0)
-            {
+
                 this.CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
                 this.CurrentMatchSecondTextBox.SelectionLength = 1;
                 this.CurrentMatchSecondTextBox.SelectionColor = Utils.c3;
             }
-            if (!info.NewBest)
-                return;
-            this.CurrentOutputTextBox.Text = info.Output;
-            this.LongestMatchTextBox.Text = info.MatchLen.ToString();
+            else
+            {
+                this.CurrentMatchFirstTextBox.SelectionStart = info.StartPos - info.PosBack;
+                this.CurrentMatchFirstTextBox.SelectionLength = info.MatchLen;
+                this.CurrentMatchFirstTextBox.SelectionColor = Utils.c1;
+
+                this.CurrentMatchSecondTextBox.SelectionStart = info.StartPos;
+                this.CurrentMatchSecondTextBox.SelectionLength = info.MatchLen;
+                this.CurrentMatchSecondTextBox.SelectionColor = Utils.c1;
+
+            }
+            this.MessageTextBox.Text = info.StepMessage;
+
+            if (info.NewBest)
+            {
+                this.CurrentOutputTextBox.Text = info.Output;
+                this.LongestMatchTextBox.Text = info.MatchLen.ToString();
+            }
+            else
+            {
+                int curr = this.currIdx-1;
+                while (!infos[curr].NewBest)
+                {
+                    curr--;
+                }
+                this.CurrentOutputTextBox.Text = infos[curr].Output;
+                this.LongestMatchTextBox.Text = infos[curr].MatchLen.ToString();
+            }
         }
 
         private void unsetPrevStep()

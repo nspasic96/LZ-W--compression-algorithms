@@ -54,10 +54,9 @@ namespace LZ_W__algortihms
             // WindowLabel
             // 
             this.WindowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WindowLabel.Location = new System.Drawing.Point(69, 98);
-            this.WindowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.WindowLabel.Location = new System.Drawing.Point(52, 80);
             this.WindowLabel.Name = "WindowLabel";
-            this.WindowLabel.Size = new System.Drawing.Size(113, 45);
+            this.WindowLabel.Size = new System.Drawing.Size(85, 37);
             this.WindowLabel.TabIndex = 0;
             this.WindowLabel.Text = "Window";
             this.WindowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -65,10 +64,9 @@ namespace LZ_W__algortihms
             // RestLabel
             // 
             this.RestLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RestLabel.Location = new System.Drawing.Point(69, 30);
-            this.RestLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.RestLabel.Location = new System.Drawing.Point(52, 24);
             this.RestLabel.Name = "RestLabel";
-            this.RestLabel.Size = new System.Drawing.Size(126, 41);
+            this.RestLabel.Size = new System.Drawing.Size(94, 33);
             this.RestLabel.TabIndex = 1;
             this.RestLabel.Text = "Rest ";
             this.RestLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -76,10 +74,9 @@ namespace LZ_W__algortihms
             // CurrentMatchFirstLabel
             // 
             this.CurrentMatchFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentMatchFirstLabel.Location = new System.Drawing.Point(69, 182);
-            this.CurrentMatchFirstLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentMatchFirstLabel.Location = new System.Drawing.Point(52, 148);
             this.CurrentMatchFirstLabel.Name = "CurrentMatchFirstLabel";
-            this.CurrentMatchFirstLabel.Size = new System.Drawing.Size(219, 41);
+            this.CurrentMatchFirstLabel.Size = new System.Drawing.Size(164, 33);
             this.CurrentMatchFirstLabel.TabIndex = 2;
             this.CurrentMatchFirstLabel.Text = "Match starting in window";
             this.CurrentMatchFirstLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,10 +84,9 @@ namespace LZ_W__algortihms
             // CurrentMatchSecondLabel
             // 
             this.CurrentMatchSecondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentMatchSecondLabel.Location = new System.Drawing.Point(69, 269);
-            this.CurrentMatchSecondLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentMatchSecondLabel.Location = new System.Drawing.Point(52, 219);
             this.CurrentMatchSecondLabel.Name = "CurrentMatchSecondLabel";
-            this.CurrentMatchSecondLabel.Size = new System.Drawing.Size(200, 42);
+            this.CurrentMatchSecondLabel.Size = new System.Drawing.Size(150, 34);
             this.CurrentMatchSecondLabel.TabIndex = 3;
             this.CurrentMatchSecondLabel.Text = "Match starting in rest";
             this.CurrentMatchSecondLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -98,54 +94,49 @@ namespace LZ_W__algortihms
             // RestTextBox
             // 
             this.RestTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RestTextBox.Location = new System.Drawing.Point(314, 30);
-            this.RestTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RestTextBox.Location = new System.Drawing.Point(236, 24);
             this.RestTextBox.Name = "RestTextBox";
             this.RestTextBox.ReadOnly = true;
-            this.RestTextBox.Size = new System.Drawing.Size(455, 48);
+            this.RestTextBox.Size = new System.Drawing.Size(342, 40);
             this.RestTextBox.TabIndex = 4;
             this.RestTextBox.Text = "";
             // 
             // WindowTextBox
             // 
             this.WindowTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WindowTextBox.Location = new System.Drawing.Point(314, 98);
-            this.WindowTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.WindowTextBox.Location = new System.Drawing.Point(236, 80);
             this.WindowTextBox.Name = "WindowTextBox";
             this.WindowTextBox.ReadOnly = true;
-            this.WindowTextBox.Size = new System.Drawing.Size(455, 45);
+            this.WindowTextBox.Size = new System.Drawing.Size(342, 37);
             this.WindowTextBox.TabIndex = 5;
             this.WindowTextBox.Text = "";
             // 
             // CurrentMatchFirstTextBox
             // 
             this.CurrentMatchFirstTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentMatchFirstTextBox.Location = new System.Drawing.Point(314, 179);
-            this.CurrentMatchFirstTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CurrentMatchFirstTextBox.Location = new System.Drawing.Point(236, 145);
             this.CurrentMatchFirstTextBox.Name = "CurrentMatchFirstTextBox";
             this.CurrentMatchFirstTextBox.ReadOnly = true;
-            this.CurrentMatchFirstTextBox.Size = new System.Drawing.Size(455, 44);
+            this.CurrentMatchFirstTextBox.Size = new System.Drawing.Size(342, 36);
             this.CurrentMatchFirstTextBox.TabIndex = 6;
             this.CurrentMatchFirstTextBox.Text = "";
             // 
             // CurrentMatchSecondTextBox
             // 
             this.CurrentMatchSecondTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentMatchSecondTextBox.Location = new System.Drawing.Point(314, 266);
-            this.CurrentMatchSecondTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CurrentMatchSecondTextBox.Location = new System.Drawing.Point(236, 216);
             this.CurrentMatchSecondTextBox.Name = "CurrentMatchSecondTextBox";
             this.CurrentMatchSecondTextBox.ReadOnly = true;
-            this.CurrentMatchSecondTextBox.Size = new System.Drawing.Size(455, 45);
+            this.CurrentMatchSecondTextBox.Size = new System.Drawing.Size(342, 37);
             this.CurrentMatchSecondTextBox.TabIndex = 7;
             this.CurrentMatchSecondTextBox.Text = "";
             // 
             // NextButton
             // 
             this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NextButton.Location = new System.Drawing.Point(513, 609);
-            this.NextButton.Margin = new System.Windows.Forms.Padding(4);
+            this.NextButton.Location = new System.Drawing.Point(385, 495);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(209, 54);
+            this.NextButton.Size = new System.Drawing.Size(157, 44);
             this.NextButton.TabIndex = 10;
             this.NextButton.Text = "Start visualization";
             this.NextButton.UseVisualStyleBackColor = true;
@@ -154,30 +145,27 @@ namespace LZ_W__algortihms
             // CurrentOutputLabel
             // 
             this.CurrentOutputLabel.AutoSize = true;
-            this.CurrentOutputLabel.Location = new System.Drawing.Point(81, 484);
-            this.CurrentOutputLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentOutputLabel.Location = new System.Drawing.Point(61, 393);
             this.CurrentOutputLabel.Name = "CurrentOutputLabel";
-            this.CurrentOutputLabel.Size = new System.Drawing.Size(99, 17);
+            this.CurrentOutputLabel.Size = new System.Drawing.Size(74, 13);
             this.CurrentOutputLabel.TabIndex = 11;
             this.CurrentOutputLabel.Text = "Current output";
             // 
             // LongestMatchLabel
             // 
             this.LongestMatchLabel.AutoSize = true;
-            this.LongestMatchLabel.Location = new System.Drawing.Point(81, 523);
-            this.LongestMatchLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LongestMatchLabel.Location = new System.Drawing.Point(61, 425);
             this.LongestMatchLabel.Name = "LongestMatchLabel";
-            this.LongestMatchLabel.Size = new System.Drawing.Size(101, 17);
+            this.LongestMatchLabel.Size = new System.Drawing.Size(77, 13);
             this.LongestMatchLabel.TabIndex = 12;
             this.LongestMatchLabel.Text = "Longest match";
             // 
             // StepNumberLabel
             // 
             this.StepNumberLabel.AutoSize = true;
-            this.StepNumberLabel.Location = new System.Drawing.Point(81, 443);
-            this.StepNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StepNumberLabel.Location = new System.Drawing.Point(61, 360);
             this.StepNumberLabel.Name = "StepNumberLabel";
-            this.StepNumberLabel.Size = new System.Drawing.Size(89, 17);
+            this.StepNumberLabel.Size = new System.Drawing.Size(67, 13);
             this.StepNumberLabel.TabIndex = 15;
             this.StepNumberLabel.Text = "Step number";
             // 
@@ -185,10 +173,9 @@ namespace LZ_W__algortihms
             // 
             this.BackButton.Enabled = false;
             this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackButton.Location = new System.Drawing.Point(219, 609);
-            this.BackButton.Margin = new System.Windows.Forms.Padding(4);
+            this.BackButton.Location = new System.Drawing.Point(164, 495);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(190, 54);
+            this.BackButton.Size = new System.Drawing.Size(142, 44);
             this.BackButton.TabIndex = 17;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
@@ -198,9 +185,10 @@ namespace LZ_W__algortihms
             // 
             this.CurrentOutputTextBox.AutoSize = true;
             this.CurrentOutputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentOutputTextBox.Location = new System.Drawing.Point(227, 523);
+            this.CurrentOutputTextBox.Location = new System.Drawing.Point(170, 425);
+            this.CurrentOutputTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CurrentOutputTextBox.Name = "CurrentOutputTextBox";
-            this.CurrentOutputTextBox.Size = new System.Drawing.Size(52, 17);
+            this.CurrentOutputTextBox.Size = new System.Drawing.Size(41, 13);
             this.CurrentOutputTextBox.TabIndex = 18;
             this.CurrentOutputTextBox.Text = "label1";
             // 
@@ -209,18 +197,20 @@ namespace LZ_W__algortihms
             this.LongestMatchTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
             this.LongestMatchTextBox.AutoSize = true;
             this.LongestMatchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LongestMatchTextBox.Location = new System.Drawing.Point(227, 484);
+            this.LongestMatchTextBox.Location = new System.Drawing.Point(170, 393);
+            this.LongestMatchTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LongestMatchTextBox.Name = "LongestMatchTextBox";
-            this.LongestMatchTextBox.Size = new System.Drawing.Size(61, 17);
+            this.LongestMatchTextBox.Size = new System.Drawing.Size(48, 13);
             this.LongestMatchTextBox.TabIndex = 19;
             this.LongestMatchTextBox.Text = "label18";
             // 
             // MessageTextBox
             // 
             this.MessageTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageTextBox.Location = new System.Drawing.Point(314, 354);
+            this.MessageTextBox.Location = new System.Drawing.Point(236, 288);
+            this.MessageTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MessageTextBox.Name = "MessageTextBox";
-            this.MessageTextBox.Size = new System.Drawing.Size(455, 106);
+            this.MessageTextBox.Size = new System.Drawing.Size(341, 86);
             this.MessageTextBox.TabIndex = 20;
             this.MessageTextBox.Text = "label1";
             // 
@@ -228,17 +218,18 @@ namespace LZ_W__algortihms
             // 
             this.StepNumberTextBox.AutoSize = true;
             this.StepNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepNumberTextBox.Location = new System.Drawing.Point(227, 443);
+            this.StepNumberTextBox.Location = new System.Drawing.Point(170, 360);
+            this.StepNumberTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StepNumberTextBox.Name = "StepNumberTextBox";
-            this.StepNumberTextBox.Size = new System.Drawing.Size(52, 17);
+            this.StepNumberTextBox.Size = new System.Drawing.Size(41, 13);
             this.StepNumberTextBox.TabIndex = 21;
             this.StepNumberTextBox.Text = "label1";
             // 
             // LZ77VisForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 714);
+            this.ClientSize = new System.Drawing.Size(674, 580);
             this.Controls.Add(this.StepNumberTextBox);
             this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.LongestMatchTextBox);
@@ -256,7 +247,7 @@ namespace LZ_W__algortihms
             this.Controls.Add(this.CurrentMatchFirstLabel);
             this.Controls.Add(this.RestLabel);
             this.Controls.Add(this.WindowLabel);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "LZ77VisForm";
             this.Text = "LZ77 Algorithm Visualization";
             this.ResumeLayout(false);
