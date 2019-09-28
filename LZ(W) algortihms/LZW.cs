@@ -176,7 +176,17 @@ namespace LZ_W__algortihms
         {
             for(int i=0; i< inputAlphabet.Length; i++)
             {
-                entries.Add(new LZWEntry(i, "", "", "", inputAlphabet[i].ToString()));
+                bool found = false;
+                foreach(var entry in entries)
+                {
+                    if (inputAlphabet[i] == entry.AddToDict.ToCharArray()[0])
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) 
+                    entries.Add(new LZWEntry(i, "", "", "", inputAlphabet[i].ToString()));
             }
         }
         protected override void checkInput()
