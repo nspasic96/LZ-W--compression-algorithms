@@ -33,26 +33,15 @@ namespace LZ_W__algortihms
         public void convert(string input, RichTextBox result, bool visualize)
         {
             //initialize buffers and auxilary variables
-            try
+            
+            if(input.Length == 0)
             {
-                if(input.Length == 0)
-                {
-                    throw new FormatException("Input string must not be empty.");
-                }
-
-                cleanAndPrepare(input);
-                checkInput();
-            } catch(FormatException fe)
-            {
-                MessageBox.Show(fe.Message);
-                return;
-
-            } catch(NotSupportedException nse)
-            {
-                MessageBox.Show(nse.Message);
-                return;
+                throw new FormatException("Input string must not be empty.");
             }
 
+            cleanAndPrepare(input);
+            checkInput();
+            
             double totalTime = 0;
             Stopwatch sw = new Stopwatch();
 

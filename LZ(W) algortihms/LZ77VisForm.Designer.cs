@@ -145,7 +145,7 @@ namespace LZ_W__algortihms
             // CurrentOutputLabel
             // 
             this.CurrentOutputLabel.AutoSize = true;
-            this.CurrentOutputLabel.Location = new System.Drawing.Point(61, 393);
+            this.CurrentOutputLabel.Location = new System.Drawing.Point(52, 427);
             this.CurrentOutputLabel.Name = "CurrentOutputLabel";
             this.CurrentOutputLabel.Size = new System.Drawing.Size(74, 13);
             this.CurrentOutputLabel.TabIndex = 11;
@@ -154,7 +154,7 @@ namespace LZ_W__algortihms
             // LongestMatchLabel
             // 
             this.LongestMatchLabel.AutoSize = true;
-            this.LongestMatchLabel.Location = new System.Drawing.Point(61, 425);
+            this.LongestMatchLabel.Location = new System.Drawing.Point(52, 459);
             this.LongestMatchLabel.Name = "LongestMatchLabel";
             this.LongestMatchLabel.Size = new System.Drawing.Size(77, 13);
             this.LongestMatchLabel.TabIndex = 12;
@@ -163,7 +163,7 @@ namespace LZ_W__algortihms
             // StepNumberLabel
             // 
             this.StepNumberLabel.AutoSize = true;
-            this.StepNumberLabel.Location = new System.Drawing.Point(61, 360);
+            this.StepNumberLabel.Location = new System.Drawing.Point(52, 394);
             this.StepNumberLabel.Name = "StepNumberLabel";
             this.StepNumberLabel.Size = new System.Drawing.Size(67, 13);
             this.StepNumberLabel.TabIndex = 15;
@@ -185,7 +185,7 @@ namespace LZ_W__algortihms
             // 
             this.CurrentOutputTextBox.AutoSize = true;
             this.CurrentOutputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentOutputTextBox.Location = new System.Drawing.Point(170, 425);
+            this.CurrentOutputTextBox.Location = new System.Drawing.Point(161, 459);
             this.CurrentOutputTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CurrentOutputTextBox.Name = "CurrentOutputTextBox";
             this.CurrentOutputTextBox.Size = new System.Drawing.Size(0, 13);
@@ -196,7 +196,7 @@ namespace LZ_W__algortihms
             this.LongestMatchTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
             this.LongestMatchTextBox.AutoSize = true;
             this.LongestMatchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LongestMatchTextBox.Location = new System.Drawing.Point(170, 393);
+            this.LongestMatchTextBox.Location = new System.Drawing.Point(161, 427);
             this.LongestMatchTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LongestMatchTextBox.Name = "LongestMatchTextBox";
             this.LongestMatchTextBox.Size = new System.Drawing.Size(0, 13);
@@ -205,7 +205,7 @@ namespace LZ_W__algortihms
             // MessageTextBox
             // 
             this.MessageTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageTextBox.Location = new System.Drawing.Point(236, 288);
+            this.MessageTextBox.Location = new System.Drawing.Point(237, 287);
             this.MessageTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MessageTextBox.Name = "MessageTextBox";
             this.MessageTextBox.Size = new System.Drawing.Size(341, 86);
@@ -215,7 +215,7 @@ namespace LZ_W__algortihms
             // 
             this.StepNumberTextBox.AutoSize = true;
             this.StepNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepNumberTextBox.Location = new System.Drawing.Point(170, 360);
+            this.StepNumberTextBox.Location = new System.Drawing.Point(161, 394);
             this.StepNumberTextBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StepNumberTextBox.Name = "StepNumberTextBox";
             this.StepNumberTextBox.Size = new System.Drawing.Size(0, 13);

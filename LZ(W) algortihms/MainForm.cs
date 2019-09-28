@@ -66,20 +66,34 @@ namespace LZ_W__algortihms
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            tlpStats.Controls.Clear();
-            bool doVisualize = this.visualizeCB.Text == "Yes";
-            currentAlgorithm.convert(this.textInput.Text, this.textOutput, doVisualize);
-            int i = 0;
-            foreach (var par in currentAlgorithm.Statistics)
+            try
             {
-                Label l = new Label();
-                l.Text = par.StatisticName;
-                Label v = new Label();
-                v.Text = par.StatisticValue;
+                tlpStats.Controls.Clear();
+                bool doVisualize = this.visualizeCB.Text == "Yes";
+                currentAlgorithm.convert(this.textInput.Text, this.textOutput, doVisualize);
+                int i = 0;
+                foreach (var par in currentAlgorithm.Statistics)
+                {
+                    Label l = new Label();
+                    l.Text = par.StatisticName;
+                    Label v = new Label();
+                    v.Text = par.StatisticValue;
 
-                tlpStats.Controls.Add(l, 0, i);
-                tlpStats.Controls.Add(v, 1, i);
-                i++;
+                    tlpStats.Controls.Add(l, 0, i);
+                    tlpStats.Controls.Add(v, 1, i);
+                    i++;
+                }
+            }
+            catch (FormatException fe)
+            {
+                MessageBox.Show(fe.Message);
+                return;
+
+            }
+            catch (NotSupportedException nse)
+            {
+                MessageBox.Show(nse.Message);
+                return;
             }
 
         }
