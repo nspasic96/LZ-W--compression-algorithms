@@ -53,12 +53,16 @@ namespace LZ_W__algortihms
             {
                 Label l11 = new Label();
                 l11.Text = entry.Step.ToString();
+                l11.Font = new Font("Microsoft Sans Serif", 10);
                 Label l12 = new Label();
                 l12.Text = entry.Output;
+                l12.Font = new Font("Microsoft Sans Serif", 10);
                 Label l13 = new Label();
                 l13.Text = entry.Pos.ToString();
+                l13.Font = new Font("Microsoft Sans Serif", 10);
                 Label l14 = new Label();
                 l14.Text = entry.Word;
+                l14.Font = new Font("Microsoft Sans Serif", 10);
 
                 tableLayoutPanel1.Controls.Add(l11, 0, k);
                 tableLayoutPanel1.Controls.Add(l12, 1, k);
@@ -139,13 +143,17 @@ namespace LZ_W__algortihms
                 if (infos[infos.Count - 1].DoAdd)
                 {
                     Label l11 = new Label();
+                    l11.Font = new Font("Microsoft Sans Serif", 10);
                     l11.Text = newOne.Step.ToString();
                     Label l12 = new Label();
+                    l12.Font = new Font("Microsoft Sans Serif", 10);
                     l12.Text = newOne.Output;
                     l12.BackColor = Utils.c2;
                     Label l13 = new Label();
+                    l13.Font = new Font("Microsoft Sans Serif", 10);
                     l13.Text = newOne.Pos.ToString();
                     Label l14 = new Label();
+                    l14.Font = new Font("Microsoft Sans Serif", 10);
                     l14.Text = newOne.Word;
                     l14.BackColor = Utils.c1;
 
