@@ -21,6 +21,7 @@ namespace LZ_W__algortihms
         protected double totalBitsSent;
         protected Form visForm;
         protected int logNumChars;
+        protected char[] inputAlphabet;
 
         public List<AlgorithmStatistic> Statistics { get => statistics; }
         public List<AlgorithmParameter> Parameters { get => parameters; }
@@ -28,19 +29,22 @@ namespace LZ_W__algortihms
         protected abstract List<StepInfo> nextStep();
         protected abstract void prepare();        
         protected abstract void visualization(List<StepInfo> stepInfos);
-        protected virtual void checkInput() {}
                 
         public void convert(string input, RichTextBox result, bool visualize)
         {
             //initialize buffers and auxilary variables
-            
-            if(input.Length == 0)
+
+            if (input.Length == 0)
             {
                 throw new FormatException("Input string must not be empty.");
             }
 
+            if (input.Length > 500)
+            {
+                throw new FormatException("Input string max length is 500.");
+            }
+
             cleanAndPrepare(input);
-            checkInput();
             
             double totalTime = 0;
             Stopwatch sw = new Stopwatch();
@@ -74,7 +78,7 @@ namespace LZ_W__algortihms
 
             //add statistics and print final output
             statistics.Add(new AlgorithmStatistic("Time elapsed(ms)", (totalTime).ToString()));
-            statistics.Add(new AlgorithmStatistic("Compression ratio", (totalBitsSent / totalLen * logNumChars).ToString()));
+            statistics.Add(new AlgorithmStatistic("Compression ratio", string.Format("{0:0.000}", (totalBitsSent / totalLen * logNumChars))));
             result.Text = this.output.ToString();
             result.Refresh();
         }
@@ -100,6 +104,17 @@ namespace LZ_W__algortihms
         protected bool hasNextStep()
         {
             return currPosition < totalLen;
+        }
+        protected int howManyBits()
+        {
+            int res = 0, i = inputAlphabet.Length;
+            while (i != 0)
+            {
+                i /= 2;
+                res++;
+            }
+
+            return res;
         }
 
         private void cleanAndPrepare(string input)

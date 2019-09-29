@@ -13,9 +13,6 @@ namespace LZ_W__algortihms
         {
             var p = new List<AlgorithmParameter>();
 
-            AlgorithmParameter numChars = new AlgorithmParameter("Number of different characters", "2");
-            p.Add(numChars);
-
             this.parameters = p;
         }
         protected override void prepare()
@@ -32,6 +29,27 @@ namespace LZ_W__algortihms
                     logNumChars = Convert.ToInt32(Math.Ceiling(Math.Log(logNumChars, 2)));
                 }
             }
+
+            char[] a = rawInput.ToCharArray();
+            List<char> unique = new List<char>();
+            foreach (var c1 in a)
+            {
+                bool found = false;
+                foreach (var c2 in unique)
+                {
+                    if (c1 == c2)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    unique.Add(c1);
+                }
+            }
+            inputAlphabet = unique.ToArray();
+            logNumChars = howManyBits();
 
             totalBitsSent = 0;
             entries = new List<LZ78Entry>();

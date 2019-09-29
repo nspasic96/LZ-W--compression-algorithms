@@ -16,11 +16,7 @@ namespace LZ_W__algortihms
             
             AlgorithmParameter windowSize = new AlgorithmParameter("Window size", "3");
             p.Add(windowSize);
-
-            AlgorithmParameter numChars = new AlgorithmParameter("Number of different characters", "2");
-            p.Add(numChars);
-
-
+                       
             this.parameters = p;
         }
 
@@ -117,16 +113,29 @@ namespace LZ_W__algortihms
                         throw new FormatException("Window size must be positive intger.");
                     }
                 }
-                if (p.ParamName == "Number of different characters")
+            }
+
+            char[] a = rawInput.ToCharArray();
+            List<char> unique = new List<char>();
+            foreach (var c1 in a)
+            {
+                bool found = false;
+                foreach (var c2 in unique)
                 {
-                    bool succ = Int32.TryParse(p.CurrValue, out logNumChars);
-                    if (!succ || logNumChars <= 0)
+                    if (c1 == c2)
                     {
-                        throw new FormatException("Number of different characters must be positive intger.");
+                        found = true;
+                        break;
                     }
-                    logNumChars = Convert.ToInt32(Math.Ceiling(Math.Log(logNumChars, 2)));
+                }
+                if (!found)
+                {
+                    unique.Add(c1);
                 }
             }
+            inputAlphabet = unique.ToArray();
+            logNumChars = howManyBits();
+
             totalBitsSent = 0;
         }
 

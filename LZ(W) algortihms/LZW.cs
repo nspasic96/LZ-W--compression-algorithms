@@ -14,7 +14,6 @@ namespace LZ_W__algortihms
         private int totalBits;
         private int totalCh;
         private bool newOneAdded;
-        private char[] inputAlphabet;
 
         List<LZWEntry> prevEntries;
 
@@ -28,9 +27,6 @@ namespace LZ_W__algortihms
 
             AlgorithmParameter onDictFull = new AlgorithmParameter("On full dictionary", onDictFullValues[0], ParameterType.List, onDictFullValues);
             p.Add(onDictFull);
-
-            AlgorithmParameter inputChars = new AlgorithmParameter("Input alphabet", "01");
-            p.Add(inputChars);
 
             AlgorithmParameter redundantBits = new AlgorithmParameter("Number of redundant bits", "3");
             p.Add(redundantBits);
@@ -70,7 +66,7 @@ namespace LZ_W__algortihms
                 if (match == currPosition)
                 {
                     current = entry.AddToDict;
-                    o = toBinaryString(entry.DictIdx);
+                    o = entry.DictIdx.ToString();
 
                     //after this step currPosition will be incremented by move value
                     move = entry.AddToDict.Length;
@@ -136,10 +132,6 @@ namespace LZ_W__algortihms
                 {
                     onFullDictReset = (p.CurrValue == "Reset");
                 }
-                if(p.ParamName == "Input alphabet")
-                {
-                    inputAlphabet = p.CurrValue.ToCharArray();
-                }
                 if (p.ParamName == "Number of redundant bits")
                 {
                     bool succ = Int32.TryParse(p.CurrValue, out totalBits);
@@ -147,7 +139,25 @@ namespace LZ_W__algortihms
                     {
                         throw new FormatException("Number of redundant bits must be non negative integer.");
                     }
-
+                    char[] a = rawInput.ToCharArray();
+                    List<char> unique = new List<char>();
+                    foreach(var c1 in a)
+                    {
+                        bool found = false;
+                        foreach(var c2 in unique)
+                        {
+                            if (c1 == c2)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                        {
+                            unique.Add(c1);
+                        }
+                    }
+                    inputAlphabet = unique.ToArray();
                     logNumChars = howManyBits();
 
                     totalBits += logNumChars;
@@ -158,19 +168,7 @@ namespace LZ_W__algortihms
             addDefaultEntries();
             totalCh = 0;
         }
-
-        private int howManyBits()
-        {
-            int res = 0, i=inputAlphabet.Length;
-            while(i != 0)
-            {
-                i /= 2;
-                res++;
-            }
-
-            return res;
-        }
-
+        
         private void addDefaultEntries()
         {
             for(int i=0; i< inputAlphabet.Length; i++)
@@ -186,19 +184,6 @@ namespace LZ_W__algortihms
                 }
                 if (!found) 
                     entries.Add(new LZWEntry(i, "", "", "", inputAlphabet[i].ToString()));
-            }
-        }
-        protected override void checkInput()
-        {
-
-            foreach(char inp in rawInput.ToString())
-            {
-                bool found = false;
-                foreach (char l in inputAlphabet)
-                    if (l == inp)
-                        found = true;
-                if (!found)
-                    throw new FormatException("Input string contains character '" + inp + "' which is not in input alphabet.");
             }
         }
         protected override void visualization(List<StepInfo> stepInfos)
@@ -238,35 +223,6 @@ namespace LZ_W__algortihms
                 }
                 return false;
             }
-        }
-
-        private string toBinaryString(int dictIdx)
-        {
-            List<string> binary = new List<string>();
-            int orig = dictIdx;
-            if(dictIdx == 0)
-            {
-                StringBuilder sb = new StringBuilder();
-                for(int i=0; i< totalBits; i++)
-                {
-                    sb.Append("0");
-                }
-                return sb.ToString();
-            }
-            while (dictIdx > 0) 
-            {
-                string dig = (dictIdx % 2).ToString();
-                binary.Add(dig);
-                dictIdx = dictIdx / 2;
-            }
-            int c = binary.Count;
-            for(int i=0; i< totalBits - c; i++)
-            {
-                binary.Add("0");
-            }
-            binary.Reverse();
-            
-            return string.Join("", binary.ToArray());
         }
     }
 }
