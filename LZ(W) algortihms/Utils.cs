@@ -18,9 +18,13 @@ namespace LZ_W__algortihms
         public static Color c2 = Color.Yellow;
         public static Color c3 = Color.Blue;
 
-        public static void splitTlp(TableLayoutPanel tlp, int n, int m)
+        public static void splitTlp(TableLayoutPanel tlp, int n, int m, bool scrolable = false)
         {
             tlp.Controls.Clear();
+
+            tlp.Padding = new System.Windows.Forms.Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
+            tlp.AutoScroll = false;
+            tlp.AutoScroll = true;
 
             tlp.ColumnCount = m;
             tlp.RowCount = n;
@@ -35,8 +39,10 @@ namespace LZ_W__algortihms
 
             for (int j = 0; j < n; j++)
             {
-                tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
-
+                if(!scrolable)
+                    tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
+                else
+                    tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30));
             }
         }
         public enum AlgorithmName { LZ77, LZ78, LZW }

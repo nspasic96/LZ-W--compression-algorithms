@@ -43,10 +43,12 @@ namespace LZ_W__algortihms
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoScroll = true;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 94);
+            this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(913, 413);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -133,7 +135,8 @@ namespace LZ_W__algortihms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 673);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(986, 673);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.StepNumberTextBox);
             this.Controls.Add(this.label3);
@@ -143,6 +146,7 @@ namespace LZ_W__algortihms
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MinimumSize = new System.Drawing.Size(957, 716);
             this.Name = "LZ78VisForm";
             this.Text = "LZ78 Algorithm Visualization";
             this.ResumeLayout(false);

@@ -81,7 +81,7 @@ namespace LZ_W__algortihms
         {
             tableLayoutPanel1.Controls.Clear();
             int m = 5;
-            Utils.splitTlp(this.tableLayoutPanel1, n, m);
+            Utils.splitTlp(this.tableLayoutPanel1, n, m, true);
 
             populateTableLayoutPanel(n);
             InputTextBox.SelectionStart = stepInfosStack[currStep - 1][0].StartPos;
@@ -124,7 +124,7 @@ namespace LZ_W__algortihms
             lastColored = -1;
             InputTextBox.SelectionColor = Color.Gray;
             MessageTextBox.Text = "";
-            makeLayout(Math.Max(entriesStack[currStep - 1].Count + 3, 20));
+            makeLayout(entriesStack[currStep - 1].Count + 1);
         }
 
         private void update()
