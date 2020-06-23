@@ -20,8 +20,9 @@ namespace LZ_W__algortihms
         private int currStep;
         private bool currStepCompleted;
         private int lastColored;
+        private StringBuilder output;
 
-        public LZWVisForm(string input)
+        public LZWVisForm(string input, StringBuilder output)
         {
             InitializeComponent();
 
@@ -30,6 +31,7 @@ namespace LZ_W__algortihms
             stepInfosStack = new List<List<StepInfo>>();
             currStep = 0;
             InputTextBox.Text = input;
+            this.output = output;
             currStepCompleted = true;
         }
 
@@ -110,6 +112,28 @@ namespace LZ_W__algortihms
                 }
                 else
                 {
+                    char[] a = InputTextBox.Text.ToCharArray();
+                    List<char> unique = new List<char>();
+                    foreach (var c1 in a)
+                    {
+                        bool found = false;
+                        foreach (var c2 in unique)
+                        {
+                            if (c1 == c2)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                        {
+                            unique.Add(c1);
+                        }
+                    }
+                    char[] inputAlphabet = unique.ToArray();
+                                        
+                    Form decodeForm = new LZW_Decode(output, inputAlphabet);
+                    decodeForm.Show();
                     this.Close();
                 }
             }
@@ -223,7 +247,7 @@ namespace LZ_W__algortihms
                 this.currStepCompleted = true;
                 str1 = "Next step";
                 if (this.currStep == this.stepInfosStack.Count)
-                    str1 = "Close form";
+                    str1 = "Decode";
             }
             else
                 this.currStepCompleted = false;

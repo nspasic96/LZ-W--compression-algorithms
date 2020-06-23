@@ -105,6 +105,8 @@ namespace LZ_W__algortihms
                 }
                 else
                 {
+                    Form decodeForm = new LZ78_Decode(newOneStack);
+                    decodeForm.Show();
                     this.Close();
                 }
             }
@@ -215,7 +217,7 @@ namespace LZ_W__algortihms
                 this.currStepCompleted = true;
                 str1 = "Next step";
                 if (this.currStep == this.stepInfosStack.Count)
-                    str1 = "Close form";
+                    str1 = "Decode";
             }
             else
                 this.currStepCompleted = false;

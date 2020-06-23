@@ -24,3 +24,6 @@ D:\spale\LZ-W-compression-algorithms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms
 D:\spale\LZ-W-compression-algorithms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms.csproj.CoreCompileInputs.cache
 D:\spale\LZ-W-compression-algorithms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms.exe
 D:\spale\LZ-W-compression-algorithms\LZ(W) algortihms\obj\Debug\LZ(W) algortihms.pdb
+C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.LZ77_Decode.resources
+C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.LZ78_Decode.resources
+C:\Projects\LZ(W) algortihms\LZ(W) algortihms\obj\Debug\LZ_W__algortihms.LZW_Decode.resources

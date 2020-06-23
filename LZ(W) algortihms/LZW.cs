@@ -161,7 +161,7 @@ namespace LZ_W__algortihms
                     logNumChars = howManyBits();
 
                     totalBits += logNumChars;
-                    maxValue = 1 << totalBits; // 2 ^ (totalLen)
+                    maxValue = 1 << totalBits; // 2 ^ (totalBits)
                 }
             }
             entries = new List<LZWEntry>();
@@ -190,7 +190,7 @@ namespace LZ_W__algortihms
         {
             if (visForm == null)
             {
-                visForm = new LZWVisForm(rawInput);
+                visForm = new LZWVisForm(rawInput, output);
             }
             
             if (newOneAdded)

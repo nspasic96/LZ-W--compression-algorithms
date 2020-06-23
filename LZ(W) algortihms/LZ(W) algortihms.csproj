@@ -48,6 +48,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompressionAlgorithm.cs" />
+    <Compile Include="LZW_Decode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LZW_Decode.Designer.cs">
+      <DependentUpon>LZW_Decode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LZ78_Decode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LZ78_Decode.Designer.cs">
+      <DependentUpon>LZ78_Decode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LZ77_Decode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LZ77_Decode.Designer.cs">
+      <DependentUpon>LZ77_Decode.cs</DependentUpon>
+    </Compile>
     <Compile Include="LZ77VisForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +96,15 @@
     <Compile Include="LZW.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LZ78_Decode.resx">
+      <DependentUpon>LZ78_Decode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LZ77_Decode.resx">
+      <DependentUpon>LZ77_Decode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LZW_Decode.resx">
+      <DependentUpon>LZW_Decode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -107,11 +107,18 @@ namespace LZ_W__algortihms
         }
         protected int howManyBits()
         {
+            bool powerOfTwo = true;
             int res = 0, i = inputAlphabet.Length;
             while (i != 0)
             {
+                if (i % 2 == 1 && i > 1)
+                    powerOfTwo = false;
                 i /= 2;
                 res++;
+            }
+            if(powerOfTwo)
+            {
+                res--;
             }
 
             return res;

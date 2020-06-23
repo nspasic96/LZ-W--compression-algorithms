@@ -128,6 +128,27 @@ namespace LZ_W__algortihms
             public string AddToDict { get => addToDict; }
         }
 
+        public struct LZWDecodeEntry
+        {
+            private int dictIdx; //dictionary entry number
+            private string start; //longest match
+            private string next; //next character
+            private string whole; //whole word to store in dictionary
+
+            public LZWDecodeEntry(int dictIdx, string start, string next, string whole)
+            {
+                this.dictIdx = dictIdx;
+                this.start = start;
+                this.next = next;
+                this.whole = whole;
+            }
+
+            public int DictIdx { get => dictIdx; set => dictIdx = value; }
+            public string Start { get => start; set => start = value; }
+            public string Next { get => next; set => next = value; }
+            public string Whole { get => whole; set => whole = value; }
+        }
+
         public struct StepInfo
         {
             //common

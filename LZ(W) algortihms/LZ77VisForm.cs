@@ -52,7 +52,25 @@ namespace LZ_W__algortihms
                     this.update();
                 }
                 else
+                {
+                    List<StepInfo> lastSteps = new List<StepInfo>();
+                    foreach(var stepInfosStep in this.stepInfosStack)
+                    {
+                        int lastBestIdx = 0;
+                        int curIdx = 0;
+                        foreach(var stepInfo in stepInfosStep)
+                        {
+                            if (stepInfo.NewBest)
+                                lastBestIdx = curIdx;
+                            curIdx++;
+                        }
+                        lastSteps.Add(stepInfosStep[lastBestIdx]);
+                    }
+
+                    Form decodeForm = new LZ77_Decode(lastSteps);
+                    decodeForm.Show();
                     this.Close();
+                }
             }
             else
                 this.update();
@@ -159,7 +177,7 @@ namespace LZ_W__algortihms
                 this.currStepCompleted = true;
                 str1 = "Next step";
                 if (this.currStep == this.stepInfosStack.Count)
-                    str1 = "Close form";
+                    str1 = "Decode";
             }
             else
                 this.currStepCompleted = false;
