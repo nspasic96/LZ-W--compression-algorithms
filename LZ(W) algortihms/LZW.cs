@@ -190,7 +190,7 @@ namespace LZ_W__algortihms
         {
             if (visForm == null)
             {
-                visForm = new LZWVisForm(rawInput, output);
+                visForm = new LZWVisForm(rawInput, output, totalBits, onFullDictReset);
             }
             
             if (newOneAdded)

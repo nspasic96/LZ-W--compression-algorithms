@@ -21,8 +21,10 @@ namespace LZ_W__algortihms
         private bool currStepCompleted;
         private int lastColored;
         private StringBuilder output;
+        private int totalBits;
+        bool onFullDictReset;
 
-        public LZWVisForm(string input, StringBuilder output)
+        public LZWVisForm(string input, StringBuilder output, int totalBits, bool onFullDictReset)
         {
             InitializeComponent();
 
@@ -33,6 +35,8 @@ namespace LZ_W__algortihms
             InputTextBox.Text = input;
             this.output = output;
             currStepCompleted = true;
+            this.totalBits = totalBits;
+            this.onFullDictReset= onFullDictReset;
         }
 
         private void populateTableLayoutPanel(int n)
@@ -132,7 +136,7 @@ namespace LZ_W__algortihms
                     }
                     char[] inputAlphabet = unique.ToArray();
                                         
-                    Form decodeForm = new LZW_Decode(output, inputAlphabet);
+                    Form decodeForm = new LZW_Decode(output, inputAlphabet, totalBits, onFullDictReset);
                     decodeForm.Show();
                     this.Close();
                 }

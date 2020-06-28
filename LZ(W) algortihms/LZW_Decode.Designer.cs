@@ -34,23 +34,24 @@
             this.EncodedMessageLabel = new System.Windows.Forms.Label();
             this.DecodedSoFarLabel = new System.Windows.Forms.Label();
             this.NextButton = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EncodedMessageTextBox
             // 
-            this.EncodedMessageTextBox.Location = new System.Drawing.Point(324, 24);
+            this.EncodedMessageTextBox.Location = new System.Drawing.Point(186, 24);
             this.EncodedMessageTextBox.Name = "EncodedMessageTextBox";
             this.EncodedMessageTextBox.ReadOnly = true;
-            this.EncodedMessageTextBox.Size = new System.Drawing.Size(413, 57);
+            this.EncodedMessageTextBox.Size = new System.Drawing.Size(224, 57);
             this.EncodedMessageTextBox.TabIndex = 0;
             this.EncodedMessageTextBox.Text = "";
             // 
             // DecodedSoFarTextBox
             // 
-            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(326, 98);
+            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(575, 21);
             this.DecodedSoFarTextBox.Name = "DecodedSoFarTextBox";
             this.DecodedSoFarTextBox.ReadOnly = true;
-            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(411, 55);
+            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(316, 55);
             this.DecodedSoFarTextBox.TabIndex = 1;
             this.DecodedSoFarTextBox.Text = "";
             // 
@@ -59,18 +60,18 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(67, 173);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(67, 110);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(669, 168);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(840, 376);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // EncodedMessageLabel
             // 
             this.EncodedMessageLabel.AutoSize = true;
-            this.EncodedMessageLabel.Location = new System.Drawing.Point(143, 47);
+            this.EncodedMessageLabel.Location = new System.Drawing.Point(64, 27);
             this.EncodedMessageLabel.Name = "EncodedMessageLabel";
             this.EncodedMessageLabel.Size = new System.Drawing.Size(95, 13);
             this.EncodedMessageLabel.TabIndex = 3;
@@ -79,7 +80,7 @@
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(143, 117);
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(465, 24);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
             this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
             this.DecodedSoFarLabel.TabIndex = 4;
@@ -87,19 +88,31 @@
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(418, 377);
+            this.NextButton.Location = new System.Drawing.Point(575, 506);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(241, 52);
+            this.NextButton.Size = new System.Drawing.Size(160, 43);
             this.NextButton.TabIndex = 5;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Enabled = false;
+            this.BackButton.Location = new System.Drawing.Point(274, 506);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(136, 43);
+            this.BackButton.TabIndex = 6;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // LZW_Decode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(947, 582);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.DecodedSoFarLabel);
             this.Controls.Add(this.EncodedMessageLabel);
@@ -121,5 +134,6 @@
         private System.Windows.Forms.Label EncodedMessageLabel;
         private System.Windows.Forms.Label DecodedSoFarLabel;
         private System.Windows.Forms.Button NextButton;
+        private System.Windows.Forms.Button BackButton;
     }
 }

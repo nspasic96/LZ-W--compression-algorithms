@@ -1,0 +1,5 @@
+Reset:
+	Sa specijalinim slucajem: 10101110
+
+Stop adding:
+	Sa specijalnim slucajem: 1110

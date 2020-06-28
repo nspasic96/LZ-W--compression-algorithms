@@ -39,7 +39,7 @@ namespace LZ_W__algortihms
 
             for (int j = 0; j < n; j++)
             {
-                if(!scrolable)
+                if (!scrolable)
                     tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100 / n));
                 else
                     tlp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30));
@@ -205,12 +205,47 @@ namespace LZ_W__algortihms
             public int PosBack { get => posBack; }
             public int MatchLen { get => matchLen; }
             public bool NewBest { get => newBest; }
-            public string Output { get => output;}
+            public string Output { get => output; }
             public int StartPos { get => startPos; }
             public string StepMessage { get => stepMessage; }
             public int PrefixIdx { get => prefixIdx; }
             public bool DoAdd { get => doAdd; }
         }
 
+        public struct DecodeStepInfo
+        {
+            bool isReset;
+            int relativeDecodeStepIdx;
+            int decodedSoFarSelectionLength;
+            string decodedSoFar;
+            List<LZWDecodeEntry> entries;
+            int lastReset;
+            int offset;
+            bool refined;
+
+            public DecodeStepInfo(bool isReset, int lastReset, int offset, int relativeDecodeStepIdx, string decodedSoFar, int decodedSoFarSelectionLength, List<LZWDecodeEntry> entries = null)
+            {
+                this.isReset = isReset;
+                this.lastReset = lastReset;
+                this.offset = offset;
+                this.relativeDecodeStepIdx = relativeDecodeStepIdx;
+                this.decodedSoFar = decodedSoFar;
+                this.decodedSoFarSelectionLength = decodedSoFarSelectionLength;
+                this.entries = null;
+                if (entries != null)
+                {
+                    this.entries = entries.ConvertAll(ent => new LZWDecodeEntry(ent.DictIdx, ent.Start, ent.Next, ent.Whole));
+                }
+                refined = false;;
+            }
+            public string DecodedSoFar { get => decodedSoFar; set => decodedSoFar = value; }
+            public int RelativeDecodeStepIdx { get => relativeDecodeStepIdx; }
+            public int DecodedSoFarSelectionLength { get => decodedSoFarSelectionLength; set => decodedSoFarSelectionLength = value; }
+            public List<LZWDecodeEntry> Entries { get => entries; set => entries = value; }
+            public bool IsReset { get => isReset; }
+            public int LastReset { get => lastReset; }
+            public int Offset { get => offset; }
+            public bool Refined { get => refined; set => refined = value; }
+        }
     }
 }
