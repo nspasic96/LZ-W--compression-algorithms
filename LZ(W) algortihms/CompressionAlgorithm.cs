@@ -44,6 +44,13 @@ namespace LZ_W__algortihms
                 throw new FormatException("Input string max length is 500.");
             }
 
+            char[] a = input.ToCharArray();
+            foreach(var ch in a)
+            {
+                if(ch == '-' || ch == '|' || ch == ',' || ch == '<' || ch == '>' || ch == '(' || ch == ')')
+                    throw new FormatException("Input string must not contain characters from set {-,()<>|}.");
+            } 
+
             cleanAndPrepare(input);
             
             double totalTime = 0;
