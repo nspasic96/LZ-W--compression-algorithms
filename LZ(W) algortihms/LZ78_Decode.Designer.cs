@@ -53,7 +53,7 @@
             // 
             // EncodedMessageTextBox
             // 
-            this.EncodedMessageTextBox.Location = new System.Drawing.Point(128, 12);
+            this.EncodedMessageTextBox.Location = new System.Drawing.Point(162, 12);
             this.EncodedMessageTextBox.Name = "EncodedMessageTextBox";
             this.EncodedMessageTextBox.ReadOnly = true;
             this.EncodedMessageTextBox.Size = new System.Drawing.Size(236, 46);
@@ -62,33 +62,36 @@
             // 
             // DecodedSoFarTextBox
             // 
-            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(540, 9);
+            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(540, 12);
             this.DecodedSoFarTextBox.Name = "DecodedSoFarTextBox";
             this.DecodedSoFarTextBox.ReadOnly = true;
-            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(270, 49);
+            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(270, 46);
             this.DecodedSoFarTextBox.TabIndex = 2;
             this.DecodedSoFarTextBox.Text = "";
             // 
             // EncodedMessageLabel
             // 
             this.EncodedMessageLabel.AutoSize = true;
-            this.EncodedMessageLabel.Location = new System.Drawing.Point(40, 12);
+            this.EncodedMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncodedMessageLabel.Location = new System.Drawing.Point(44, 23);
             this.EncodedMessageLabel.Name = "EncodedMessageLabel";
-            this.EncodedMessageLabel.Size = new System.Drawing.Size(70, 13);
+            this.EncodedMessageLabel.Size = new System.Drawing.Size(94, 18);
             this.EncodedMessageLabel.TabIndex = 3;
             this.EncodedMessageLabel.Text = "Encoded text";
             // 
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(432, 9);
+            this.DecodedSoFarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(424, 23);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
-            this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
+            this.DecodedSoFarLabel.Size = new System.Drawing.Size(110, 18);
             this.DecodedSoFarLabel.TabIndex = 4;
             this.DecodedSoFarLabel.Text = "Decoded so far";
             // 
             // NextButton
             // 
+            this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextButton.Location = new System.Drawing.Point(562, 495);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(121, 54);
@@ -99,6 +102,7 @@
             // 
             // BackButton
             // 
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BackButton.Location = new System.Drawing.Point(248, 495);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(116, 54);

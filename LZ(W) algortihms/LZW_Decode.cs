@@ -121,7 +121,7 @@ namespace LZ_W__algortihms
         private void drawTable()
         {
             int m = 4;
-            Utils.splitTlp(tableLayoutPanel1, currStep - lastReset - offset + alphabet.Length + 2, m, true);
+            Utils.splitTlp(tableLayoutPanel1, Math.Min(currStep - lastReset - offset + alphabet.Length + 2, 1 << totalBits + 1), m, true);
             populateTableLayoutPanel();
 
         }

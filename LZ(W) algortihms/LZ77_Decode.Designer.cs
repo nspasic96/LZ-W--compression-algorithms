@@ -54,7 +54,7 @@ namespace LZ_W__algortihms
             // 
             // DecodedSoFarTextBox
             // 
-            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(225, 188);
+            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(225, 234);
             this.DecodedSoFarTextBox.Name = "DecodedSoFarTextBox";
             this.DecodedSoFarTextBox.ReadOnly = true;
             this.DecodedSoFarTextBox.Size = new System.Drawing.Size(463, 67);
@@ -63,9 +63,10 @@ namespace LZ_W__algortihms
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(581, 396);
+            this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NextButton.Location = new System.Drawing.Point(480, 449);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(106, 42);
+            this.NextButton.Size = new System.Drawing.Size(113, 50);
             this.NextButton.TabIndex = 2;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
@@ -74,24 +75,26 @@ namespace LZ_W__algortihms
             // EncodedLabel
             // 
             this.EncodedLabel.AutoSize = true;
-            this.EncodedLabel.Location = new System.Drawing.Point(68, 15);
+            this.EncodedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncodedLabel.Location = new System.Drawing.Point(68, 29);
             this.EncodedLabel.Name = "EncodedLabel";
-            this.EncodedLabel.Size = new System.Drawing.Size(74, 13);
+            this.EncodedLabel.Size = new System.Drawing.Size(99, 18);
             this.EncodedLabel.TabIndex = 3;
             this.EncodedLabel.Text = "Encoded data";
             // 
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(68, 191);
+            this.DecodedSoFarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(68, 251);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
-            this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
+            this.DecodedSoFarLabel.Size = new System.Drawing.Size(110, 18);
             this.DecodedSoFarLabel.TabIndex = 4;
             this.DecodedSoFarLabel.Text = "Decoded so far";
             // 
             // MatchTextBox
             // 
-            this.MatchTextBox.Location = new System.Drawing.Point(225, 102);
+            this.MatchTextBox.Location = new System.Drawing.Point(225, 129);
             this.MatchTextBox.Name = "MatchTextBox";
             this.MatchTextBox.ReadOnly = true;
             this.MatchTextBox.Size = new System.Drawing.Size(462, 62);
@@ -101,18 +104,20 @@ namespace LZ_W__algortihms
             // MatchLabel
             // 
             this.MatchLabel.AutoSize = true;
-            this.MatchLabel.Location = new System.Drawing.Point(68, 102);
+            this.MatchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MatchLabel.Location = new System.Drawing.Point(68, 150);
             this.MatchLabel.Name = "MatchLabel";
-            this.MatchLabel.Size = new System.Drawing.Size(37, 13);
+            this.MatchLabel.Size = new System.Drawing.Size(49, 18);
             this.MatchLabel.TabIndex = 6;
             this.MatchLabel.Text = "Match";
             // 
             // BackButton
             // 
             this.BackButton.Enabled = false;
-            this.BackButton.Location = new System.Drawing.Point(225, 396);
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.Location = new System.Drawing.Point(225, 449);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(100, 42);
+            this.BackButton.Size = new System.Drawing.Size(100, 50);
             this.BackButton.TabIndex = 7;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
@@ -130,7 +135,7 @@ namespace LZ_W__algortihms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(850, 543);
             this.Controls.Add(this.MessageLabel);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.MatchLabel);

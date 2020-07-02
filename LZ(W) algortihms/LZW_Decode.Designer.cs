@@ -72,23 +72,26 @@
             // EncodedMessageLabel
             // 
             this.EncodedMessageLabel.AutoSize = true;
-            this.EncodedMessageLabel.Location = new System.Drawing.Point(64, 27);
+            this.EncodedMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EncodedMessageLabel.Location = new System.Drawing.Point(48, 40);
             this.EncodedMessageLabel.Name = "EncodedMessageLabel";
-            this.EncodedMessageLabel.Size = new System.Drawing.Size(95, 13);
+            this.EncodedMessageLabel.Size = new System.Drawing.Size(132, 18);
             this.EncodedMessageLabel.TabIndex = 3;
             this.EncodedMessageLabel.Text = "Encoded message";
             // 
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(465, 24);
+            this.DecodedSoFarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(459, 40);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
-            this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
+            this.DecodedSoFarLabel.Size = new System.Drawing.Size(110, 18);
             this.DecodedSoFarLabel.TabIndex = 4;
             this.DecodedSoFarLabel.Text = "Decoded so far";
             // 
             // NextButton
             // 
+            this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextButton.Location = new System.Drawing.Point(575, 522);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(160, 48);
@@ -100,6 +103,7 @@
             // BackButton
             // 
             this.BackButton.Enabled = false;
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BackButton.Location = new System.Drawing.Point(274, 522);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(148, 48);
