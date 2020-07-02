@@ -34,6 +34,8 @@
             this.EncodedMessageLabel = new System.Windows.Forms.Label();
             this.DecodedSoFarLabel = new System.Windows.Forms.Label();
             this.NextButton = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.MessageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -41,36 +43,36 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(43, 133);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(43, 74);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(720, 248);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(837, 318);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // EncodedMessageTextBox
             // 
-            this.EncodedMessageTextBox.Location = new System.Drawing.Point(394, 12);
+            this.EncodedMessageTextBox.Location = new System.Drawing.Point(128, 12);
             this.EncodedMessageTextBox.Name = "EncodedMessageTextBox";
             this.EncodedMessageTextBox.ReadOnly = true;
-            this.EncodedMessageTextBox.Size = new System.Drawing.Size(358, 46);
+            this.EncodedMessageTextBox.Size = new System.Drawing.Size(236, 46);
             this.EncodedMessageTextBox.TabIndex = 1;
             this.EncodedMessageTextBox.Text = "";
             // 
             // DecodedSoFarTextBox
             // 
-            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(394, 81);
+            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(540, 9);
             this.DecodedSoFarTextBox.Name = "DecodedSoFarTextBox";
             this.DecodedSoFarTextBox.ReadOnly = true;
-            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(357, 37);
+            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(270, 49);
             this.DecodedSoFarTextBox.TabIndex = 2;
             this.DecodedSoFarTextBox.Text = "";
             // 
             // EncodedMessageLabel
             // 
             this.EncodedMessageLabel.AutoSize = true;
-            this.EncodedMessageLabel.Location = new System.Drawing.Point(194, 28);
+            this.EncodedMessageLabel.Location = new System.Drawing.Point(40, 12);
             this.EncodedMessageLabel.Name = "EncodedMessageLabel";
             this.EncodedMessageLabel.Size = new System.Drawing.Size(70, 13);
             this.EncodedMessageLabel.TabIndex = 3;
@@ -79,7 +81,7 @@
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(194, 83);
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(432, 9);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
             this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
             this.DecodedSoFarLabel.TabIndex = 4;
@@ -87,19 +89,39 @@
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(469, 403);
+            this.NextButton.Location = new System.Drawing.Point(562, 495);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(131, 37);
+            this.NextButton.Size = new System.Drawing.Size(121, 54);
             this.NextButton.TabIndex = 5;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Location = new System.Drawing.Point(248, 495);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(116, 54);
+            this.BackButton.TabIndex = 6;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // MessageLabel
+            // 
+            this.MessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageLabel.Location = new System.Drawing.Point(43, 408);
+            this.MessageLabel.Name = "MessageLabel";
+            this.MessageLabel.Size = new System.Drawing.Size(837, 69);
+            this.MessageLabel.TabIndex = 7;
+            // 
             // LZ78_Decode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(892, 561);
+            this.Controls.Add(this.MessageLabel);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.DecodedSoFarLabel);
             this.Controls.Add(this.EncodedMessageLabel);
@@ -121,5 +143,7 @@
         private System.Windows.Forms.Label EncodedMessageLabel;
         private System.Windows.Forms.Label DecodedSoFarLabel;
         private System.Windows.Forms.Button NextButton;
+        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label MessageLabel;
     }
 }

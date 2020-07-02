@@ -35,6 +35,7 @@
             this.DecodedSoFarLabel = new System.Windows.Forms.Label();
             this.NextButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
+            this.MessageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // EncodedMessageTextBox
@@ -60,12 +61,12 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(67, 110);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(67, 87);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(840, 376);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(840, 324);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // EncodedMessageLabel
@@ -88,9 +89,9 @@
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(575, 506);
+            this.NextButton.Location = new System.Drawing.Point(575, 522);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(160, 43);
+            this.NextButton.Size = new System.Drawing.Size(160, 48);
             this.NextButton.TabIndex = 5;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
@@ -99,19 +100,28 @@
             // BackButton
             // 
             this.BackButton.Enabled = false;
-            this.BackButton.Location = new System.Drawing.Point(274, 506);
+            this.BackButton.Location = new System.Drawing.Point(274, 522);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(136, 43);
+            this.BackButton.Size = new System.Drawing.Size(148, 48);
             this.BackButton.TabIndex = 6;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // MessageLabel
+            // 
+            this.MessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageLabel.Location = new System.Drawing.Point(67, 414);
+            this.MessageLabel.Name = "MessageLabel";
+            this.MessageLabel.Size = new System.Drawing.Size(840, 86);
+            this.MessageLabel.TabIndex = 7;
             // 
             // LZW_Decode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(947, 582);
+            this.Controls.Add(this.MessageLabel);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.DecodedSoFarLabel);
@@ -135,5 +145,6 @@
         private System.Windows.Forms.Label DecodedSoFarLabel;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label MessageLabel;
     }
 }

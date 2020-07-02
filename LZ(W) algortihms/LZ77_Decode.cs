@@ -13,6 +13,9 @@ namespace LZ_W__algortihms
 {
     public partial class LZ77_Decode : Form
     {
+        private List<LZ77DecodeStepInfo> decodeSteps;
+        private LZ77DecodeStepInfo currDecodeEntry;
+
         public LZ77_Decode(List<StepInfo> stepInfos)
         {
             InitializeComponent();
@@ -23,41 +26,127 @@ namespace LZ_W__algortihms
             }
             this.EncodedMessageTextBox.Text = encoded.ToString();
             this.encodedMessage = encoded.ToString();
-            this.stepInfos = stepInfos;
-            this.curEntry = 0;
+            this.decodeSteps = new List<LZ77DecodeStepInfo>();
+            this.encodeSteps = stepInfos;
+            this.currStep = -1;
             this.curPosition = 0;
-            this.curEntryStart = 0;
-            this.curEntryLen = this.stepInfos[0].Output.Length;
+            this.currentEncodedPos = 0;
             this.decodedSoFar = new StringBuilder();
+        }
+        
+        private void unsetPreviousStep()
+        {
+            EncodedMessageTextBox.SelectionColor = Color.Black;
+
+            DecodedSoFarTextBox.Text = "";
+            MatchTextBox.Text = "";
+            MessageLabel.Text = "";
+        }
+
+        private void processCurrentStep()
+        {
+            string[] spearator = { "<", ">", "," };
+            string[] strlist = this.encodeSteps[currStep].Output.Split(spearator,
+                StringSplitOptions.RemoveEmptyEntries);
+
+            string message;
+            if (strlist.Length == 2)//this means that there is no match
+            {
+                message = "No match found within the window, just copying character from currenty entry.";
+                decodeSteps.Add(new LZ77DecodeStepInfo(false, decodedSoFar.Append(strlist[1]).ToString(), 1, 0, encodeSteps[currStep].Output.Length, curPosition, currentEncodedPos, message));
+                curPosition += 1;
+            }
+            else if (strlist.Length == 3)//this is the case when we have match
+            {
+                int matchLen = 1;
+                int matchStartPosBack = 0;
+                Int32.TryParse(strlist[1], out matchStartPosBack);
+                Int32.TryParse(strlist[2], out matchLen);
+                int matchStart = this.curPosition - matchStartPosBack;
+
+                for (int i = matchStart; i < matchStart + matchLen; i++)
+                {
+                    decodedSoFar.Append(decodedSoFar[i]);
+                }
+
+                if (matchLen > matchStartPosBack && matchStartPosBack > 0)
+                {
+                    message = "Match found {0} positions back with length {1}. Note that string matched overalps with string added at this step(overlap marked blue).";
+                    message = string.Format(message, matchStartPosBack, matchLen);
+                }
+                else
+                {
+                    message = "Match found {0} positions back with length {1}.";
+                    message = string.Format(message, matchStartPosBack, matchLen);
+                }
+
+                decodeSteps.Add(new LZ77DecodeStepInfo(true, decodedSoFar.ToString(), matchLen, matchStartPosBack, encodeSteps[currStep].Output.Length, curPosition, currentEncodedPos, message));
+                curPosition += encodeSteps[currStep].MatchLen;
+            }
+            currentEncodedPos += encodeSteps[currStep].Output.Length;
+
+        }
+        private void paint()
+        {
+            DecodedSoFarTextBox.Text = currDecodeEntry.DecodedSoFar;
+            MatchTextBox.Text = currDecodeEntry.DecodedSoFar;
+
+            DecodedSoFarTextBox.SelectionStart = currDecodeEntry.DecodedSoFar.Length - currDecodeEntry.MatchLen;
+            DecodedSoFarTextBox.SelectionLength = currDecodeEntry.MatchLen;
+            DecodedSoFarTextBox.SelectionColor = Utils.c1;
+
+            EncodedMessageTextBox.SelectionStart = currDecodeEntry.CurrentEncodedPos;
+            EncodedMessageTextBox.SelectionLength = currDecodeEntry.EncodedSelectionLength;
+            EncodedMessageTextBox.SelectionColor = Utils.c1;
+
+            MatchTextBox.SelectionStart = currDecodeEntry.CurPosition - currDecodeEntry.MatchStartPosBack;
+            MatchTextBox.SelectionLength = currDecodeEntry.MatchLen <= currDecodeEntry.MatchStartPosBack ? currDecodeEntry.MatchLen : currDecodeEntry.MatchStartPosBack;
+            MatchTextBox.SelectionColor = Utils.c1;
+
+            if (currDecodeEntry.MatchLen > currDecodeEntry.MatchStartPosBack && currDecodeEntry.MatchStartPosBack > 0)
+            {
+                MatchTextBox.SelectionStart = currDecodeEntry.CurPosition;
+                MatchTextBox.SelectionLength = currDecodeEntry.MatchLen - currDecodeEntry.MatchStartPosBack;
+                MatchTextBox.SelectionColor = Utils.c3;
+            }
+
+            MessageLabel.Text = currDecodeEntry.Message;
+
+        }
+        private void updateButtons()
+        {
+            if (currStep == -1)
+            {
+                BackButton.Enabled = false;
+            }
+            else
+            {
+                BackButton.Enabled = true;
+            }
+            if (currStep == encodeSteps.Count - 1)
+            {
+                NextButton.Text = "Close form";
+            }
+            else
+            {
+                NextButton.Text = "Next";
+            }
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if(this.curEntry < this.stepInfos.Count)
+            currStep++;
+            if (currStep < encodeSteps.Count)
             {
-                string[] spearator = { "<", ">", "," };
-                string[] strlist = this.stepInfos[curEntry].Output.Split(spearator,
-                    StringSplitOptions.RemoveEmptyEntries);
-
-                int matchLen = 1;
-                int matchStartPosBack = 0;
-                if (strlist.Length == 2)//this means that there is no match
+                if (decodeSteps.Count == currStep)
                 {
-                    this.decodedSoFar.Append(strlist[1]);
+                    processCurrentStep();
                 }
-                else if (strlist.Length == 3)//this is the case when we have match
-                {
-                    Int32.TryParse(strlist[1], out matchStartPosBack);
-                    Int32.TryParse(strlist[2], out matchLen);
-                    int matchStart = this.curPosition - matchStartPosBack;
-
-                    for (int i = matchStart; i < matchStart + matchLen; i++)
-                    {
-                        decodedSoFar.Append(this.decodedSoFar[i]);
-                    }
-                }
-                updateAndBookkeeping(matchLen, matchStartPosBack);
-                this.Refresh();
+                currDecodeEntry = decodeSteps[currStep];
+                unsetPreviousStep();
+                updateButtons();
+                paint();
+                Refresh();
             }
             else
             {
@@ -65,62 +154,21 @@ namespace LZ_W__algortihms
             }
         }
 
-        private void updateAndBookkeeping(int matchLen, int matchStartPosBack)
+        private void BackButton_Click(object sender, EventArgs e)
         {
-            DecodedSoFarTextBox.Text = decodedSoFar.ToString();
-            MatchTextBox.Text = decodedSoFar.ToString();
-            unsetPreviousStep();
-            colorCurStep(matchLen, matchStartPosBack);
-
-            curEntryStart += this.stepInfos[curEntry].Output.Length;
-            curEntry++;
-            if (this.curEntry < this.stepInfos.Count)
+            currStep--;
+            if(currStep > -1)
             {
-                this.curEntryLen = this.stepInfos[curEntry].Output.Length;
+                currDecodeEntry = decodeSteps[currStep];
+                unsetPreviousStep();
+                paint();
             }
             else
             {
-                this.NextButton.Text = "Close form";
+                unsetPreviousStep();
             }
-
-            curPosition += matchLen;
-        }
-
-        private void colorCurStep(int matchLen, int matchStartPosBack)
-        {          
-
-            DecodedSoFarTextBox.SelectionStart = decodedSoFar.Length - matchLen;
-            DecodedSoFarTextBox.SelectionLength = matchLen;
-            DecodedSoFarTextBox.SelectionColor = Utils.c1;
-
-            EncodedMessageTextBox.SelectionStart = curEntryStart;
-            EncodedMessageTextBox.SelectionLength = curEntryLen;
-            EncodedMessageTextBox.SelectionColor = Utils.c1;
-
-            MatchTextBox.SelectionStart = curPosition - matchStartPosBack;
-            MatchTextBox.SelectionLength = matchLen <= matchStartPosBack ? matchLen : matchStartPosBack;
-            MatchTextBox.SelectionColor = Utils.c1;
-
-            if(matchLen > matchStartPosBack && matchStartPosBack > 0)
-            {
-                MatchTextBox.SelectionStart = curPosition;
-                MatchTextBox.SelectionLength = matchLen - matchStartPosBack;
-                MatchTextBox.SelectionColor = Utils.c3;
-            }
-
-        }
-
-        private void unsetPreviousStep()
-        {
-            DecodedSoFarTextBox.SelectionStart = 0;
-            DecodedSoFarTextBox.SelectionLength = decodedSoFar.Length;
-            DecodedSoFarTextBox.SelectionColor = Color.Black;
-
-            MatchTextBox.SelectionStart = 0;
-            MatchTextBox.SelectionLength = decodedSoFar.Length;
-            MatchTextBox.SelectionColor = Color.Black;
-
-            EncodedMessageTextBox.SelectionColor = Color.Black;
+            updateButtons();
+            Refresh();
         }
     }
 }

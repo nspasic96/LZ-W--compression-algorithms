@@ -39,29 +39,31 @@ namespace LZ_W__algortihms
             this.DecodedSoFarLabel = new System.Windows.Forms.Label();
             this.MatchTextBox = new System.Windows.Forms.RichTextBox();
             this.MatchLabel = new System.Windows.Forms.Label();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.MessageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // EncodedMessageTextBox
             // 
-            this.EncodedMessageTextBox.Location = new System.Drawing.Point(225, 37);
+            this.EncodedMessageTextBox.Location = new System.Drawing.Point(225, 12);
             this.EncodedMessageTextBox.Name = "EncodedMessageTextBox";
             this.EncodedMessageTextBox.ReadOnly = true;
-            this.EncodedMessageTextBox.Size = new System.Drawing.Size(463, 96);
+            this.EncodedMessageTextBox.Size = new System.Drawing.Size(462, 63);
             this.EncodedMessageTextBox.TabIndex = 0;
             this.EncodedMessageTextBox.Text = "";
             // 
             // DecodedSoFarTextBox
             // 
-            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(225, 261);
+            this.DecodedSoFarTextBox.Location = new System.Drawing.Point(225, 188);
             this.DecodedSoFarTextBox.Name = "DecodedSoFarTextBox";
             this.DecodedSoFarTextBox.ReadOnly = true;
-            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(463, 96);
+            this.DecodedSoFarTextBox.Size = new System.Drawing.Size(463, 67);
             this.DecodedSoFarTextBox.TabIndex = 1;
             this.DecodedSoFarTextBox.Text = "";
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(469, 378);
+            this.NextButton.Location = new System.Drawing.Point(581, 396);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(106, 42);
             this.NextButton.TabIndex = 2;
@@ -72,7 +74,7 @@ namespace LZ_W__algortihms
             // EncodedLabel
             // 
             this.EncodedLabel.AutoSize = true;
-            this.EncodedLabel.Location = new System.Drawing.Point(68, 40);
+            this.EncodedLabel.Location = new System.Drawing.Point(68, 15);
             this.EncodedLabel.Name = "EncodedLabel";
             this.EncodedLabel.Size = new System.Drawing.Size(74, 13);
             this.EncodedLabel.TabIndex = 3;
@@ -81,7 +83,7 @@ namespace LZ_W__algortihms
             // DecodedSoFarLabel
             // 
             this.DecodedSoFarLabel.AutoSize = true;
-            this.DecodedSoFarLabel.Location = new System.Drawing.Point(68, 242);
+            this.DecodedSoFarLabel.Location = new System.Drawing.Point(68, 191);
             this.DecodedSoFarLabel.Name = "DecodedSoFarLabel";
             this.DecodedSoFarLabel.Size = new System.Drawing.Size(80, 13);
             this.DecodedSoFarLabel.TabIndex = 4;
@@ -89,7 +91,7 @@ namespace LZ_W__algortihms
             // 
             // MatchTextBox
             // 
-            this.MatchTextBox.Location = new System.Drawing.Point(225, 164);
+            this.MatchTextBox.Location = new System.Drawing.Point(225, 102);
             this.MatchTextBox.Name = "MatchTextBox";
             this.MatchTextBox.ReadOnly = true;
             this.MatchTextBox.Size = new System.Drawing.Size(462, 62);
@@ -99,17 +101,38 @@ namespace LZ_W__algortihms
             // MatchLabel
             // 
             this.MatchLabel.AutoSize = true;
-            this.MatchLabel.Location = new System.Drawing.Point(68, 167);
+            this.MatchLabel.Location = new System.Drawing.Point(68, 102);
             this.MatchLabel.Name = "MatchLabel";
             this.MatchLabel.Size = new System.Drawing.Size(37, 13);
             this.MatchLabel.TabIndex = 6;
             this.MatchLabel.Text = "Match";
+            // 
+            // BackButton
+            // 
+            this.BackButton.Enabled = false;
+            this.BackButton.Location = new System.Drawing.Point(225, 396);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(100, 42);
+            this.BackButton.TabIndex = 7;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // MessageLabel
+            // 
+            this.MessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageLabel.Location = new System.Drawing.Point(225, 286);
+            this.MessageLabel.Name = "MessageLabel";
+            this.MessageLabel.Size = new System.Drawing.Size(463, 87);
+            this.MessageLabel.TabIndex = 8;
             // 
             // LZ77_Decode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MessageLabel);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.MatchLabel);
             this.Controls.Add(this.MatchTextBox);
             this.Controls.Add(this.DecodedSoFarLabel);
@@ -131,14 +154,16 @@ namespace LZ_W__algortihms
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.Label EncodedLabel;
         private System.Windows.Forms.Label DecodedSoFarLabel;
-        private List<StepInfo> stepInfos;
+        private List<StepInfo> encodeSteps;
         private string encodedMessage;
         private StringBuilder decodedSoFar;
-        private int curEntry;
+        private int currStep;
         private int curPosition;
-        private int curEntryStart;
+        private int currentEncodedPos;
         private int curEntryLen;
         private System.Windows.Forms.RichTextBox MatchTextBox;
         private System.Windows.Forms.Label MatchLabel;
+        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label MessageLabel;
     }
 }

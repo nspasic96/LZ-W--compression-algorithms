@@ -16,8 +16,8 @@ namespace LZ_W__algortihms
         private StringBuilder decodedSoFar;
         List<LZWDecodeEntry> currChunkDecodeSteps;
         List<LZWDecodeEntry> lastChunkDecodeSteps;
-        List<DecodeStepInfo> decodeStepInfos;
-        DecodeStepInfo currStepInfo;
+        List<LZWDecodeStepInfo> decodeStepInfos;
+        LZWDecodeStepInfo currStepInfo;
         private int currStep;
         private int lastReset;
         private string[] encodedSteps;
@@ -28,7 +28,9 @@ namespace LZ_W__algortihms
         private int currChunk;
         private int totalChunks;
         private int lastAction;
-        private int entriesMax;
+        private int totalBits;
+        private int showEntriesMax;
+        private int limit;
 
         public LZW_Decode(StringBuilder encodedMessage, char[] alphabet, int totalBits, bool onFullDictReset)
         {
@@ -46,15 +48,16 @@ namespace LZ_W__algortihms
             offset = 0;
             currChunk = 0;
             lastAction = 0;
-            if(onFullDictReset)
+            if (onFullDictReset)
             {
-                entriesMax = -1;
+                showEntriesMax = -1;
             }
             else
             {
-                entriesMax = 1 << totalBits;
+                showEntriesMax = 1 << totalBits;
             }
-            decodeStepInfos = new List<DecodeStepInfo>();
+            this.totalBits = totalBits;
+            decodeStepInfos = new List<LZWDecodeStepInfo>();
             resetDictionary();
             drawTable();
         }
@@ -76,7 +79,7 @@ namespace LZ_W__algortihms
             DecodedSoFarTextBox.SelectionLength = decodedSoFar.Length;
             DecodedSoFarTextBox.SelectionColor = Color.Black;
             EncodedMessageTextBox.SelectionStart = 0;
-            EncodedMessageTextBox.SelectionLength = EncodedMessageTextBox.Text.Length - 1;
+            EncodedMessageTextBox.SelectionLength = EncodedMessageTextBox.Text.Length;
             EncodedMessageTextBox.SelectionColor = Color.Black;
         }
         private void populateTableLayoutPanel()
@@ -95,11 +98,6 @@ namespace LZ_W__algortihms
             tableLayoutPanel1.Controls.Add(l3, 2, 0);
             tableLayoutPanel1.Controls.Add(l4, 3, 0);
 
-            int limit = currStep + alphabet.Length + 1 - offset;
-            if (entriesMax != -1)
-            {
-                limit = Math.Min(currStep + alphabet.Length + 1 - offset, entriesMax + 1);
-            }
             for (int k = lastReset + 1; k <= limit; k++)
             {
 
@@ -129,12 +127,15 @@ namespace LZ_W__algortihms
         }
         private void processCurrInput()
         {
-            if(encodedSteps[currStep] == "|")//this the case where onFullDict = reset
+            string message;
+            if (encodedSteps[currStep] == "|")//this the case where onFullDict = reset
             {
-                DecodeStepInfo previous = decodeStepInfos[currStep-1];
+                message = "Dictionary is full and it is reset in this step.";
+
+                LZWDecodeStepInfo previous = decodeStepInfos[currStep - 1];
                 previous.Entries = currChunkDecodeSteps.ConvertAll(ent => new LZWDecodeEntry(ent.DictIdx, ent.Start, ent.Next, ent.Whole));
                 decodeStepInfos[currStep - 1] = previous;
-                decodeStepInfos.Add(new DecodeStepInfo(true, currStep, 1, currStep - lastReset - 1 + alphabet.Length, decodedSoFar.ToString(), 0));
+                decodeStepInfos.Add(new LZWDecodeStepInfo(true, currStep, 1, currStep - lastReset - 1 + alphabet.Length, decodedSoFar.ToString(), 0, message));
                 resetDictionary();
                 totalChunks++;
             }
@@ -142,10 +143,41 @@ namespace LZ_W__algortihms
             {
                 int refIdx;
                 Int32.TryParse(encodedSteps[currStep], out refIdx);
+                if (showEntriesMax == -1 || currStep + 1 < showEntriesMax)
+                {
+                    if (1 << totalBits == currStep + alphabet.Length)
+                    {
+                        message = "Entry with index {0}(marked blue) has been matched. Dictionary is full and will be reset in next step, so no new entry is acctualy added, but it shown here(entry with index {1}) for visualization. Previous entry ends with first character of new(imaginary) entry(marked yellow).";
+                        message = string.Format(message, refIdx, currStep + alphabet.Length);
+                    }
+                    else
+                    {
+                        if (currStep > 0 && !wasReset)
+                        {
+                            message = "Entry with index {0}(marked blue) has been matched. New entry starts with word of matched entry and last character of previous entry is first character of new entry(marked yellow)";
+                            message = string.Format(message, refIdx);
+                        }
+                        else
+                        {
+                            message = "Entry with index {0}(marked blue) has been matched. New entry starts with word of matched entry.";
+                            message = string.Format(message, refIdx);
+                        }
+                    }
+                }
+                else
+                {
+                    message = "Entry with index {0}(marked blue) has been matched. Dictionary is full, no entries are added further.";
+                    message = string.Format(message, refIdx);
+                }
+                if (showEntriesMax == currStep + alphabet.Length)
+                {
+                    message = "Entry with index {0}(marked blue) has been matched. Dictionary is full and not reset, so no new entry is acctualy added, but it shown here(entry with index {1}) for visualization. Previous entry ends with first character of new(imaginary) entry(marked yellow).";
+                    message = string.Format(message, refIdx, showEntriesMax);
 
+                }
                 LZWDecodeEntry newStep = new LZWDecodeEntry(currStep - lastReset - offset + alphabet.Length, currChunkDecodeSteps[refIdx].Whole, "", currChunkDecodeSteps[refIdx].Whole);
                 currChunkDecodeSteps.Add(newStep);
-                decodeStepInfos.Add(new DecodeStepInfo(false, lastReset, offset, currStep - lastReset - offset + alphabet.Length, decodedSoFar.Append(currChunkDecodeSteps[currStep - lastReset + alphabet.Length - offset].Whole).ToString(), currChunkDecodeSteps[currStep - lastReset + alphabet.Length - offset].Whole.Length));
+                decodeStepInfos.Add(new LZWDecodeStepInfo(false, lastReset, offset, currStep - lastReset - offset + alphabet.Length, decodedSoFar.Append(currChunkDecodeSteps[currStep - lastReset + alphabet.Length - offset].Whole).ToString(), currChunkDecodeSteps[currStep - lastReset + alphabet.Length - offset].Whole.Length, message));
             }
         }
         private void updateFormElems()
@@ -157,18 +189,18 @@ namespace LZ_W__algortihms
 
                 if (currStep > 0 && !wasReset)
                 {
-                    LZWDecodeEntry previousStep = currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx-1];
+                    LZWDecodeEntry previousStep = currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx - 1];
                     previousStep.Next = currChunkDecodeSteps[refIdx].Whole[0].ToString();
                     previousStep.Whole = string.Concat(previousStep.Start, previousStep.Next);
-                    currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx-1] = previousStep;
-                    if(refIdx == currStepInfo.RelativeDecodeStepIdx - 1 && !decodeStepInfos[currStep].Refined)//check this edge case and edit decode entry just once(first time encou
+                    currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx - 1] = previousStep;
+                    if (refIdx == currStepInfo.RelativeDecodeStepIdx - 1 && !decodeStepInfos[currStep].Refined)//check this edge case and edit decode entry just once(first time encou
                     {
                         LZWDecodeEntry thisStep = currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx];
                         thisStep.Start = currChunkDecodeSteps[refIdx].Whole;
                         thisStep.Whole = currChunkDecodeSteps[refIdx].Whole;
                         currChunkDecodeSteps[currStepInfo.RelativeDecodeStepIdx] = thisStep;
 
-                        DecodeStepInfo thisInfo = decodeStepInfos[currStep];
+                        LZWDecodeStepInfo thisInfo = decodeStepInfos[currStep];
                         decodedSoFar.Length -= thisInfo.DecodedSoFarSelectionLength;
                         decodedSoFar.Append(currChunkDecodeSteps[refIdx].Whole);
                         thisInfo.DecodedSoFarSelectionLength = currChunkDecodeSteps[refIdx].Whole.Length;
@@ -196,67 +228,77 @@ namespace LZ_W__algortihms
                 {
                     BackButton.Enabled = true;
                 }
-            } 
+            }
             else
             {
-                DecodedSoFarTextBox.Text = decodeStepInfos[currStep-1].DecodedSoFar;
+                DecodedSoFarTextBox.Text = decodeStepInfos[currStep - 1].DecodedSoFar;
             }
         }
         private void paint()
         {
-            int relativeDecodeStepIdx = currStepInfo.RelativeDecodeStepIdx;
-            int decodedSoFarSelectionStart = currStepInfo.DecodedSoFar.Length - currStepInfo.DecodedSoFarSelectionLength;
-            int decodedSoFarSelectionLength = currStepInfo.DecodedSoFarSelectionLength;
-
-            DecodedSoFarTextBox.SelectionStart = decodedSoFarSelectionStart;
-            DecodedSoFarTextBox.SelectionLength = decodedSoFarSelectionLength;
-            DecodedSoFarTextBox.SelectionColor = Utils.c1;
-
-            EncodedMessageTextBox.SelectionStart = 2 * currStep;
-            EncodedMessageTextBox.SelectionLength = 1;
-            EncodedMessageTextBox.SelectionColor = Utils.c3;
-
-            if(entriesMax == -1 || currStep+1 < entriesMax)//just not marked steps that are not shown in table(important when onFullDict = stopAdding)
+            if (!isReset)
             {
-                if (currStep > 0 && !wasReset)
+                int relativeDecodeStepIdx = currStepInfo.RelativeDecodeStepIdx;
+                int decodedSoFarSelectionStart = currStepInfo.DecodedSoFar.Length - currStepInfo.DecodedSoFarSelectionLength;
+                int decodedSoFarSelectionLength = currStepInfo.DecodedSoFarSelectionLength;
+
+                DecodedSoFarTextBox.SelectionStart = decodedSoFarSelectionStart;
+                DecodedSoFarTextBox.SelectionLength = decodedSoFarSelectionLength;
+                DecodedSoFarTextBox.SelectionColor = Utils.c1;
+
+                EncodedMessageTextBox.SelectionStart = 2 * currStep;
+                EncodedMessageTextBox.SelectionLength = 1;
+                EncodedMessageTextBox.SelectionColor = Utils.c3;
+
+                if (showEntriesMax == -1 || currStep + 1 < showEntriesMax)//just not marked steps that are not shown in table(important when onFullDict = stopAdding)
                 {
-                    Label lStart = tableLayoutPanel1.GetControlFromPosition(1, relativeDecodeStepIdx + 1) as Label;
-                    lStart.BackColor = Utils.c2;
-                }
+                    if (currStep > 0 && !wasReset)
+                    {
+                        Label lStart = tableLayoutPanel1.GetControlFromPosition(1, relativeDecodeStepIdx + 1) as Label;
+                        lStart.BackColor = Utils.c2;
+                    }
 
-                if (currStep > 0 && !wasReset)
+                    if (currStep > 0 && !wasReset)
+                    {
+                        Label lNextPrev = tableLayoutPanel1.GetControlFromPosition(2, relativeDecodeStepIdx) as Label;
+                        Label lWholePrev = tableLayoutPanel1.GetControlFromPosition(3, relativeDecodeStepIdx) as Label;
+
+                        lNextPrev.BackColor = Utils.c2;
+                        lWholePrev.BackColor = Utils.c2;
+                    }
+
+                    Label lWhole = tableLayoutPanel1.GetControlFromPosition(3, relativeDecodeStepIdx + 1) as Label;
+                    Label lNext = tableLayoutPanel1.GetControlFromPosition(2, relativeDecodeStepIdx + 1) as Label;
+                    if (lNext.Text != "")//mask next character and last character in whole word(this happens only when going backwards)
+                    {
+                        lNext.Text = "";
+                        lWhole.Text = lWhole.Text.Substring(0, lWhole.Text.Length - 1);
+                    }
+                    lWhole.BackColor = Utils.c1;
+
+                    int refIdx;
+                    Int32.TryParse(encodedSteps[currStep], out refIdx);
+                    Label lIdx = tableLayoutPanel1.GetControlFromPosition(0, refIdx + 1) as Label;
+                    lIdx.BackColor = Utils.c3;
+                }
+                else
                 {
-                    Label lNextPrev = tableLayoutPanel1.GetControlFromPosition(2, relativeDecodeStepIdx) as Label;
-                    Label lWholePrev = tableLayoutPanel1.GetControlFromPosition(3, relativeDecodeStepIdx) as Label;
-
-                    lNextPrev.BackColor = Utils.c2;
-                    lWholePrev.BackColor = Utils.c2;
+                    int refIdx;
+                    Int32.TryParse(encodedSteps[currStep], out refIdx);
+                    Label lIdx = tableLayoutPanel1.GetControlFromPosition(0, refIdx + 1) as Label;
+                    Label lWhole = tableLayoutPanel1.GetControlFromPosition(3, refIdx + 1) as Label;
+                    lIdx.BackColor = Utils.c3;
+                    lWhole.BackColor = Utils.c1;
                 }
-
-                Label lWhole = tableLayoutPanel1.GetControlFromPosition(3, relativeDecodeStepIdx + 1) as Label;
-                Label lNext = tableLayoutPanel1.GetControlFromPosition(2, relativeDecodeStepIdx + 1) as Label;
-                if (lNext.Text != "")//mask next character and last character in whole word(this happens only when going backwards)
-                {
-                    lNext.Text = "";
-                    lWhole.Text = lWhole.Text.Substring(0, lWhole.Text.Length - 1);
-                }
-                lWhole.BackColor = Utils.c1;
-
-                int refIdx;
-                Int32.TryParse(encodedSteps[currStep], out refIdx);
-                Label lIdx = tableLayoutPanel1.GetControlFromPosition(0, refIdx + 1) as Label;
-                lIdx.BackColor = Utils.c3;
             }
             else
             {
-                //TODO:delete last entry which is not acctualy in dictionary
-                int refIdx;
-                Int32.TryParse(encodedSteps[currStep], out refIdx);
-                Label lIdx = tableLayoutPanel1.GetControlFromPosition(0, refIdx + 1) as Label;
-                Label lWhole = tableLayoutPanel1.GetControlFromPosition(3, refIdx + 1) as Label;
-                lIdx.BackColor = Utils.c3;
-                lWhole.BackColor = Utils.c1;
+                EncodedMessageTextBox.SelectionStart = 2 * currStep;
+                EncodedMessageTextBox.SelectionLength = 1;
+                EncodedMessageTextBox.SelectionColor = Utils.c3;
             }
+
+            MessageLabel.Text = currStepInfo.Message;
         }
 
         private void prepareLocalsForStep()
@@ -264,7 +306,7 @@ namespace LZ_W__algortihms
             isReset = currStepInfo.IsReset;
             lastReset = currStepInfo.LastReset;
             offset = currStepInfo.Offset;
-            if(currStep == 0)
+            if (currStep == 0)
             {
                 wasReset = false;
             }
@@ -284,9 +326,9 @@ namespace LZ_W__algortihms
                 if (isReset)
                 {
                     currChunk++;
-                    if(totalChunks == currChunk)
+                    if (totalChunks == currChunk)
                     {
-                        if(currStep == decodeStepInfos.Count - 1)//when last chunck is visited first time
+                        if (currStep == decodeStepInfos.Count - 1)//when last chunck is visited first time
                         {
                             lastChunkDecodeSteps = currChunkDecodeSteps;
                         }
@@ -295,6 +337,16 @@ namespace LZ_W__algortihms
                             currChunkDecodeSteps = lastChunkDecodeSteps;
                         }
                     }
+                }
+            }
+
+            limit = currStep + alphabet.Length + 1 - offset;
+            if (showEntriesMax != -1)
+            {
+                limit = Math.Min(currStep + alphabet.Length + 1 - offset, showEntriesMax + 1);
+                if (currStep + alphabet.Length > showEntriesMax)
+                {
+                    limit--;
                 }
             }
         }
@@ -312,20 +364,9 @@ namespace LZ_W__algortihms
                 }
                 currStepInfo = decodeStepInfos[currStep];
                 prepareLocalsForStep();
-                
                 updateFormElems();
                 drawTable();
-                if (!isReset)
-                {
-                    paint();
-                } else
-                {
-                    EncodedMessageTextBox.SelectionStart = 2 * currStep;
-                    EncodedMessageTextBox.SelectionLength = 1;
-                    EncodedMessageTextBox.SelectionColor = Utils.c3;
-
-
-                }
+                paint();
                 Refresh();
             }
             else
@@ -339,25 +380,11 @@ namespace LZ_W__algortihms
             currStep--;
             lastAction = -1;
             unsetPreviousStep();
-            if (decodeStepInfos.Count == currStep)
-            {
-                processCurrInput();
-            }
             currStepInfo = decodeStepInfos[currStep];
-            prepareLocalsForStep();            
+            prepareLocalsForStep();
             updateFormElems();
             drawTable();
-
-            if (!isReset)
-            {
-                paint();
-            }
-            else
-            {
-                EncodedMessageTextBox.SelectionStart = 2 * currStep;
-                EncodedMessageTextBox.SelectionLength = 1;
-                EncodedMessageTextBox.SelectionColor = Utils.c3;
-            }
+            paint();
             Refresh();
 
         }

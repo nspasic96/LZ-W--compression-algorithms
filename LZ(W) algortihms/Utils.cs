@@ -128,6 +128,61 @@ namespace LZ_W__algortihms
             public string AddToDict { get => addToDict; }
         }
 
+        public struct LZ77DecodeStepInfo
+        {
+            bool isMatched;
+            string decodedSoFar;
+            int matchLen;
+            int matchStartPosBack;
+            int encodedSelectionLength;
+            int curPosition;
+            int currentEncodedPos;
+            string message;
+
+            public LZ77DecodeStepInfo(bool isMatched, string decodedSoFar, int matchLen, int matchStartPosBack, int encodedSelectionLength, int curPosition, int currentEncodedPos, string message)
+            {
+                this.isMatched = isMatched;
+                this.decodedSoFar = decodedSoFar;
+                this.matchLen = matchLen;
+                this.matchStartPosBack = matchStartPosBack;
+                this.encodedSelectionLength = encodedSelectionLength;
+                this.curPosition = curPosition;
+                this.currentEncodedPos = currentEncodedPos;
+                this.message = message;
+            }
+
+            public bool IsMatched { get => isMatched;}
+            public string DecodedSoFar { get => decodedSoFar; }
+            public int MatchLen { get => matchLen; }
+            public int MatchStartPosBack { get => matchStartPosBack; }
+            public int EncodedSelectionLength { get => encodedSelectionLength; }
+            public int CurPosition { get => curPosition; }
+            public int CurrentEncodedPos { get => currentEncodedPos; }
+            public string Message { get => message; }
+        }
+        public struct LZ78DecodeStepInfo
+        {
+            bool endOfMessage;
+            int matchIdx;
+            string decodedSoFar;
+            int currentEncodedPos;
+            string message;
+
+            public LZ78DecodeStepInfo(bool endOfMessage, int matchIdx, string decodedSoFar, int currentEncodedPos, string message)
+            {
+                this.endOfMessage = endOfMessage;
+                this.matchIdx = matchIdx;
+                this.decodedSoFar = decodedSoFar;
+                this.currentEncodedPos = currentEncodedPos;
+                this.message = message;
+            }
+
+            public bool EndOfMessage { get => endOfMessage; }
+            public int MatchIdx { get => matchIdx; }
+            public string DecodedSoFar { get => decodedSoFar; }
+            public int CurrentEncodedPos { get => currentEncodedPos; }
+            public string Message { get => message; set => message = value; }
+        }
         public struct LZWDecodeEntry
         {
             private int dictIdx; //dictionary entry number
@@ -147,6 +202,46 @@ namespace LZ_W__algortihms
             public string Start { get => start; set => start = value; }
             public string Next { get => next; set => next = value; }
             public string Whole { get => whole; set => whole = value; }
+        }
+
+
+        public struct LZWDecodeStepInfo
+        {
+            bool isReset;
+            int relativeDecodeStepIdx;
+            int decodedSoFarSelectionLength;
+            string decodedSoFar;
+            List<LZWDecodeEntry> entries;
+            int lastReset;
+            int offset;
+            bool refined;
+            string message;
+
+            public LZWDecodeStepInfo(bool isReset, int lastReset, int offset, int relativeDecodeStepIdx, string decodedSoFar, int decodedSoFarSelectionLength, string message, List<LZWDecodeEntry> entries = null)
+            {
+                this.isReset = isReset;
+                this.lastReset = lastReset;
+                this.offset = offset;
+                this.relativeDecodeStepIdx = relativeDecodeStepIdx;
+                this.decodedSoFar = decodedSoFar;
+                this.decodedSoFarSelectionLength = decodedSoFarSelectionLength;
+                this.entries = null;
+                this.message = message;
+                if (entries != null)
+                {
+                    this.entries = entries.ConvertAll(ent => new LZWDecodeEntry(ent.DictIdx, ent.Start, ent.Next, ent.Whole));
+                }
+                refined = false;
+            }
+            public string DecodedSoFar { get => decodedSoFar; set => decodedSoFar = value; }
+            public int RelativeDecodeStepIdx { get => relativeDecodeStepIdx; }
+            public int DecodedSoFarSelectionLength { get => decodedSoFarSelectionLength; set => decodedSoFarSelectionLength = value; }
+            public List<LZWDecodeEntry> Entries { get => entries; set => entries = value; }
+            public bool IsReset { get => isReset; }
+            public int LastReset { get => lastReset; }
+            public int Offset { get => offset; }
+            public bool Refined { get => refined; set => refined = value; }
+            public string Message { get => message; }
         }
 
         public struct StepInfo
@@ -210,42 +305,6 @@ namespace LZ_W__algortihms
             public string StepMessage { get => stepMessage; }
             public int PrefixIdx { get => prefixIdx; }
             public bool DoAdd { get => doAdd; }
-        }
-
-        public struct DecodeStepInfo
-        {
-            bool isReset;
-            int relativeDecodeStepIdx;
-            int decodedSoFarSelectionLength;
-            string decodedSoFar;
-            List<LZWDecodeEntry> entries;
-            int lastReset;
-            int offset;
-            bool refined;
-
-            public DecodeStepInfo(bool isReset, int lastReset, int offset, int relativeDecodeStepIdx, string decodedSoFar, int decodedSoFarSelectionLength, List<LZWDecodeEntry> entries = null)
-            {
-                this.isReset = isReset;
-                this.lastReset = lastReset;
-                this.offset = offset;
-                this.relativeDecodeStepIdx = relativeDecodeStepIdx;
-                this.decodedSoFar = decodedSoFar;
-                this.decodedSoFarSelectionLength = decodedSoFarSelectionLength;
-                this.entries = null;
-                if (entries != null)
-                {
-                    this.entries = entries.ConvertAll(ent => new LZWDecodeEntry(ent.DictIdx, ent.Start, ent.Next, ent.Whole));
-                }
-                refined = false;;
-            }
-            public string DecodedSoFar { get => decodedSoFar; set => decodedSoFar = value; }
-            public int RelativeDecodeStepIdx { get => relativeDecodeStepIdx; }
-            public int DecodedSoFarSelectionLength { get => decodedSoFarSelectionLength; set => decodedSoFarSelectionLength = value; }
-            public List<LZWDecodeEntry> Entries { get => entries; set => entries = value; }
-            public bool IsReset { get => isReset; }
-            public int LastReset { get => lastReset; }
-            public int Offset { get => offset; }
-            public bool Refined { get => refined; set => refined = value; }
         }
     }
 }
