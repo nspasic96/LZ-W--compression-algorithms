@@ -15,6 +15,9 @@ namespace LZ_W__algortihms
     {
         private List<LZ77DecodeStepInfo> decodeSteps;
         private LZ77DecodeStepInfo currDecodeEntry;
+        private int currStep;
+        private int curPosition;
+        private int currentEncodedPos;
 
         public LZ77_Decode(List<StepInfo> stepInfos)
         {

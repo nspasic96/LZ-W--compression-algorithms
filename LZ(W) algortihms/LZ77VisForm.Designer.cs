@@ -147,18 +147,18 @@ namespace LZ_W__algortihms
             this.CurrentOutputLabel.AutoSize = true;
             this.CurrentOutputLabel.Location = new System.Drawing.Point(52, 427);
             this.CurrentOutputLabel.Name = "CurrentOutputLabel";
-            this.CurrentOutputLabel.Size = new System.Drawing.Size(74, 13);
+            this.CurrentOutputLabel.Size = new System.Drawing.Size(77, 13);
             this.CurrentOutputLabel.TabIndex = 11;
-            this.CurrentOutputLabel.Text = "Current output";
+            this.CurrentOutputLabel.Text = "Longest match";
             // 
             // LongestMatchLabel
             // 
             this.LongestMatchLabel.AutoSize = true;
             this.LongestMatchLabel.Location = new System.Drawing.Point(52, 459);
             this.LongestMatchLabel.Name = "LongestMatchLabel";
-            this.LongestMatchLabel.Size = new System.Drawing.Size(77, 13);
+            this.LongestMatchLabel.Size = new System.Drawing.Size(74, 13);
             this.LongestMatchLabel.TabIndex = 12;
-            this.LongestMatchLabel.Text = "Longest match";
+            this.LongestMatchLabel.Text = "Current output";
             // 
             // StepNumberLabel
             // 

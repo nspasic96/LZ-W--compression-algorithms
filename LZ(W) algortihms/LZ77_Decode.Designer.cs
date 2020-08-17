@@ -162,10 +162,6 @@ namespace LZ_W__algortihms
         private List<StepInfo> encodeSteps;
         private string encodedMessage;
         private StringBuilder decodedSoFar;
-        private int currStep;
-        private int curPosition;
-        private int currentEncodedPos;
-        private int curEntryLen;
         private System.Windows.Forms.RichTextBox MatchTextBox;
         private System.Windows.Forms.Label MatchLabel;
         private System.Windows.Forms.Button BackButton;
